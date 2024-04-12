@@ -1,5 +1,4 @@
 import videoError from "../../assets/bgError404.mp4";
-import Button from "react-bootstrap/Button";
 import "../../styles/error404.css";
 
 const Error404 = () => {
@@ -8,7 +7,7 @@ const Error404 = () => {
       <div className="wrapper text-center text-white">
         <h1 className="display-1 tituloError">Error 404</h1>
         <p className="display-5 mensajeError">Página no encontrada!</p>
-        <Button className="btn btn-light">Volver al inicio</Button>
+        <a className="btn btn-dark" href="#inicio">Volver al inicio</a>
         <div className="text-center my-3">
           <a
             href="https://twitter.com/Concepcion_Tuc"
