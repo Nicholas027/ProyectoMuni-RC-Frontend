@@ -7,7 +7,9 @@ const Error404 = () => {
       <div className="wrapper text-center text-white">
         <h1 className="display-1 tituloError">Error 404</h1>
         <p className="display-5 mensajeError">Página no encontrada!</p>
-        <a className="btn btn-dark" href="#inicio">Volver al inicio</a>
+        <a className="btn btn-dark" href="#inicio">
+          Volver al inicio
+        </a>
         <div className="text-center my-3">
           <a
             href="https://twitter.com/Concepcion_Tuc"

@@ -1,15 +1,14 @@
-import './App.css'
+import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Error404 from "../src/components/pages/Error404.jsx"
+import Error404 from "../src/components/pages/Error404.jsx";
 
 function App() {
-
   return (
     <>
-    <Error404/>
+      <Error404 />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
