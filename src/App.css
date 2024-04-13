@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
-
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
 .mainSection {
   flex-grow: 1;
 }
@@ -12,6 +12,7 @@
 footer {
   background-color: #151544;
 }
+
 footer a {
   color: white;
   padding: 10px;
@@ -19,10 +20,12 @@ footer a {
   transition: background-color 0.3s, color 0.3s;
   border-radius: 50px;
 }
+
 footer a:hover {
   background-color: white;
   color: #151544;
 }
+
 .iconsFooter {
   font-size: 1.5rem;
 }
@@ -33,6 +36,28 @@ footer p {
   font-style: normal;
 }
 
+.navbar {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.navTitulo {
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: #151544;
+}
+
+.navLinks {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .copyright {
   font-size: small;
+}
+
+.bi-box-arrow-in-right {
+  font-size: 2rem;
+  color: #151544;
 }
