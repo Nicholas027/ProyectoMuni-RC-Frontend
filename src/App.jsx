@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <MenuNav/>
-      <Error404 />
+      {/* <Error404 /> */}
       <Footer />
     </>
   );
