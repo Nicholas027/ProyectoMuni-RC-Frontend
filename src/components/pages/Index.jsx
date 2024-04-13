@@ -20,10 +20,12 @@ const Index = () => {
           <div className="mx-2">
             <h2 className="display-6">¿Qué es Red de Trabajo?</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga,
-              odit tempore. Corrupti repudiandae inventore quam aspernatur unde
-              tempore, facilis laborum voluptas distinctio qui quae beatae optio
-              delectus consectetur illum atque?
+              Red de Trabajo Concepción promueve la interacción fluida entre profesionales de diversas
+              disciplinas y usuarios interesados en sus servicios. El objetivo
+              primordial es crear un entorno digital que simplifique la
+              búsqueda, presentación y contacto entre ambas partes, fomentando
+              así la creación de conexiones valiosas y beneficiosas para ambas
+              partes
             </p>
           </div>
         </div>
