@@ -1,5 +1,6 @@
 import Card from "react-bootstrap/Card";
 import { Col, Image, Button } from "react-bootstrap";
+import EstrellasCalificaciones from "./EstrellasCalificaciones";
 
 const CardProfesional = () => {
   return (
@@ -25,6 +26,9 @@ const CardProfesional = () => {
               Categoría del profesional
             </span>
           </Card.Subtitle>
+          <Card.Text>
+        
+          </Card.Text>
         </Card.Body>
         <Card.Footer>
           <Button

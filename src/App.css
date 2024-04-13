@@ -86,3 +86,19 @@ footer p {
   font-style: normal;
   color: #3b526c;
 }
+
+.inputEstrella {
+  display: none;
+}
+
+.estrella {
+  cursor: pointer;
+}
+
+.estrella-amarilla {
+  color: #ffc107; /* Color de la estrella seleccionada */
+}
+
+.estrella-gris {
+  color: #e4e5e9; /* Color de la estrella no seleccionada */
+}
