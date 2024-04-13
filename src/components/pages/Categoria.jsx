@@ -3,8 +3,8 @@ import CardProfesional from "./profesional/CardProfesional";
 
 const Categoria = () => {
   return (
-    <Container className="mainSection">
-      <h1 className="text-center">Electricistas</h1>
+    <Container className="mainSection my-5">
+      <h1 className="text-center tituloCategoria">Electricistas</h1>
       <Row>
         <Col><CardProfesional/></Col>
       </Row>
