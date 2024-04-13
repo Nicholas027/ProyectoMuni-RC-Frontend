@@ -8,6 +8,17 @@ const Categoria = () => {
       <h1 className="text-center tituloCategoria">Electricistas</h1>
       <Row className="my-4">
         <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
+        <CardProfesional />
       </Row>
     </Container>
   );

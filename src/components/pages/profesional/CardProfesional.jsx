@@ -4,7 +4,7 @@ import EstrellasCalificaciones from "./EstrellasCalificaciones";
 
 const CardProfesional = () => {
   return (
-    <Col>
+    <Col className="my-2 d-flex justify-content-center" xs={12} sm={6} md={6} lg={4}>
       <Card className="h-100 text-center cardProfesional">
         <div>
           <Image
@@ -27,13 +27,11 @@ const CardProfesional = () => {
             </span>
           </Card.Subtitle>
           <Card.Text>
-        <EstrellasCalificaciones/>
+            <EstrellasCalificaciones />
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Button
-            variant="outline-dark"
-          >
+          <Button variant="outline-dark">
             <i className="bi bi-plus-circle"></i>
           </Button>
         </Card.Footer>
