@@ -1,0 +1,41 @@
+.tituloCategoria {
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: #004b81;
+}
+
+.cardProfesional {
+  width: 300px;
+}
+
+.nombreProfesionalCard {
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #41bcc5;
+}
+
+.categoriaProfesionalCard {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #3b526c;
+}
+
+.inputEstrella {
+  display: none;
+}
+
+.estrella {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.estrella-amarilla {
+  color: #ffc107;
+}
+
+.estrella-gris {
+  color: #c8cddb;
+}

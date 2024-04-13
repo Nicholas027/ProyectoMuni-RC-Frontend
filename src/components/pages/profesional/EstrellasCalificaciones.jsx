@@ -17,7 +17,7 @@ const EstrellasCalificaciones = () => {
               onClick={() => setCalificacion(calificacionActual)}
             />
             <span
-              className={`bi bi-star estrella ${
+              className={`bi bi-star-fill estrella ${
                 calificacionActual <= (hover || calificacion)
                   ? "estrella-amarilla"
                   : "estrella-gris"

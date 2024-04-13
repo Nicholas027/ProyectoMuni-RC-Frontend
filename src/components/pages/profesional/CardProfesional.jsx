@@ -27,7 +27,7 @@ const CardProfesional = () => {
             </span>
           </Card.Subtitle>
           <Card.Text>
-        
+        <EstrellasCalificaciones/>
           </Card.Text>
         </Card.Body>
         <Card.Footer>
