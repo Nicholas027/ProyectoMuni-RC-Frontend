@@ -1,4 +1,3 @@
-import videoError from "../../assets/bgError404.mp4";
 import "../../styles/error404.css";
 
 const Error404 = () => {
@@ -56,9 +55,6 @@ const Error404 = () => {
         </div>
       </div>
       <div className="overlay"></div>
-      <video autoPlay loop muted id="videoError">
-        <source src={videoError} type="video/mp4" />
-      </video>
     </section>
   );
 };
