@@ -1,5 +1,5 @@
 import Card from "react-bootstrap/Card";
-import { Col, Image } from "react-bootstrap";
+import { Col, Image, Button } from "react-bootstrap";
 
 const CardProfesional = () => {
   return (
@@ -27,9 +27,11 @@ const CardProfesional = () => {
           </Card.Subtitle>
         </Card.Body>
         <Card.Footer>
-          <a className="btn btn-outline-dark" href="#detallesProfesional">
+          <Button
+            variant="outline-dark"
+          >
             <i className="bi bi-plus-circle"></i>
-          </a>
+          </Button>
         </Card.Footer>
       </Card>
     </Col>
