@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+.tituloError {
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: white;
+}
+
+.mensajeError {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: #151544b5;
+}
+
+.wrapper a {
+  color: white;
+  padding: 10px;
+  margin: 5px;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 50px;
+}
+
+.wrapper a:hover {
+  background-color: white;
+  color: #151544;
+}
+
+.btn {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.iconsError {
+  font-size: 1.5rem;
+}
