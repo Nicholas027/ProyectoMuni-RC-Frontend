@@ -1,8 +1,13 @@
 .imgCarousel {
   height: 710px;
 }
+
 .categorySelect h2 {
   font-family: "Lato", sans-serif;
+}
+.brandContainer{   
+    display: flex;
+    align-items: center;
 }
 .gridCategory {
   display: grid;
@@ -11,6 +16,8 @@
 }
 .cardCategory {
   height: 130px;
+  margin-top: 50px;
+  display: flex;
   background: #ada996;
   background: -webkit-linear-gradient(
     to right,
@@ -74,6 +81,14 @@
   .gridCategory {
     grid-template-columns: repeat(1, 1fr);
   }
+  .brandContainer{
+    flex-direction: column;
+    text-align: center;
+  }
+  .cardCategory {
+    height: 110px;
+    margin-top: 25px;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .imgCarousel {
@@ -82,6 +97,11 @@
   .gridCategory {
     grid-template-columns: repeat(2, 1fr);
   }
+  .brandContainer{
+    flex-direction: column;
+    text-align: center;
+  }
+
 }
 @media screen and (min-width: 992px) and (max-width: 1399px) {
   .imgCarousel {
