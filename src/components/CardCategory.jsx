@@ -1,10 +1,10 @@
-const CardCategory = ({ imagen }) => {
+import "../styles/index.css";
+
+const CardCategory = ({ imagen, nombre }) => {
   return (
-    <div className="my-5 d-flex border border-secondary rounded-pill">
-      <img src={imagen} alt="" width={84} />
-      <div>
-        <h3 className="titleCard">Carpinteria</h3>
-      </div>
+    <div class="mt-5 d-flex border border-secondary-subtle rounded-pill border-1 cardCategory">
+      <img src={imagen} alt="" class="rounded-start-pill" />
+      <h3 class="titleCard m-auto">{nombre}</h3>
     </div>
   );
 };

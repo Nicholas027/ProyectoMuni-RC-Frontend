@@ -1,35 +1,51 @@
-.imgCarousel{
-    height: 710px;
+.imgCarousel {
+  height: 710px;
 }
-.categorySelect h2{
-    font-family: "Lato", sans-serif;
+.categorySelect h2 {
+  font-family: "Lato", sans-serif;
 }
-.gridCategory{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
+.gridCategory {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
 }
-.titleCard{
-    margin: 10px 20px;
-    font-family: "Rubik", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    text-decoration: none;
+.cardCategory {
+    max-height: 130px;
+  background: #ada996;
+  background: -webkit-linear-gradient(
+    to right,
+    #eaeaea,
+    #dbdbdb,
+    #f2f2f2,
+    #ada996
+  );
+  background: linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #ada996);
+  -webkit-box-shadow: 4px 4px 7px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 4px 7px -1px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 7px -1px rgba(0, 0, 0, 0.75);
 }
-
+.cardCategory img{
+    width: 40%;
+}
+.titleCard {
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+}
 
 @media screen and (max-width: 767px) {
-    .imgCarousel{
-        height: 300px;
-    }
+  .imgCarousel {
+    height: 300px;
   }
-  @media screen and (min-width: 768px) and (max-width: 991px) {
-    .imgCarousel{
-        height: 467px;
-    }
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .imgCarousel {
+    height: 467px;
   }
-  @media screen and (min-width: 992px) and (max-width: 1399px) {
-    .imgCarousel{
-        height: 506px;
-    }
+}
+@media screen and (min-width: 992px) and (max-width: 1399px) {
+  .imgCarousel {
+    height: 506px;
   }
+}
