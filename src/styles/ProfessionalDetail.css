@@ -56,3 +56,10 @@
 .contenedorPadre {
     position: relative;
 }
+
+.cardOpinion {
+    background: #c4c4c4;
+  
+    border-radius: 25%;
+    border-width: 20%;
+}

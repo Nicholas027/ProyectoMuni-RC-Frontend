@@ -1,5 +1,6 @@
-import { Button, Container } from "react-bootstrap";
+import { Button, Card, CardFooter, Container } from "react-bootstrap";
 import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
+import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
 
 const ProfessionalDetail = () => {
@@ -37,7 +38,7 @@ const ProfessionalDetail = () => {
           </p>
         </Container>
       </section>
-      <section className="m-4 pt-3 p-5 fondoTextos text-center">
+      <section className="m-4 pt-3 p-4 fondoTextos text-center">
         <h3 className="mb-4">Curriculum Vitae</h3>
         <img
           src="https://cdn-v1.udocz-assets.com/uploads/book/cover/447297/447297.jpg"
@@ -45,21 +46,27 @@ const ProfessionalDetail = () => {
           className="img-fluid"
         />
       </section>
-      <section className="m-4 p-2 fondoTextos text-center">
+      <section className="m-4 p-2 pt-3 fondoTextos text-center">
         <h3>Opiniones</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad placeat
-          perspiciatis quaerat aliquid ducimus aut necessitatibus molestiae sint
-          provident blanditiis nostrum quae dignissimos architecto, earum
-          facilis sed dolorem incidunt? Saepe. Maxime ut deleniti dignissimos
-          incidunt nobis accusantium ipsum, sed rerum nesciunt optio, molestiae
-          quibusdam illum aspernatur perspiciatis? Enim ipsam animi, nulla non
-          corrupti maxime amet, cumque tenetur error voluptates consectetur?
-          Cupiditate soluta dolore qui voluptas velit laboriosam distinctio
-          maiores eius omnis beatae necessitatibus nulla, eos magni ratione,
-          totam temporibus perspiciatis explicabo doloribus officia sint quidem
-          vitae labore. Velit, voluptatem rerum!
-        </p>
+        <article className="p-3">
+          <h3 className="text-warning h1">5.0 ⭐⭐⭐⭐⭐</h3>
+          <img
+            src={imgValoracion}
+            alt="valoración de opiniones"
+            className="img-fluid"
+          />
+        </article>
+        <article>
+            <Card className="cardOpinion mb-3">
+                <Card.Header>⭐⭐⭐⭐⭐</Card.Header>
+                <Card.Body>
+                    <Card.Text>
+                    Trabajo realizado, todo ha quedado muy bien, profesional de confianza.
+                    </Card.Text>
+                </Card.Body>
+                <Card.Footer>👍👎</Card.Footer>
+            </Card>
+        </article>
       </section>
     </main>
   );
