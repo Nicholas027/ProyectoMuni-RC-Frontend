@@ -1,0 +1,15 @@
+.estiloFotoPerfil {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.cajaPortada {
+  position: absolute;
+}
+
+.cajaPerfil {
+  position: relative;
+  z-index: 1;
+  top: 50px;
+}
