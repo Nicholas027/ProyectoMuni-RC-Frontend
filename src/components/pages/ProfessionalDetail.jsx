@@ -5,11 +5,11 @@ import "../../styles/ProfessionalDetail.css";
 import { useState } from "react";
 
 const ProfessionalDetail = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
+  return <div></div>;
 };
 
 export default ProfessionalDetail;
