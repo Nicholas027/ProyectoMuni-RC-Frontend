@@ -11,7 +11,7 @@ const ProfessionalDetail = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <main>
+    <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
           src={imagenPortada}
@@ -29,10 +29,7 @@ const ProfessionalDetail = () => {
           </div>
         </div>
         <Container className="text-center mt-5">
-          <h1>
-            Marta Maria Vera
-            <br />
-          </h1>
+            <h1 className="mt-5">Marta Maria Vera</h1>
           <span className="categoria px-1 text-light">Albañil</span>
           <div className="mt-2">⭐⭐⭐⭐⭐</div>
           <Button className="mt-3 py-1 px-5 btnContacto" onClick={handleShow}>
@@ -80,7 +77,7 @@ const ProfessionalDetail = () => {
       {/* Modal */}
       <Modal show={show} onHide={handleClose} className="fondoTextos">
         <Modal.Header className="h2 d-flex justify-content-center mt-3">
-            Contactate con el Profesional
+          Contactate con el Profesional
         </Modal.Header>
         <Modal.Body>
           <div className="text-center mt-3">
@@ -111,7 +108,7 @@ const ProfessionalDetail = () => {
           </div>
         </Modal.Body>
       </Modal>
-    </main>
+    </Container>
   );
 };
 

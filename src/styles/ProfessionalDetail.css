@@ -44,12 +44,12 @@
 
 .btnContacto {
     border-radius: 50%;
-    background-color: #3b526c;
+    background-color: #c4c4c4;
     border: 1px solid #151544;
+    color: black;
 }
 .btnContacto:hover {
-    background-color: #c4c4c4;
-    color: #004b81;
+    background-color: #3b526c9f;
     border: 1px solid #004b81;
 }
 
