@@ -1,7 +1,7 @@
 import { Button, Card, Container, Modal } from "react-bootstrap";
 // Despues voy a usar esto para la portada.
 // import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
-// import imgValoracion from "../../assets/valoracion-cuadro.png";
+import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
 import { useState } from "react";
 
@@ -50,6 +50,17 @@ const ProfessionalDetail = () => {
           alt="Curriculum Vitae del profesional."
           className="img-fluid"
         />
+      </section>
+      <section className="m-4 p-2 pt-3 fondoTextos text-center">
+        <h3>Opiniones</h3>
+        <article className="p-3">
+          <h3 className="text-warning h1">5.0 ⭐⭐⭐⭐⭐</h3>
+          <img
+            src={imgValoracion}
+            alt="valoración de opiniones"
+            className="img-fluid"
+          />
+        </article>
       </section>
     </Container>
   );
