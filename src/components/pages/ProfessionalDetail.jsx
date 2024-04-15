@@ -76,6 +76,37 @@ const ProfessionalDetail = () => {
       </section>
       {/* Modal */}
       <Modal show={show} onHide={handleClose} className="fondoTextos">
+        <Modal.Header className="h2 d-flex justify-content-center mt-3">
+          Contactate con el Profesional
+        </Modal.Header>
+        <Modal.Body>
+          <div className="text-center mt-3">
+            <span className="border-bottom border-danger pe-2">
+              <b>📞 Telefono del Profesional:</b>
+            </span>
+            <span className="border border-danger p-2 rounded-pill">
+              3865-202746
+            </span>
+            <br />
+            <a
+              href="https://api.whatsapp.com/send/?phone=%2B5493865228080&text&type=phone_number&app_absent=0"
+              target="_blank"
+              className="btn btn-outline-success my-3 mt-5"
+            >
+              <i className="bi bi-whatsapp"></i>
+              <b> Ir al WhatsApp del Profesional</b>
+            </a>
+            <br />
+            <a
+              href="mailto:prensa@concepcion.gob.ar"
+              target="_blank"
+              className="btn btn-outline-info my-4"
+            >
+              <i className="bi bi-envelope-fill"></i>{" "}
+              <b>Ir a E-mail del Profesional</b>
+            </a>
+          </div>
+        </Modal.Body>
       </Modal>
     </Container>
   );
