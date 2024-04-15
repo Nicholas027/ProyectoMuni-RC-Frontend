@@ -74,6 +74,9 @@ const ProfessionalDetail = () => {
           </Card>
         </article>
       </section>
+      {/* Modal */}
+      <Modal show={show} onHide={handleClose} className="fondoTextos">
+      </Modal>
     </Container>
   );
 };
