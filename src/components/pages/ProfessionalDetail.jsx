@@ -14,7 +14,7 @@ const ProfessionalDetail = () => {
     <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
-          src="https://losalbaniles.com/wp-content/uploads/2019/10/Imagen_2.jpg"
+          src="https://p1.pxfuel.com/preview/612/717/141/mason-construction-bucket-brick.jpg"
           alt="Foto de portada con la categoria del profesional."
           height={200}
           className="cajaPortada"
@@ -28,7 +28,20 @@ const ProfessionalDetail = () => {
             />
           </div>
         </div>
-        
+        <Container className="text-center mt-5">
+          <h1 className="mt-5">Marta Maria Vera</h1>
+          <span className="categoria px-1 text-light">Albañil</span>
+          <div className="mt-2">⭐⭐⭐⭐⭐</div>
+          <Button className="mt-3 py-1 px-5 btnContacto" onClick={handleShow}>
+            Contactar
+          </Button>
+          <p className="h4 my-3 container">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo iure
+            cumque maxime aliquam et doloribus reiciendis itaque vero sunt
+            quisquam, nisi veniam corrupti inventore similique facilis eum quod
+            impedit rerum.
+          </p>
+        </Container>
       </section>
     </Container>
   );
