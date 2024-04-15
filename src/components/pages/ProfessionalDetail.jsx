@@ -37,10 +37,10 @@ const ProfessionalDetail = () => {
           </p>
         </Container>
       </section>
-      <section className="m-4 p-2 fondoTextos text-center">
-        <h3>Curriculum Vitae</h3>
+      <section className="m-4 pt-3 p-5 fondoTextos text-center">
+        <h3 className="mb-4">Curriculum Vitae</h3>
         <img
-          src=""
+          src="https://cdn-v1.udocz-assets.com/uploads/book/cover/447297/447297.jpg"
           alt="Curriculum Vitae del profesional."
           className="img-fluid"
         />
