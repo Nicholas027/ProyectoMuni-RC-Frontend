@@ -5,6 +5,7 @@ import Error404 from "../src/components/pages/Error404.jsx";
 import Footer from "../src/components/common/Footer.jsx";
 import MenuNav from './components/common/MenuNav';
 import Categoria from "./components/pages/Categoria.jsx";
+import ProfessionalDetail from "./components/pages/ProfessionalDetail.jsx";
 
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
     <>
       <MenuNav/>
       {/* <Error404 /> */}
-      <Categoria/>
+      {/* <Categoria/> */}
+      <ProfessionalDetail></ProfessionalDetail>
       <Footer />
     </>
   );
