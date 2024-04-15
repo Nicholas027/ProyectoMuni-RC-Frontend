@@ -43,6 +43,14 @@ const ProfessionalDetail = () => {
           </p>
         </Container>
       </section>
+      <section className="m-4 pt-3 p-4 fondoTextos text-center">
+        <h3 className="mb-4">Curriculum Vitae</h3>
+        <img
+          src="https://cdn-v1.udocz-assets.com/uploads/book/cover/447297/447297.jpg"
+          alt="Curriculum Vitae del profesional."
+          className="img-fluid"
+        />
+      </section>
     </Container>
   );
 };
