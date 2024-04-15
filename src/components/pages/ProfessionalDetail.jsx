@@ -1,9 +1,15 @@
-import { Button, Card, CardFooter, Container } from "react-bootstrap";
+import { Button, Card, Container, Modal } from "react-bootstrap";
 import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
 import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
+import { useState } from "react";
 
 const ProfessionalDetail = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <main>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
@@ -29,7 +35,9 @@ const ProfessionalDetail = () => {
           </h1>
           <span className="categoria px-1 text-light">Albañil</span>
           <div className="mt-2">⭐⭐⭐⭐⭐</div>
-          <Button className="mt-3 py-1 px-5 btnContacto">Contactar</Button>
+          <Button className="mt-3 py-1 px-5 btnContacto" onClick={handleShow}>
+            Contactar
+          </Button>
           <p className="h4 my-3 container">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo iure
             cumque maxime aliquam et doloribus reiciendis itaque vero sunt
@@ -57,17 +65,26 @@ const ProfessionalDetail = () => {
           />
         </article>
         <article>
-            <Card className="cardOpinion mb-3">
-                <Card.Header>⭐⭐⭐⭐⭐</Card.Header>
-                <Card.Body>
-                    <Card.Text>
-                    Trabajo realizado, todo ha quedado muy bien, profesional de confianza.
-                    </Card.Text>
-                </Card.Body>
-                <Card.Footer>👍👎</Card.Footer>
-            </Card>
+          <Card className="cardOpinion mb-3">
+            <Card.Header>⭐⭐⭐⭐⭐</Card.Header>
+            <Card.Body>
+              <Card.Text>
+                Trabajo realizado, todo ha quedado muy bien, profesional de
+                confianza.
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer>👍👎</Card.Footer>
+          </Card>
         </article>
       </section>
+      {/* Modal */}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body>
+            telefono <br />
+            whatsapp <br />
+            e-mail <br />
+        </Modal.Body>
+      </Modal>
     </main>
   );
 };
