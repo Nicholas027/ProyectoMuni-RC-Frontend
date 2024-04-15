@@ -13,6 +13,7 @@ function App() {
     <>
       <MenuNav/>
       <ProfessionalDetail />
+      {/* <Index></Index> */}
       <Footer />
     </>
   );

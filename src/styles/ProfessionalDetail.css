@@ -18,9 +18,11 @@
 }
 
 .cajaPerfil {
-  position: relative;
+  position: absolute;
   z-index: 1;
-  top: -150px;
+  top: 50px;
+  left: 35%;
+  right: 35%;
 }
 
 .fondoFotos {
@@ -28,8 +30,13 @@
   border-radius: 2%;
 }
 
+.fondoTextos {
+  background: #3b526caf;
+  border-radius: 7%;
+}
+
 .categoria {
-  background: #004b81;
+    background-color: #151544;
   font-style: italic;
   border-radius: 5%;
   font-family: Arial, Helvetica, sans-serif;
@@ -37,8 +44,15 @@
 
 .btnContacto {
     border-radius: 50%;
+    background-color: #3b526c;
+    border: 1px solid #151544;
 }
 .btnContacto:hover {
-    color: white;
-    border: tomato;
+    background-color: #c4c4c4;
+    color: #004b81;
+    border: 1px solid #004b81;
+}
+
+.contenedorPadre {
+    position: relative;
 }

@@ -4,8 +4,8 @@ import "../../styles/ProfessionalDetail.css";
 
 const ProfessionalDetail = () => {
   return (
-    <main className="">
-      <section className="m-4 p-2 fondoFotos">
+    <main>
+      <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
           src={imagenPortada}
           alt="Foto de portada con la categoria del profesional."
@@ -15,33 +15,51 @@ const ProfessionalDetail = () => {
         <div className="d-flex justify-content-center cajaPerfil">
           <div className="estiloFotoPerfil">
             <img
-              src="https://miro.medium.com/v2/resize:fit:1400/1*g09N-jl7JtVjVZGcd-vL2g.jpeg"
+              src="https://allyounews.com/wp-content/uploads/2017/09/smiling-young-woman-looking-at-c-52426522.jpg"
               alt="Foto de perfil del profesional."
-              className="w-100 estiloFotoPerfil"
+              className="estiloFotoPerfil"
             />
           </div>
         </div>
-        <Container className="text-center">
+        <Container className="text-center mt-5">
           <h1>
-            Facundo Alejo Herrera <br />
+            Marta Maria Vera
+            <br />
           </h1>
-          <span className="categoria my-2 px-1 text-light">Albañil</span>
-          <div>⭐⭐⭐⭐⭐</div>
-          <Button className="my-3 py-1 px-5 btnContacto">Contactar</Button>
-          <p className="h5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor sint
-            modi neque libero, sapiente commodi velit perspiciatis facilis
-            laborum fugiat, autem aperiam. Vel ipsum doloremque repudiandae
-            magnam temporibus reiciendis quam? Sint, consectetur voluptas
-            maiores nihil commodi deserunt, dolorum numquam tempora assumenda
-            nulla quibusdam soluta illum dolorem. Suscipit impedit aliquid unde
-            incidunt similique laboriosam quidem voluptates nemo fugiat. Eos,
-            animi doloremque! Quod reiciendis repellendus qui, sequi harum
-            aliquam incidunt cumque culpa doloremque perspiciatis iusto nam
-            nesciunt quis esse ipsam ea ipsum itaque adipisci doloribus
-            consectetur animi asperiores velit ab. Facere, ea.
+          <span className="categoria px-1 text-light">Albañil</span>
+          <div className="mt-2">⭐⭐⭐⭐⭐</div>
+          <Button className="mt-3 py-1 px-5 btnContacto">Contactar</Button>
+          <p className="h4 my-3 container">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo iure
+            cumque maxime aliquam et doloribus reiciendis itaque vero sunt
+            quisquam, nisi veniam corrupti inventore similique facilis eum quod
+            impedit rerum.
           </p>
         </Container>
+      </section>
+      <section className="m-4 p-2 fondoTextos text-center">
+        <h3>Curriculum Vitae</h3>
+        <img
+          src=""
+          alt="Curriculum Vitae del profesional."
+          className="img-fluid"
+        />
+      </section>
+      <section className="m-4 p-2 fondoTextos text-center">
+        <h3>Opiniones</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad placeat
+          perspiciatis quaerat aliquid ducimus aut necessitatibus molestiae sint
+          provident blanditiis nostrum quae dignissimos architecto, earum
+          facilis sed dolorem incidunt? Saepe. Maxime ut deleniti dignissimos
+          incidunt nobis accusantium ipsum, sed rerum nesciunt optio, molestiae
+          quibusdam illum aspernatur perspiciatis? Enim ipsam animi, nulla non
+          corrupti maxime amet, cumque tenetur error voluptates consectetur?
+          Cupiditate soluta dolore qui voluptas velit laboriosam distinctio
+          maiores eius omnis beatae necessitatibus nulla, eos magni ratione,
+          totam temporibus perspiciatis explicabo doloribus officia sint quidem
+          vitae labore. Velit, voluptatem rerum!
+        </p>
       </section>
     </main>
   );
