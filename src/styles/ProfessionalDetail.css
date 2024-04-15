@@ -2,6 +2,7 @@
 #f7e9b7
 #41bcc5
 #3b526c
+#004b81
 */
 
 .estiloFotoPerfil {
@@ -11,21 +12,33 @@
 }
 
 .cajaPortada {
-  position: absolute;
+  position: relative;
   width: 100%;
   border-radius: 3%;
-  padding-left: 0%;
-  padding-right: 5%;
-  cursor: pointer;
 }
 
 .cajaPerfil {
   position: relative;
   z-index: 1;
-  top: 50px;
+  top: -150px;
 }
 
 .fondoFotos {
-    background: #3b526caf;
-    border-radius: 2%;
+  background: #3b526caf;
+  border-radius: 2%;
+}
+
+.categoria {
+  background: #004b81;
+  font-style: italic;
+  border-radius: 5%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.btnContacto {
+    border-radius: 50%;
+}
+.btnContacto:hover {
+    color: white;
+    border: tomato;
 }
