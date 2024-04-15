@@ -61,6 +61,18 @@ const ProfessionalDetail = () => {
             className="img-fluid"
           />
         </article>
+        <article>
+          <Card className="cardOpinion mb-3">
+            <Card.Header>⭐⭐⭐⭐⭐</Card.Header>
+            <Card.Body>
+              <Card.Text>
+                Trabajo realizado, todo ha quedado muy bien, profesional de
+                confianza.
+              </Card.Text>
+            </Card.Body>
+            <Card.Footer>👍👎</Card.Footer>
+          </Card>
+        </article>
       </section>
     </Container>
   );
