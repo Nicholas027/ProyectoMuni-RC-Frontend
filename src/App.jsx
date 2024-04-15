@@ -6,6 +6,7 @@ import Index from "../src/components/pages/Index.jsx";
 import Footer from "../src/components/common/Footer.jsx";
 import MenuNav from './components/common/MenuNav';
 import ProfessionalDetail from "./components/pages/ProfessionalDetail.jsx";
+import Categoria from "./components/pages/Categoria.jsx";
 
 
 function App() {
@@ -13,7 +14,6 @@ function App() {
     <>
       <MenuNav/>
       <ProfessionalDetail />
-      {/* <Index></Index> */}
       <Footer />
     </>
   );
