@@ -1,0 +1,65 @@
+/* colores
+#f7e9b7
+#41bcc5
+#3b526c
+#004b81
+*/
+
+.estiloFotoPerfil {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.cajaPortada {
+  position: relative;
+  width: 100%;
+  border-radius: 3%;
+}
+
+.cajaPerfil {
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  left: 35%;
+  right: 35%;
+}
+
+.fondoFotos {
+  background: #3b526caf;
+  border-radius: 2%;
+}
+
+.fondoTextos {
+  background: #3b526caf;
+  border-radius: 7%;
+}
+
+.categoria {
+  background-color: #151544;
+  font-style: italic;
+  border-radius: 5%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.btnContacto {
+  border-radius: 50%;
+  background-color: #c4c4c4;
+  border: 1px solid #151544;
+  color: black;
+}
+.btnContacto:hover {
+  background-color: #3b526c9f;
+  border: 1px solid #004b81;
+}
+
+.contenedorPadre {
+  position: relative;
+}
+
+.cardOpinion {
+  background: #c4c4c4;
+
+  border-radius: 25%;
+  border-width: 20%;
+}
