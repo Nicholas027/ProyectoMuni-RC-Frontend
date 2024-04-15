@@ -1,3 +1,9 @@
+/* colores
+#f7e9b7
+#41bcc5
+#3b526c
+*/
+
 .estiloFotoPerfil {
   width: 200px;
   height: 200px;
@@ -6,10 +12,20 @@
 
 .cajaPortada {
   position: absolute;
+  width: 100%;
+  border-radius: 3%;
+  padding-left: 0%;
+  padding-right: 5%;
+  cursor: pointer;
 }
 
 .cajaPerfil {
   position: relative;
   z-index: 1;
   top: 50px;
+}
+
+.fondoFotos {
+    background: #3b526caf;
+    border-radius: 2%;
 }
