@@ -36,11 +36,11 @@ const ProfessionalDetail = () => {
           <h1 className="mt-5 mb-2 tituloPrincipal">Marta Maria Vera</h1>
           <span className="categoria px-1 text-light">Albañil</span>
           <div className="mt-2 text-warning h4">
-            <i class="bi bi-star-fill me-1"></i>
-            <i class="bi bi-star-fill me-1"></i>
-            <i class="bi bi-star-fill me-1"></i>
-            <i class="bi bi-star-fill me-1"></i>
-            <i class="bi bi-star-fill me-1"></i>
+            <i className="bi bi-star-fill me-1"></i>
+            <i className="bi bi-star-fill me-1"></i>
+            <i className="bi bi-star-fill me-1"></i>
+            <i className="bi bi-star-fill me-1"></i>
+            <i className="bi bi-star-fill me-1"></i>
           </div>
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
@@ -69,11 +69,11 @@ const ProfessionalDetail = () => {
         <article className="p-3 px-5 bg-light mb-3 mt-3">
           <h3 className="text-warning h1">
             5.0
-            <i class="bi bi-star-fill ms-2 me-1"></i>
-            <i class="bi bi-star-fill me-1"></i>
-            <i class="bi bi-star-fill me-1"></i>
-            <i class="bi bi-star-fill me-1"></i>
-            <i class="bi bi-star-fill"></i>
+            <i className="bi bi-star-fill ms-2 me-1"></i>
+            <i className="bi bi-star-fill me-1"></i>
+            <i className="bi bi-star-fill me-1"></i>
+            <i className="bi bi-star-fill me-1"></i>
+            <i className="bi bi-star-fill"></i>
           </h3>
           <img
             src={imgValoracion}
@@ -90,11 +90,11 @@ const ProfessionalDetail = () => {
         <article className="px-5">
           <Card className="cardOpinion mb-3">
             <Card.Header className="text-warning">
-              <i class="bi bi-star-fill me-1"></i>
-              <i class="bi bi-star-fill me-1"></i>
-              <i class="bi bi-star-fill me-1"></i>
-              <i class="bi bi-star-fill me-1"></i>
-              <i class="bi bi-star-fill"></i>
+              <i className="bi bi-star-fill me-1"></i>
+              <i className="bi bi-star-fill me-1"></i>
+              <i className="bi bi-star-fill me-1"></i>
+              <i className="bi bi-star-fill me-1"></i>
+              <i className="bi bi-star-fill"></i>
             </Card.Header>
             <Card.Body>
               <Card.Text className="texto">
@@ -111,7 +111,7 @@ const ProfessionalDetail = () => {
       </section>
       {/* Modal - Contacto */}
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header className="h2 d-flex justify-content-center mt-3 titulo">
+        <Modal.Header closeButton className="h2 d-flex justify-content-center pt-3 titulo fondoAzul">
           Contactate con el Profesional
         </Modal.Header>
         <Modal.Body>
@@ -145,10 +145,10 @@ const ProfessionalDetail = () => {
       </Modal>
       {/* Modal - Reseña */}
       <Modal show={evento} onHide={handleResenaClose}>
-        <Modal.Header className="titulo h2 d-flex mt-3 justify-content-center">
+        <Modal.Header closeButton className="titulo h2 d-flex pt-3 justify-content-center fondoAzul">
           OPINA SOBRE EL PROFESIONAL
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="textoForm">
           <Form>
             <Form.Group className="mb-3" controlId="inputNombre">
               <Form.Label>Producto</Form.Label>
@@ -212,7 +212,7 @@ const ProfessionalDetail = () => {
               </Form.Select>
             </Form.Group>
             <div className="text-center my-2">
-              <Button variant="success" type="submit">
+              <Button className="btnContacto">
                 Agregar
               </Button>
             </div>

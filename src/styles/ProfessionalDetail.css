@@ -87,3 +87,14 @@
 .color {
   color: #151544;
 }
+
+.fondoAzul {
+  background: #151544;
+  color: white;
+}
+
+.textoForm {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-weight: bold;
+}
