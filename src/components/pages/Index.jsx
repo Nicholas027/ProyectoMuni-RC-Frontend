@@ -32,7 +32,7 @@ const Index = () => {
       </Container>
 
       <Container className="mt-5 categorySelect">
-        <h2 className="display-4 text-center">Categorias de Profesionales</h2>
+        <h2 className="display-4 text-center">Categorías de Profesionales</h2>
         <CategoryGrid></CategoryGrid>
       </Container>
     </section>
