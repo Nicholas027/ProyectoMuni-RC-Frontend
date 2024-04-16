@@ -4,6 +4,7 @@ import { Button, Card, Container, Form, Modal } from "react-bootstrap";
 import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
 import { useState } from "react";
+import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
 
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
@@ -111,7 +112,10 @@ const ProfessionalDetail = () => {
       </section>
       {/* Modal - Contacto */}
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton className="h2 d-flex justify-content-center pt-3 titulo fondoAzul">
+        <Modal.Header
+          closeButton
+          className="h2 d-flex justify-content-center pt-3 titulo fondoAzul"
+        >
           Contactate con el Profesional
         </Modal.Header>
         <Modal.Body>
@@ -145,75 +149,59 @@ const ProfessionalDetail = () => {
       </Modal>
       {/* Modal - Reseña */}
       <Modal show={evento} onHide={handleResenaClose}>
-        <Modal.Header closeButton className="titulo h2 d-flex pt-3 justify-content-center fondoAzul">
+        <Modal.Header
+          closeButton
+          className="titulo h2 d-flex pt-3 justify-content-center fondoAzul"
+        >
           OPINA SOBRE EL PROFESIONAL
         </Modal.Header>
         <Modal.Body className="textoForm">
           <Form>
-            <Form.Group className="mb-3" controlId="inputNombre">
-              <Form.Label>Producto</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ej: Café"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="inputPrecio">
-              <Form.Label>Precio</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Ej: $1000"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="inputURL">
-              <Form.Label>URL imagen</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Ej: https://Pexels.com/Imagenes/cafe.png"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="inputCategoria">
-              <Form.Label>Categoria</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-              >
-                <option value="">Seleccione una categoria</option>
-                <option value="infusion">Infusion</option>
-                <option value="batido">Batido</option>
-                <option value="dulce">Dulce</option>
-                <option value="salado">Salado</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="inputDescBreve">
-              <Form.Label>Descripción Breve</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                type="text"
-                placeholder="Ej: Un cafe rico."
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="inputDescAmplia">
-              <Form.Label>Descripción Amplia</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                type="text"
-                placeholder="Ej: Un cafe rico bla bla bla bla bla bla bla..."
-              />
+            <Form.Group className="mb-3" controlId="inputEstrellas">
+              <Form.Label>Tu Puntuación</Form.Label>
+              <div></div>
+              <EstrellasCalificaciones></EstrellasCalificaciones>
             </Form.Group>
             <Form.Group className="mb-3" controlId="inputDisponibilidad">
-              <Form.Label>Disponibilidad</Form.Label>
-              <Form.Select
-                aria-label="disponibilidad"
-              >
-                <option value="">Seleccione una opción</option>
-                <option value="si">Si</option>
-                <option value="no">No</option>
-              </Form.Select>
+              <Form.Label>
+                ¿Haz Realizado Algún Trabajo con el Profesional?
+              </Form.Label>
+              <div></div>
+              <Form.Check
+                inline
+                label="Si"
+                name="colaboracion"
+                type="radio"
+                id="si"
+              />
+              <Form.Check
+                inline
+                label="No"
+                name="colaboracion"
+                type="radio"
+                id="no"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputDescripcionOpinion">
+              <Form.Label>Escribe Tu Opinión</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                type="text"
+                placeholder="Ej: Es una persona confiable y realiza su trabajo a tiempo."
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputNombre">
+              <Form.Label>Tu Nombre</Form.Label>
+              <Form.Control type="text" placeholder="Ej: Café" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputEmail">
+              <Form.Label>Tu Dirección de Email</Form.Label>
+              <Form.Control type="email" placeholder="roberto@gmail.com" />
             </Form.Group>
             <div className="text-center my-2">
-              <Button className="btnContacto">
-                Agregar
+              <Button type="submit" className="btnContacto">
+                ENVIAR
               </Button>
             </div>
           </Form>
