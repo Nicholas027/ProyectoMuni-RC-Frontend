@@ -1,4 +1,4 @@
-import { Button, Card, Container, Modal } from "react-bootstrap";
+import { Button, Card, Container, Form, Modal } from "react-bootstrap";
 // Despues voy a usar esto para la portada.
 // import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
 import imgValoracion from "../../assets/valoracion-cuadro.png";
@@ -81,9 +81,12 @@ const ProfessionalDetail = () => {
             className="img-fluid"
           />
         </article>
-        <Button className="my-3 mb-4 px-5 btn btnContacto" onClick={handleResenaShow}>
-            AGREGAR RESEÑA
-          </Button>
+        <Button
+          className="my-3 mb-4 px-5 btn btnContacto"
+          onClick={handleResenaShow}
+        >
+          AGREGAR RESEÑA
+        </Button>
         <article className="px-5">
           <Card className="cardOpinion mb-3">
             <Card.Header className="text-warning">
@@ -100,7 +103,8 @@ const ProfessionalDetail = () => {
               </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <i className="bi bi-hand-thumbs-up-fill h2 text-success bg-light me-2"></i> <i className="bi bi-hand-thumbs-down-fill h2 text-danger bg-light"></i>
+              <i className="bi bi-hand-thumbs-up-fill color h2 me-2"></i>{" "}
+              <i className="bi bi-hand-thumbs-down-fill h2 color"></i>
             </Card.Footer>
           </Card>
         </article>
@@ -141,7 +145,79 @@ const ProfessionalDetail = () => {
       </Modal>
       {/* Modal - Reseña */}
       <Modal show={evento} onHide={handleResenaClose}>
-        <Modal.Body>hola</Modal.Body>
+        <Modal.Header className="titulo h2 d-flex mt-3 justify-content-center">
+          OPINA SOBRE EL PROFESIONAL
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="inputNombre">
+              <Form.Label>Producto</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ej: Café"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputPrecio">
+              <Form.Label>Precio</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Ej: $1000"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputURL">
+              <Form.Label>URL imagen</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ej: https://Pexels.com/Imagenes/cafe.png"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputCategoria">
+              <Form.Label>Categoria</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+              >
+                <option value="">Seleccione una categoria</option>
+                <option value="infusion">Infusion</option>
+                <option value="batido">Batido</option>
+                <option value="dulce">Dulce</option>
+                <option value="salado">Salado</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputDescBreve">
+              <Form.Label>Descripción Breve</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                type="text"
+                placeholder="Ej: Un cafe rico."
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputDescAmplia">
+              <Form.Label>Descripción Amplia</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                type="text"
+                placeholder="Ej: Un cafe rico bla bla bla bla bla bla bla..."
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="inputDisponibilidad">
+              <Form.Label>Disponibilidad</Form.Label>
+              <Form.Select
+                aria-label="disponibilidad"
+              >
+                <option value="">Seleccione una opción</option>
+                <option value="si">Si</option>
+                <option value="no">No</option>
+              </Form.Select>
+            </Form.Group>
+            <div className="text-center my-2">
+              <Button variant="success" type="submit">
+                Agregar
+              </Button>
+            </div>
+          </Form>
+        </Modal.Body>
       </Modal>
     </Container>
   );
