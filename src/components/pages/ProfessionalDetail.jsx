@@ -34,7 +34,7 @@ const ProfessionalDetail = () => {
           </div>
         </div>
         <Container className="text-center mt-5">
-          <h1 className="mt-5 mb-2 tituloPrincipal">Marta Maria Vera</h1>
+          <h1 className="mt-5 mb-2 tituloPrincipal">Marta María Vera</h1>
           <span className="categoria px-1 text-light">Albañil</span>
           <div className="mt-2 text-warning h4">
             <i className="bi bi-star-fill me-1"></i>
@@ -50,10 +50,7 @@ const ProfessionalDetail = () => {
             CONTACTAR
           </Button>
           <p className="h4 my-3 container texto">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo iure
-            cumque maxime aliquam et doloribus reiciendis itaque vero sunt
-            quisquam, nisi veniam corrupti inventore similique facilis eum quod
-            impedit rerum.
+          Hola! Soy María, una apasionada albañil con una sólida experiencia en la construcción y reparación de estructuras. Estoy decidida a encontrar un trabajo donde pueda aplicar mis habilidades y contribuir al éxito de un proyecto.
           </p>
         </Container>
       </section>
