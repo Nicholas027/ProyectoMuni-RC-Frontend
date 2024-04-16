@@ -98,6 +98,7 @@ const ProfessionalDetail = () => {
               <i className="bi bi-star-fill"></i>
             </Card.Header>
             <Card.Body>
+                <Card.Title>Luis Figal</Card.Title>
               <Card.Text className="texto">
                 Trabajo realizado, todo ha quedado muy bien, profesional de
                 confianza.
@@ -189,15 +190,24 @@ const ProfessionalDetail = () => {
                 rows={3}
                 type="text"
                 placeholder="Ej: Es una persona confiable y realiza su trabajo a tiempo."
+                required
+                minLength={10}
+                maxLength={150}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="inputNombre">
               <Form.Label>Tu Nombre</Form.Label>
-              <Form.Control type="text" placeholder="Ej: Café" />
+              <Form.Control type="text" placeholder="Ej: Facundo Herrera"
+          required
+          minLength={3}
+          maxLength={20} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="inputEmail">
               <Form.Label>Tu Dirección de Email</Form.Label>
-              <Form.Control type="email" placeholder="roberto@gmail.com" />
+              <Form.Control type="email" placeholder="roberto@gmail.com" 
+          required
+          minLength={5}
+          maxLength={150} />
             </Form.Group>
             <div className="text-center my-2">
               <Button type="submit" className="btnContacto">
