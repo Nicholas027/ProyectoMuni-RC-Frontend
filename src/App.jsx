@@ -14,12 +14,12 @@ function App() {
   return (
     <>
       <MenuNav/>
-      <Login/>
+      {/* <Login/> */}
       {/* <Index /> */}
       {/* <Error404 /> */}
       {/* <Categoria/> */}
       {/* <Categoria/> */}
-      {/* <ProfessionalDetail></ProfessionalDetail> */}
+      <ProfessionalDetail></ProfessionalDetail>
       <Footer />
     </>
   );

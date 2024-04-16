@@ -1,6 +1,6 @@
 import { Button, Card, Container, Form, Modal } from "react-bootstrap";
 // Despues voy a usar esto para la portada.
-// import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
+import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
 import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
 import { useState } from "react";
@@ -19,7 +19,7 @@ const ProfessionalDetail = () => {
     <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
-          src="https://p1.pxfuel.com/preview/612/717/141/mason-construction-bucket-brick.jpg"
+          src={imagenPortada}
           alt="Foto de portada con la categoria del profesional."
           height={200}
           className="cajaPortada"
@@ -68,7 +68,7 @@ const ProfessionalDetail = () => {
       <section className="m-4 p-2 pt-3 fondoTextos text-center px-5">
         <h3 className="titulo">OPINIONES</h3>
         <article className="p-3 px-5 bg-light mb-3 mt-3">
-          <h3 className="text-warning h1">
+          <h3 className="text-warning h1 d-flex justify-content-center">
             5.0
             <i className="bi bi-star-fill ms-2 me-1"></i>
             <i className="bi bi-star-fill me-1"></i>
@@ -88,9 +88,9 @@ const ProfessionalDetail = () => {
         >
           AGREGAR RESEÑA
         </Button>
-        <article className="px-5">
+        <article className="pCard">
           <Card className="cardOpinion mb-3">
-            <Card.Header className="text-warning">
+            <Card.Header className="text-warning d-flex justify-content-center">
               <i className="bi bi-star-fill me-1"></i>
               <i className="bi bi-star-fill me-1"></i>
               <i className="bi bi-star-fill me-1"></i>
@@ -122,8 +122,9 @@ const ProfessionalDetail = () => {
         <Modal.Body>
           <div className="text-center mt-3">
             <span className="border-bottom border-danger pe-2 titulo">
-              <b>📞 Telefono del Profesional:</b>
+              <b className="">📞 Telefono del Profesional:</b>
             </span>
+            <div className="p-1"></div>
             <span className="border border-danger p-2 rounded-pill">
               3865-202746
             </span>

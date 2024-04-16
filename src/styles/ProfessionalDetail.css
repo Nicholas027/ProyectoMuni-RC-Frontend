@@ -99,3 +99,11 @@
   font-weight: 400;
   font-weight: bold;
 }
+
+
+@media screen and (min-width: 767px) {
+  .pCard {
+    padding-right: 3rem !important;
+    padding-left: 3rem !important;
+  }
+}
