@@ -10,6 +10,10 @@ const ProfessionalDetail = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [evento, setEvento] = useState(false);
+  const handleResenaClose = () => setEvento(false);
+  const handleResenaShow = () => setEvento(true);
+
   return (
     <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
@@ -39,7 +43,7 @@ const ProfessionalDetail = () => {
             <i class="bi bi-star-fill me-1"></i>
           </div>
           <Button
-            className="mt-3 pb-1 px-5 btn btnContacto"
+            className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
             onClick={handleShow}
           >
             CONTACTAR
@@ -77,7 +81,7 @@ const ProfessionalDetail = () => {
             className="img-fluid"
           />
         </article>
-        <Button className="my-3 mb-4 px-5 btn btnContacto" onClick={handleShow}>
+        <Button className="my-3 mb-4 px-5 btn btnContacto" onClick={handleResenaShow}>
             AGREGAR RESEÑA
           </Button>
         <article className="px-5">
@@ -95,7 +99,9 @@ const ProfessionalDetail = () => {
                 confianza.
               </Card.Text>
             </Card.Body>
-            <Card.Footer>👍👎</Card.Footer>
+            <Card.Footer>
+            <i className="bi bi-hand-thumbs-up-fill h2 text-success bg-light me-2"></i> <i className="bi bi-hand-thumbs-down-fill h2 text-danger bg-light"></i>
+            </Card.Footer>
           </Card>
         </article>
       </section>
@@ -132,6 +138,10 @@ const ProfessionalDetail = () => {
             </a>
           </div>
         </Modal.Body>
+      </Modal>
+      {/* Modal - Reseña */}
+      <Modal show={evento} onHide={handleResenaClose}>
+        <Modal.Body>hola</Modal.Body>
       </Modal>
     </Container>
   );
