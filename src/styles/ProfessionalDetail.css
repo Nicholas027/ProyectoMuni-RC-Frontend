@@ -15,6 +15,7 @@
   position: relative;
   width: 100%;
   border-radius: 3%;
+  object-fit: cover;
 }
 
 .cajaPerfil {
