@@ -29,7 +29,7 @@
 }
 
 .image-section {
-  flex: 2;
+  flex: 1;
 }
 
 .image-section img {
@@ -38,7 +38,7 @@
 }
 
 .content-section {
-  flex: 1;
+  flex: 5;
   padding: 15px 25px;
 }
 
