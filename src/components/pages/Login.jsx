@@ -40,7 +40,7 @@ const Login = () => {
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Ingrese email"
+              placeholder="Ingrese su email"
               {...register("email", {
                 required: "Ingrese su email",
                 pattern: {
