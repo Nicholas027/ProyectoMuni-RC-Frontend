@@ -28,15 +28,15 @@ const SignUp = () => {
         </div>
 
         <Container className="boxContent rounded-4">
-          <div className="d-flex">
+          <div className="title">
             <img
               src={logoMuni}
               alt="imgProducto"
-              className="rounded-start-4 ms-4 mt-1 me-2"
-              width={100}
-              height={100}
+              className="rounded-start-4 "
+              width={140}
+              height={155}
             />
-            <h1 className="display-6 mt-4">Registrarse</h1>
+            <h1 className="display-4 ">Registrarse</h1>
           </div>
 
           <div className="formContent">
