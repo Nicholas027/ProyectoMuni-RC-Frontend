@@ -1,0 +1,109 @@
+/* colores
+#f7e9b7
+#41bcc5
+#3b526c
+#004b81
+*/
+
+.estiloFotoPerfil {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.cajaPortada {
+  position: relative;
+  width: 100%;
+  border-radius: 3%;
+  object-fit: cover;
+}
+
+.cajaPerfil {
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  left: 35%;
+  right: 35%;
+}
+
+.fondoFotos {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  border-radius: 2%;
+}
+
+.fondoTextos {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  border-radius: 7%;
+}
+
+.categoria {
+  background-color: #151544;
+  font-style: italic;
+  border-radius: 5%;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+}
+
+.btnContacto {
+  background-color: #151544;
+  border: 1px solid white;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.btnContacto:hover {
+  background-color: white;
+  color: #151544;
+}
+
+.contenedorPadre {
+  position: relative;
+}
+
+.cardOpinion {
+  background: white;
+
+  border-radius: 25%;
+  border-width: 20%;
+}
+
+.titulo {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.texto {
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.tituloPrincipal {
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.color {
+  color: #151544;
+}
+
+.fondoAzul {
+  background: #151544;
+  color: white;
+}
+
+.textoForm {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-weight: bold;
+}
+
+
+@media screen and (min-width: 767px) {
+  .pCard {
+    padding-right: 3rem !important;
+    padding-left: 3rem !important;
+  }
+}
