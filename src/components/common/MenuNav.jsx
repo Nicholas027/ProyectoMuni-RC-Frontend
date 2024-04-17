@@ -7,7 +7,7 @@ const MenuNav = () => {
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img
             src={logo}
             alt="logo de la municipalidad de Concepción"
@@ -19,11 +19,11 @@ const MenuNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto text-center d-flex align-items-center navLinks">
-            <Nav.Link href="#home">INICIO</Nav.Link>
-            <Nav.Link href="#registrarse">REGISTRARSE</Nav.Link>
-            <Nav.Link href="#nosotros">NOSOTROS</Nav.Link>
-            <Nav.Link href="#login">
-              <i className="bi bi-box-arrow-in-right"></i>
+            <Nav.Link href="/">INICIO</Nav.Link>
+            <Nav.Link href="/signup">REGISTRARSE</Nav.Link>
+            <Nav.Link href="/about">NOSOTROS</Nav.Link>
+            <Nav.Link href="/signin">
+              <i className="bi bi-box-arrow-in-right"></i> INGRESAR
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
