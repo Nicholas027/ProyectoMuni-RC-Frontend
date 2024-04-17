@@ -22,7 +22,7 @@ const SignUp = () => {
       <div className="position-relative">
         <div className="backgroundSignUp">
           <img
-            src="https://www.eltucumano.com/fotos/cache/notas/2019/02/15/818x460_190215112544_91694.jpg"
+            src="https://scontent.faep6-1.fna.fbcdn.net/v/t39.30808-6/251378801_4826907517342542_8931559505337231654_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeF9SiF35dffz4DalMzMoWP6vB_XlfWWEg68H9eV9ZYSDopXGgUimN4ZFjsGdm4-PIotal7hjaSqn4EPn_4SBKe5&_nc_ohc=UD3s6L6s1iEAb440Che&_nc_ht=scontent.faep6-1.fna&oh=00_AfCg2zMSinVwYbu6ijCcbD1DaelARCh9XEkBEcyhvtsYow&oe=6625F8BC"
             alt="imgProducto"
           />
         </div>
@@ -49,11 +49,11 @@ const SignUp = () => {
                   {...register("nombreCompleto", {
                     required: "Ingrese su nombre completo",
                     minLength: {
-                      value: 2,
+                      value: 8,
                       message: "Ingrese un nombre con mínimo 2 caracteres",
                     },
                     maxLength: {
-                      value: 50,
+                      value: 100,
                       message: "Ingrese un nombre con máximo 50 caracteres",
                     },
                   })}
@@ -66,18 +66,19 @@ const SignUp = () => {
               <Form.Group className="mb-3" controlId="formBasicDni">
                 <Form.Label>DNI (sin puntos)</Form.Label>
                 <Form.Control
-                  type="number"
+                  type="number" 
+                  
                   placeholder="10000000"
                   {...register("dni", {
                     required: "Ingrese su DNI",
-                    minLength: {
-                      value: 2,
-                      message: "Ingrese un nombre con mínimo 2 caracteres",
-                    },
-                    maxLength: {
-                      value: 50,
-                      message: "Ingrese un nombre con máximo 50 caracteres",
-                    },
+                    min: {
+                        value: 10000000,
+                        message: "Ingrese un dni valido",
+                      },
+                      max: {
+                        value: 99999999,
+                        message: "Ingrese un dni valido",
+                      },
                   })}
                 />
                 <Form.Text className="text-danger">
