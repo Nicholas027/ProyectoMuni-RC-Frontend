@@ -6,6 +6,7 @@ import Index from "../src/components/pages/Index.jsx";
 import Footer from "../src/components/common/Footer.jsx";
 import MenuNav from './components/common/MenuNav';
 import Categoria from "./components/pages/Categoria.jsx";
+import ProfessionalDetail from "./components/pages/ProfessionalDetail.jsx";
 import Login from "./components/pages/Login.jsx";
 
 
@@ -13,10 +14,12 @@ function App() {
   return (
     <>
       <MenuNav/>
-      <Login/>
+      {/* <Login/> */}
       {/* <Index /> */}
       {/* <Error404 /> */}
       {/* <Categoria/> */}
+      {/* <Categoria/> */}
+      <ProfessionalDetail></ProfessionalDetail>
       <Footer />
     </>
   );
