@@ -7,24 +7,15 @@ import { Container } from "react-bootstrap";
 import { useState } from "react";
 
 const SignUp = () => {
-  const [mostrarParte1, setMostrarParte1] = useState(true);
-
-  const onSubmitParte1 = (data) => {
-    // Aquí podrías realizar alguna validación adicional si es necesario
-    setMostrarParte1(false); // Ocultar la parte 1
-  };
-
-  const onSubmitParte2 = (data) => {
-    // Manejar la información de la parte 2, por ejemplo, enviarla al servidor
-  };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (usuario) => {};
+  const onSubmit = async (usuario) => {
+    console.log(usuario);
+  };
 
   return (
     <>
@@ -36,7 +27,7 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="formContent rounded-4">
+        <Container className="boxContent rounded-4">
           <div className="d-flex">
             <img
               src={logoMuni}
@@ -48,12 +39,8 @@ const SignUp = () => {
             <h1 className="display-6 mt-4">Registrarse</h1>
           </div>
 
-          <Container>
-            
-            
+          <div className="formContent">
             <Form onSubmit={handleSubmit(onSubmit)}>
-
-                {/* PARTE 1 */}
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Nombre Completo</Form.Label>
                 <Form.Control
@@ -71,6 +58,9 @@ const SignUp = () => {
                     },
                   })}
                 />
+                <Form.Text className="text-danger">
+                  {errors.nombreCompleto?.message}
+                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicDni">
@@ -90,6 +80,9 @@ const SignUp = () => {
                     },
                   })}
                 />
+                <Form.Text className="text-danger">
+                  {errors.dni?.message}
+                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -107,6 +100,9 @@ const SignUp = () => {
                     },
                   })}
                 />
+                <Form.Text className="text-danger">
+                  {errors.foto?.message}
+                </Form.Text>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
@@ -121,6 +117,9 @@ const SignUp = () => {
                     },
                   })}
                 />
+                <Form.Text className="text-danger">
+                  {errors.email?.message}
+                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -132,15 +131,14 @@ const SignUp = () => {
                     required: "Ingrese su contraseña",
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*\d).{6,}$/,
-                      message: "Email o Contraseña incorrecta",
+                      message: "La contraseña debe minimo 6 caracteres, Una mayuscula y un numero",
                     },
                   })}
                 />
+                <Form.Text className="text-danger">
+                  {errors.password?.message}
+                </Form.Text>
               </Form.Group>
-
-              {/* FIN PARTE 1 */}
-
-              {/* PARTE 2 */}
 
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>CV</Form.Label>
@@ -151,6 +149,9 @@ const SignUp = () => {
                     required: "Ingrese su cv",
                   })}
                 />
+                <Form.Text className="text-danger">
+                  {errors.cv?.message}
+                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formCategoria">
@@ -173,6 +174,9 @@ const SignUp = () => {
                   <option value="Jardinero">Jardinero</option>
                   <option value="Otros">Otros</option>
                 </Form.Select>
+                <Form.Text className="text-danger">
+                  {errors.categoria?.message}
+                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -193,6 +197,9 @@ const SignUp = () => {
                     },
                   })}
                 />
+                <Form.Text className="text-danger">
+                  {errors.descripcion?.message}
+                </Form.Text>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -204,14 +211,17 @@ const SignUp = () => {
                     required: "Ingrese su telefono",
                   })}
                 />
+                <Form.Text className="text-danger">
+                  {errors.tel?.message}
+                </Form.Text>
               </Form.Group>
 
               <div className="btnConteiner">
-                <Button className="btnPrincipal">Siguiente</Button>
+                <Button className="btnPrincipal" type="submit">Registrarse</Button>
               </div>
             </Form>
-          </Container>
-        </div>
+          </div>
+        </Container>
       </div>
     </>
   );
