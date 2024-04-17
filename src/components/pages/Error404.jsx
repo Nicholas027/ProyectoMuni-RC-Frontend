@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../styles/error404.css";
 
 const Error404 = () => {
@@ -6,9 +7,9 @@ const Error404 = () => {
       <div className="wrapper text-center text-white">
         <h1 className="display-1 tituloError">Error 404</h1>
         <p className="display-5 mensajeError">Página no encontrada!</p>
-        <a className="btn btn-dark" href="#inicio">
+        <Link className="btn btn-dark" to="/">
           Volver al inicio
-        </a>
+        </Link>
         <div className="text-center my-3 iconsError">
           <a
             href="https://twitter.com/Concepcion_Tuc"

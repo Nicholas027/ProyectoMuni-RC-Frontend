@@ -11,6 +11,7 @@ import Categoria from "./components/pages/Categoria.jsx";
 import ProfessionalDetail from "./components/pages/ProfessionalDetail.jsx";
 import Login from "./components/pages/Login.jsx";
 import Administrador from "./components/pages/Administrador.jsx";
+import SignUp from "./components/pages/SignUp.jsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <MenuNav></MenuNav>
       <Routes>
         <Route exact path="/signin" element={<Login></Login>}></Route>
+        <Route exact path="/signup" element={<SignUp></SignUp>}></Route>
         <Route exact path="/" element={<Index></Index>}></Route>
         <Route
           exact
