@@ -24,6 +24,11 @@ function App() {
           path="/categorias"
           element={<Categoria></Categoria>}
         ></Route>
+         <Route
+          exact
+          path="/profesional"
+          element={<ProfessionalDetail></ProfessionalDetail>}
+        ></Route>
         <Route
           exact
           path="/administrador"
