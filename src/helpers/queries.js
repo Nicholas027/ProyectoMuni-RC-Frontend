@@ -17,4 +17,14 @@ export const obtenerProfesionalesAPI = async () => {
       throw new Error(`Error al obtener los profesionales: ${error.message}`);
     }
   };
+
+  export const obtenerProfesionalesCategoriaAPI = async(categoria)=>{
+    try {
+      const respuesta = await fetch(URI_Profesionales + '/' + 'category' + categoria)
+      const listaProfesionales = await respuesta.json()
+      return listaProfesionales
+    } catch (error) {
+      throw new Error(`Error al obtener los profesionales: ${error.message}`)
+    }
+  }
   
