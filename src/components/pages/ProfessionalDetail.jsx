@@ -3,7 +3,8 @@ import { Button, Card, Container, Form, Modal } from "react-bootstrap";
 import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
 import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { obtenerProfesionalesAPI } from "../../helpers/queries";
 import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
 
 const ProfessionalDetail = () => {
@@ -14,6 +15,36 @@ const ProfessionalDetail = () => {
   const [evento, setEvento] = useState(false);
   const handleResenaClose = () => setEvento(false);
   const handleResenaShow = () => setEvento(true);
+  
+  const [profesional, setProfesional] = useState({});
+
+  useEffect(() => {
+    obtenerProfesional();
+  }, []);
+
+  const obtenerProfesional = async () => {
+    try {
+      const respuesta = await obtenerProfesionalesAPI();
+      if (respuesta.status === 200) {
+        const datos = await respuesta.json();
+        console.log(datos)
+
+        datos.map((itemProfesional)=>{
+          if(itemProfesional._id === "661f1f38dea0d3444ede46de") {
+            setProfesional(itemProfesional);
+          }          
+        })
+      } else {
+        throw new Error("Ocurrió un error al obtener los profesionales.");
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+      });
+    }
+  };
 
   return (
     <Container>
@@ -27,15 +58,16 @@ const ProfessionalDetail = () => {
         <div className="d-flex justify-content-center cajaPerfil">
           <div className="estiloFotoPerfil">
             <img
-              src="https://allyounews.com/wp-content/uploads/2017/09/smiling-young-woman-looking-at-c-52426522.jpg"
+              // src="https://allyounews.com/wp-content/uploads/2017/09/smiling-young-woman-looking-at-c-52426522.jpg"
+              src={profesional.foto}
               alt="Foto de perfil del profesional."
               className="estiloFotoPerfil"
             />
           </div>
         </div>
         <Container className="text-center mt-5">
-          <h1 className="mt-5 mb-2 tituloPrincipal">Marta María Vera</h1>
-          <span className="categoria px-1 text-light">Albañil</span>
+          <h1 className="mt-5 mb-2 tituloPrincipal">{profesional.nombreCompleto}</h1>
+          <span className="categoria px-1 text-light">{profesional.categoria}</span>
           <div className="mt-2 text-warning h4">
             <i className="bi bi-star-fill me-1"></i>
             <i className="bi bi-star-fill me-1"></i>
@@ -49,9 +81,10 @@ const ProfessionalDetail = () => {
           >
             CONTACTAR
           </Button>
-          <p className="h4 my-3 container texto">
+          {/* <p className="h4 my-3 container texto">
           Hola! Soy María, una apasionada albañil con una sólida experiencia en la construcción y reparación de estructuras. Estoy decidida a encontrar un trabajo donde pueda aplicar mis habilidades y contribuir al éxito de un proyecto.
-          </p>
+          </p> */}
+          <p className="h4 my-3 container texto">{profesional.descripcion}</p>
         </Container>
       </section>
       <section className="m-4 pt-3 p-4 fondoTextos text-center">
