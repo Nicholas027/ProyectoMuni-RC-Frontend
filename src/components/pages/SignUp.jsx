@@ -36,7 +36,7 @@ const SignUp = () => {
               width={140}
               height={155}
             />
-            <h1 className="display-4 ">Registrarse</h1>
+            <h1>REGISTRARSE</h1>
           </div>
 
           <div className="formContent">
@@ -67,7 +67,6 @@ const SignUp = () => {
                 <Form.Label>DNI (sin puntos)</Form.Label>
                 <Form.Control
                   type="number" 
-                  
                   placeholder="10000000"
                   {...register("dni", {
                     required: "Ingrese su DNI",
@@ -128,10 +127,10 @@ const SignUp = () => {
                 <Form.Control
                   type="password"
                   placeholder="Ingrese su contraseña"
-                  {...register("pass", {
+                  {...register("password", {
                     required: "Ingrese su contraseña",
                     pattern: {
-                      value: /^(?=.*[A-Z])(?=.*\d).{6,}$/,
+                      value: /^(?=.*[A-Z])(?=.*\d).{6,20}$/,
                       message: "La contraseña debe minimo 6 caracteres, Una mayuscula y un numero",
                     },
                   })}
@@ -166,7 +165,7 @@ const SignUp = () => {
                   <option value="Carpintero">Carpintero</option>
                   <option value="Gasista">Gasista</option>
                   <option value="Cerrajero">Cerrajero</option>
-                  <option value="Mecanico">Mecanico</option>
+                  <option value="Mecanico">Mecánico</option>
                   <option value="Electricista">Electricista</option>
                   <option value="Albañil">Albañil</option>
                   <option value="Plomero">Plomero</option>
