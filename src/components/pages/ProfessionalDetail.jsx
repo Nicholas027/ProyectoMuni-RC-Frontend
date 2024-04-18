@@ -25,6 +25,7 @@ const ProfessionalDetail = () => {
   const handleResenaClose = () => setEvento(false);
   const handleResenaShow = () => setEvento(true);
 
+  // Encontrar al profesional
   const [profesional, setProfesional] = useState({});
 
   useEffect(() => {
@@ -59,6 +60,7 @@ const ProfessionalDetail = () => {
   const emailProfesional = `mailto:${profesional.email}`;
   const cadena = `${profesional.telefono}`;
   const telefonoSinMas = cadena.replace("+", "");
+  
   // WhatsApp del profesional
   const telefono = `https://api.whatsapp.com/send/?phone=%2B${telefonoSinMas}&text&type=phone_number&app_absent=0`;
 
