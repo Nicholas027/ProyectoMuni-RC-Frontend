@@ -68,7 +68,7 @@ const ProfessionalDetail = () => {
     estrellas.push("1");
   }
 
-  // Logica para seleccionar la foto de portada.
+  // Logica para seleccionar la foto de portada por la categoria.
   let categoria;
   const fotosPortada = [
     { nombre: "Albañil", direccion: portadaAlbanil },
@@ -125,10 +125,10 @@ const ProfessionalDetail = () => {
           >
             CONTACTAR
           </Button>
-          {/* <p className="h4 my-3 container texto">
+          {/* <p className="h4 my-3 container texto d-flex justify-content-center">
           Hola! Soy María, una apasionada albañil con una sólida experiencia en la construcción y reparación de estructuras. Estoy decidida a encontrar un trabajo donde pueda aplicar mis habilidades y contribuir al éxito de un proyecto.
           </p> */}
-          <p className="h4 my-3 container texto">{profesional.descripcion}</p>
+          <p className="h4 my-3 container texto d-flex justify-content-center">{profesional.descripcion}</p>
         </Container>
       </section>
       <section className="m-4 pt-3 p-4 fondoTextos text-center">
