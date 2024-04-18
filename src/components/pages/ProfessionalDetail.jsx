@@ -1,6 +1,15 @@
 import { Button, Card, Container, Form, Modal } from "react-bootstrap";
-// Despues voy a usar esto para la portada.
-import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
+import portadaAlbanil from "../../assets/categoryLogos/albanilLogo.webp";
+import portadaCarpintero from "../../assets/categoryLogos/carpinteriaLogo.jpg";
+import portadaCerrajero from "../../assets/categoryLogos/cerrajeroLogo.jpg";
+import portadaElectricista from "../../assets/categoryLogos/electricistaLogo.jpg";
+import portadaGasista from "../../assets/categoryLogos/gasistaLogo.png";
+import portadaHerrero from "../../assets/categoryLogos/herreroLogo.webp";
+import portadaJardinero from "../../assets/categoryLogos/jardineroLogo.jpg";
+import portadaMecanico from "../../assets/categoryLogos/mecanicoLogo.webp";
+import portadaOtros from "../../assets/categoryLogos/otrosLogo.jpg";
+import portadaPintor from "../../assets/categoryLogos/pintorLogo.jpeg";
+import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
 import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
 import { useEffect, useState } from "react";
@@ -59,11 +68,31 @@ const ProfessionalDetail = () => {
     estrellas.push("1");
   }
 
+  // Logica para seleccionar la foto de portada.
+  let categoria;
+  const fotosPortada = [
+    { nombre: "Albañil", direccion: portadaAlbanil },
+    { nombre: "Carpintero", direccion: portadaCarpintero },
+    { nombre: "Cerrajero", direccion: portadaCerrajero },
+    { nombre: "Electricista", direccion: portadaElectricista },
+    { nombre: "Gasista", direccion: portadaGasista },
+    { nombre: "Herrero", direccion: portadaHerrero },
+    { nombre: "Jardinero", direccion: portadaJardinero },
+    { nombre: "Mecanico", direccion: portadaMecanico },
+    { nombre: "Otros", direccion: portadaOtros },
+    { nombre: "Pintor", direccion: portadaPintor },
+    { nombre: "Plomero", direccion: portadaPlomero }
+  ];
+  fotosPortada.map((item) => {
+    if(profesional.categoria === item.nombre)
+    categoria = item.direccion;
+  })
+
   return (
     <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
-          src={imagenPortada}
+          src={categoria}
           alt="Foto de portada con la categoria del profesional."
           height={200}
           className="cajaPortada"
