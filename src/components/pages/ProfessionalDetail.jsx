@@ -46,11 +46,18 @@ const ProfessionalDetail = () => {
     }
   };
 
-  const emailProfesional = `mailto:${profesional.email}`;  
+  // Email del profesional
+  const emailProfesional = `mailto:${profesional.email}`;
   const cadena = `${profesional.telefono}`;
   const telefonoSinMas = cadena.replace("+", "");
-
+  // WhatsApp del profesional
   const telefono = `https://api.whatsapp.com/send/?phone=%2B${telefonoSinMas}&text&type=phone_number&app_absent=0`;
+
+  // Mostrar la cantidad de estrellas del Profesional
+  const estrellas = [];
+  for(let i=0;i< profesional.calificacion ;i++) {
+    estrellas.push("1");
+  }
 
   return (
     <Container>
@@ -79,11 +86,9 @@ const ProfessionalDetail = () => {
             {profesional.categoria}
           </span>
           <div className="mt-2 text-warning h4">
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
+            {
+              estrellas.map((item) => <i className="bi bi-star-fill me-1"></i>)
+            }
           </div>
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
