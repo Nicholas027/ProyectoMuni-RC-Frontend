@@ -91,7 +91,8 @@ const ProfessionalDetail = () => {
         <h3 className="mb-4 titulo">CURRICULUM VITAE</h3>
         <img
           src="https://cdn-v1.udocz-assets.com/uploads/book/cover/447297/447297.jpg"
-          alt="Curriculum Vitae del profesional."
+          // alt="Curriculum Vitae del profesional."
+          alt={profesional.cv}
           className="img-fluid"
         />
       </section>
