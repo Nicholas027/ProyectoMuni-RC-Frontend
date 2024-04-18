@@ -15,7 +15,7 @@ const ProfessionalDetail = () => {
   const [evento, setEvento] = useState(false);
   const handleResenaClose = () => setEvento(false);
   const handleResenaShow = () => setEvento(true);
-  
+
   const [profesional, setProfesional] = useState({});
 
   useEffect(() => {
@@ -27,13 +27,13 @@ const ProfessionalDetail = () => {
       const respuesta = await obtenerProfesionalesAPI();
       if (respuesta.status === 200) {
         const datos = await respuesta.json();
-        console.log(datos)
+        console.log(datos);
 
-        datos.map((itemProfesional)=>{
-          if(itemProfesional._id === "661f1f38dea0d3444ede46de") {
+        datos.map((itemProfesional) => {
+          if (itemProfesional._id === "661f1f38dea0d3444ede46de") {
             setProfesional(itemProfesional);
-          }          
-        })
+          }
+        });
       } else {
         throw new Error("Ocurrió un error al obtener los profesionales.");
       }
@@ -45,6 +45,10 @@ const ProfessionalDetail = () => {
       });
     }
   };
+
+  const emailProfesional = `mailto:${profesional.email}`;
+  // const wspProfesional = profesional.telefono.replace(/+/g, "");
+  // console.log(wspProfesional);
 
   return (
     <Container>
@@ -66,8 +70,12 @@ const ProfessionalDetail = () => {
           </div>
         </div>
         <Container className="text-center mt-5">
-          <h1 className="mt-5 mb-2 tituloPrincipal">{profesional.nombreCompleto}</h1>
-          <span className="categoria px-1 text-light">{profesional.categoria}</span>
+          <h1 className="mt-5 mb-2 tituloPrincipal">
+            {profesional.nombreCompleto}
+          </h1>
+          <span className="categoria px-1 text-light">
+            {profesional.categoria}
+          </span>
           <div className="mt-2 text-warning h4">
             <i className="bi bi-star-fill me-1"></i>
             <i className="bi bi-star-fill me-1"></i>
@@ -129,7 +137,7 @@ const ProfessionalDetail = () => {
               <i className="bi bi-star-fill"></i>
             </Card.Header>
             <Card.Body>
-                <Card.Title>Luis Figal</Card.Title>
+              <Card.Title>Luis Figal</Card.Title>
               <Card.Text className="texto">
                 Trabajo realizado, todo ha quedado muy bien, profesional de
                 confianza.
@@ -148,7 +156,7 @@ const ProfessionalDetail = () => {
           closeButton
           className="h2 d-flex justify-content-center pt-3 titulo fondoAzul"
         >
-          Contactate con el Profesional
+          Contactate con {profesional.nombreCompleto}
         </Modal.Header>
         <Modal.Body>
           <div className="text-center mt-3">
@@ -157,7 +165,7 @@ const ProfessionalDetail = () => {
             </span>
             <div className="p-1"></div>
             <span className="border border-danger p-2 rounded-pill">
-              3865-202746
+              {profesional.telefono}
             </span>
             <br />
             <a
@@ -170,7 +178,7 @@ const ProfessionalDetail = () => {
             </a>
             <br />
             <a
-              href="mailto:prensa@concepcion.gob.ar"
+              href={emailProfesional}
               target="_blank"
               className="btn btn-outline-info my-4 titulo"
             >
@@ -229,17 +237,23 @@ const ProfessionalDetail = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="inputNombre">
               <Form.Label>Tu Nombre</Form.Label>
-              <Form.Control type="text" placeholder="Ej: Facundo Herrera"
-          required
-          minLength={3}
-          maxLength={20} />
+              <Form.Control
+                type="text"
+                placeholder="Ej: Facundo Herrera"
+                required
+                minLength={3}
+                maxLength={20}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="inputEmail">
               <Form.Label>Tu Dirección de Email</Form.Label>
-              <Form.Control type="email" placeholder="roberto@gmail.com" 
-          required
-          minLength={5}
-          maxLength={150} />
+              <Form.Control
+                type="email"
+                placeholder="roberto@gmail.com"
+                required
+                minLength={5}
+                maxLength={150}
+              />
             </Form.Group>
             <div className="text-center my-2">
               <Button type="submit" className="btnContacto">
