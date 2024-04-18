@@ -46,9 +46,11 @@ const ProfessionalDetail = () => {
     }
   };
 
-  const emailProfesional = `mailto:${profesional.email}`;
-  // const wspProfesional = profesional.telefono.replace(/+/g, "");
-  // console.log(wspProfesional);
+  const emailProfesional = `mailto:${profesional.email}`;  
+  const cadena = `${profesional.telefono}`;
+  const telefonoSinMas = cadena.replace("+", "");
+
+  const telefono = `https://api.whatsapp.com/send/?phone=%2B${telefonoSinMas}&text&type=phone_number&app_absent=0`;
 
   return (
     <Container>
@@ -169,7 +171,7 @@ const ProfessionalDetail = () => {
             </span>
             <br />
             <a
-              href="https://api.whatsapp.com/send/?phone=%2B5493865228080&text&type=phone_number&app_absent=0"
+              href={telefono}
               target="_blank"
               className="btn btn-outline-success my-3 mt-5 titulo"
             >
