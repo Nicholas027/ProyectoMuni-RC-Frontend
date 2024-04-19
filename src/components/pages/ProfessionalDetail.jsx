@@ -25,10 +25,10 @@ const ProfessionalDetail = () => {
   const [evento, setEvento] = useState(false);
   const handleResenaClose = () => setEvento(false);
   const handleResenaShow = () => setEvento(true);
-  
+
   const [profesional, setProfesional] = useState({});
 
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     obtenerProfesional();
@@ -57,14 +57,14 @@ const ProfessionalDetail = () => {
   const emailProfesional = `mailto:${profesional.email}`;
   const cadena = `${profesional.telefono}`;
   const telefonoSinMas = cadena.replace("+", "");
-  
+
   // WhatsApp del profesional
   const telefono = `https://api.whatsapp.com/send/?phone=%2B${telefonoSinMas}&text&type=phone_number&app_absent=0`;
 
   // Mostrar la cantidad de estrellas del Profesional
   const estrellas = [];
-  for(let i=0;i< profesional.calificacion ;i++) {
-    estrellas.push("1");
+  for (let i = 0; i < profesional.calificacion; i++) {
+    estrellas.push(1);
   }
 
   // Logica para seleccionar la foto de portada por la categoria.
@@ -80,12 +80,11 @@ const ProfessionalDetail = () => {
     { nombre: "Mecanico", direccion: portadaMecanico },
     { nombre: "Otros", direccion: portadaOtros },
     { nombre: "Pintor", direccion: portadaPintor },
-    { nombre: "Plomero", direccion: portadaPlomero }
+    { nombre: "Plomero", direccion: portadaPlomero },
   ];
   fotosPortada.map((item) => {
-    if(profesional.categoria === item.nombre)
-    categoria = item.direccion;
-  })
+    if (profesional.categoria === item.nombre) categoria = item.direccion;
+  });
 
   return (
     <Container>
@@ -114,9 +113,9 @@ const ProfessionalDetail = () => {
             {profesional.categoria}
           </span>
           <div className="mt-2 text-warning h4">
-            {
-              estrellas.map((item) => <i className="bi bi-star-fill me-1"></i>)
-            }
+            {estrellas.map((item,pos) => (
+              <i key={pos} className="bi bi-star-fill me-1"></i>
+            ))}
           </div>
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
@@ -127,7 +126,9 @@ const ProfessionalDetail = () => {
           {/* <p className="h4 my-3 container texto d-flex justify-content-center">
           Hola! Soy María, una apasionada albañil con una sólida experiencia en la construcción y reparación de estructuras. Estoy decidida a encontrar un trabajo donde pueda aplicar mis habilidades y contribuir al éxito de un proyecto.
           </p> */}
-          <p className="h4 my-3 container texto d-flex justify-content-center">{profesional.descripcion}</p>
+          <p className="h4 my-3 container texto d-flex justify-content-center">
+            {profesional.descripcion}
+          </p>
         </Container>
       </section>
       <section className="m-4 pt-3 p-4 fondoTextos text-center">
