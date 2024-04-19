@@ -12,6 +12,7 @@ import ProfessionalDetail from "./components/pages/ProfessionalDetail.jsx";
 import Login from "./components/pages/Login.jsx";
 import Administrador from "./components/pages/Administrador.jsx";
 import SignUp from "./components/pages/SignUp.jsx";
+import DarAltaProfesional from './components/pages/administrador/DarAltaProfesional.jsx'
 
 function App() {
   return (
@@ -30,6 +31,11 @@ function App() {
           exact
           path="/categorias/:categoria/profesional/:id"
           element={<ProfessionalDetail></ProfessionalDetail>}
+        ></Route>
+          <Route
+          exact
+          path="/profesional/crear"
+          element={<DarAltaProfesional></DarAltaProfesional>}
         ></Route>
         <Route
           exact
