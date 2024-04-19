@@ -1,10 +1,17 @@
 import Card from "react-bootstrap/Card";
 import { Col, Image, Button } from "react-bootstrap";
 import EstrellasCalificaciones from "./EstrellasCalificaciones";
+import { Link } from "react-router-dom";
 
-const CardProfesional = ({profesional}) => {
+const CardProfesional = ({ profesional }) => {
   return (
-    <Col className="my-2 d-flex justify-content-center" xs={12} sm={6} md={6} lg={4}>
+    <Col
+      className="my-2 d-flex justify-content-center"
+      xs={12}
+      sm={6}
+      md={6}
+      lg={4}
+    >
       <Card className="h-100 text-center cardProfesional">
         <div>
           <Image
@@ -31,8 +38,12 @@ const CardProfesional = ({profesional}) => {
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Button variant="outline-dark">Ver más <i className="bi bi-plus-circle"></i>
-          </Button>
+          <Link
+            className="btn btn-outline-dark"
+            to={"/categorias/"+profesional.categoria+"/profesional/"+profesional._id}
+          >
+            Ver más <i className="bi bi-plus-circle"></i>
+          </Link>
         </Card.Footer>
       </Card>
     </Col>
