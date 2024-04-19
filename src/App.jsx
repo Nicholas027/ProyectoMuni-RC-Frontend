@@ -28,7 +28,7 @@ function App() {
         ></Route>
          <Route
           exact
-          path="/profesional"
+          path="/categorias/:categoria/profesional/:id"
           element={<ProfessionalDetail></ProfessionalDetail>}
         ></Route>
         <Route
