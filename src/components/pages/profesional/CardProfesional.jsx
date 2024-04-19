@@ -2,14 +2,14 @@ import Card from "react-bootstrap/Card";
 import { Col, Image, Button } from "react-bootstrap";
 import EstrellasCalificaciones from "./EstrellasCalificaciones";
 
-const CardProfesional = () => {
+const CardProfesional = ({profesional}) => {
   return (
     <Col className="my-2 d-flex justify-content-center" xs={12} sm={6} md={6} lg={4}>
       <Card className="h-100 text-center cardProfesional">
         <div>
           <Image
-            src="https://cdn-icons-png.flaticon.com/512/21/21104.png"
-            alt="nombre del profesional de la foto"
+            src={profesional.foto}
+            alt={profesional.nombreCompleto}
             className="my-3"
             width={200}
             roundedCircle
@@ -18,12 +18,12 @@ const CardProfesional = () => {
         <Card.Body>
           <Card.Title>
             <span className="nombreProfesionalCard">
-              Nombre del profesional
+              {profesional.nombreCompleto}
             </span>
           </Card.Title>
           <Card.Subtitle>
             <span className="categoriaProfesionalCard">
-              Categoría del profesional
+              {profesional.categoria}
             </span>
           </Card.Subtitle>
           <Card.Text>
@@ -31,8 +31,7 @@ const CardProfesional = () => {
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Button variant="outline-dark">
-            <i className="bi bi-plus-circle"></i>
+          <Button variant="outline-dark">Ver más <i className="bi bi-plus-circle"></i>
           </Button>
         </Card.Footer>
       </Card>
