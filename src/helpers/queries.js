@@ -43,7 +43,6 @@ export const obtenerCategoriasAPI = async () => {
 export const obtenerProfesionalAPI = async (id) => {
   try {
     const respuesta = await fetch(`${URI_Profesionales}/${id}`);
-    console.log(respuesta);
     return respuesta;
   } catch (error) {
     console.error(error);

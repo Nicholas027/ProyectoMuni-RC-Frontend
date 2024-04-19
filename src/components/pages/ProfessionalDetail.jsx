@@ -39,7 +39,6 @@ const ProfessionalDetail = () => {
       const respuesta = await obtenerProfesionalAPI(id);
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
-        console.log(dato);
         setProfesional(dato);
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
@@ -98,7 +97,6 @@ const ProfessionalDetail = () => {
         <div className="d-flex justify-content-center cajaPerfil">
           <div className="estiloFotoPerfil">
             <img
-              // src="https://allyounews.com/wp-content/uploads/2017/09/smiling-young-woman-looking-at-c-52426522.jpg"
               src={profesional.foto}
               alt="Foto de perfil del profesional."
               className="estiloFotoPerfil"
@@ -123,9 +121,6 @@ const ProfessionalDetail = () => {
           >
             CONTACTAR
           </Button>
-          {/* <p className="h4 my-3 container texto d-flex justify-content-center">
-          Hola! Soy María, una apasionada albañil con una sólida experiencia en la construcción y reparación de estructuras. Estoy decidida a encontrar un trabajo donde pueda aplicar mis habilidades y contribuir al éxito de un proyecto.
-          </p> */}
           <p className="h4 my-3 container texto d-flex justify-content-center">
             {profesional.descripcion}
           </p>
