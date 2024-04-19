@@ -21,14 +21,7 @@ export const obtenerProfesionalesAPI = async () => {
 
 export const obtenerProfesionalesCategoriaAPI = async (categoria) => {
   try {
-    const respuesta = await fetch(
-      URI_Profesionales + "/" + "category" + "/" + categoria,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    const respuesta = await fetch(URI_Profesionales + "/" + "category" + "/" + categoria);
     return await respuesta.json()
   } catch (error) {
     throw new Error(`Error al obtener los profesionales: ${error.message}`);
@@ -39,7 +32,6 @@ export const obtenerCategoriasAPI = async () => {
   try {
     const respuesta = await fetch(URI_Profesionales + "/" + "categories");
     const listaCategorias = await respuesta.json();
-    console.log(listaCategorias);
     return listaCategorias;
   } catch (error) {
     throw new Error(`Error al obtener las categorías: ${error.message}`);
