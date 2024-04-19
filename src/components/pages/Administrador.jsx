@@ -8,11 +8,12 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { obtenerProfesionalesAPI } from "../../helpers/queries";
+import { obtenerProfesionalesAPI, modificarEstadoProfesionalAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
 
 import "../../styles/administrador.css";
 import useTitle from "../../hooks/useTitle";
+import ProfesionalId from "./administrador/ProfesionalId";
 
 const Administrador = () => {
   useTitle("Panel de Administrador");
@@ -64,11 +65,42 @@ const Administrador = () => {
     setShowModalFotoPerfil(false);
   };
 
+  const handleDarAltaProfesional = async (profesionalId, pendiente) => {
+    const confirmacion = await Swal.fire({
+      title: pendiente ? '¿Estás seguro de dar de alta?' : '¿Estás seguro de dar de baja?',
+      text: pendiente ? "Estás a punto de dar de alta al profesional" : "Estás a punto de dar de baja al profesional",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004b81',
+      cancelButtonColor: '#d33',
+      confirmButtonText: pendiente ? 'Sí, dar de alta' : 'Sí, dar de baja',
+      cancelButtonText: 'Cancelar'
+    });
+    if (confirmacion.isConfirmed) {
+      try {
+        const nuevoEstado = !pendiente;
+        await modificarEstadoProfesionalAPI(profesionalId, nuevoEstado);
+        await obtenerProfesionales();
+        Swal.fire({
+          title: '¡Hecho!',
+          text: `El profesional ha sido ${nuevoEstado ? 'dado de baja' : 'dado de alta'} correctamente`,
+          icon: 'success'
+        });
+      } catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: `Hubo un error al ${pendiente ? 'dar de alta' : 'dar de baja'} al profesional`,
+          icon: 'error'
+        });
+      }
+    }
+  };
+
   return (
     <Container className="mainContainer">
       <div className="d-flex justify-content-between align-items-center mt-5">
         <h2 className="display-4 admin-title">Profesionales Registrados</h2>
-        <Link className="btn btn-primary btn-dar-alta" to="#">
+        <Link className="btn btn-primary btn-dar-alta" to="/profesional/crear">
           <i className="bi bi-person-plus"></i> Dar de alta un profesional
         </Link>
       </div>
@@ -85,12 +117,13 @@ const Administrador = () => {
               <th>Teléfono</th>
               <th>Mail</th>
               <th>Estado</th>
+              <th><i className="bi bi-gear"></i></th>
             </tr>
           </thead>
           <tbody>
             {profesionales.map((profesional) => (
-              <tr key={profesional.id} className="text-center">
-                <td>#{profesional.id}</td>
+              <tr key={profesional._id} className="text-center">
+                <td>#<ProfesionalId id={profesional._id} /></td>
                 <td>{profesional.nombreCompleto}</td>
                 <td>
                   <Button
@@ -125,8 +158,10 @@ const Administrador = () => {
                 </td>
                 <td>
                   <DropdownButton id="custom-dropdown" title="Opciones">
-                    <Dropdown.Item href="#">Dar alta <i className="bi bi-person-plus-fill"></i></Dropdown.Item>
-                    <Dropdown.Item href="#">Borrar <i className="bi bi-trash"></i></Dropdown.Item>
+                  <Dropdown.Item onClick={() => handleDarAltaProfesional(profesional._id, profesional.pendiente)}>
+                       {profesional.pendiente ? 'Dar alta' : 'Dar baja'}
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#">Borrar <i className="bi bi-trash"></i></Dropdown.Item>
                   </DropdownButton>
                 </td>
               </tr>
