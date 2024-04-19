@@ -13,8 +13,9 @@ import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
 import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
 import { useEffect, useState } from "react";
-import { obtenerProfesionalesAPI } from "../../helpers/queries";
+import { obtenerProfesionalAPI } from "../../helpers/queries";
 import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
+import { useParams } from "react-router-dom";
 
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
@@ -24,9 +25,10 @@ const ProfessionalDetail = () => {
   const [evento, setEvento] = useState(false);
   const handleResenaClose = () => setEvento(false);
   const handleResenaShow = () => setEvento(true);
-
-  // Encontrar al profesional
+  
   const [profesional, setProfesional] = useState({});
+
+  const {id} = useParams();
 
   useEffect(() => {
     obtenerProfesional();
@@ -34,18 +36,13 @@ const ProfessionalDetail = () => {
 
   const obtenerProfesional = async () => {
     try {
-      const respuesta = await obtenerProfesionalesAPI();
+      const respuesta = await obtenerProfesionalAPI(id);
       if (respuesta.status === 200) {
-        const datos = await respuesta.json();
-        console.log(datos);
-
-        datos.map((itemProfesional) => {
-          if (itemProfesional._id === "661f1f38dea0d3444ede46de") {
-            setProfesional(itemProfesional);
-          }
-        });
+        const dato = await respuesta.json();
+        console.log(dato);
+        setProfesional(dato);
       } else {
-        throw new Error("Ocurrió un error al obtener los profesionales.");
+        throw new Error("Ocurrió un error al obtener al profesional.");
       }
     } catch (error) {
       Swal.fire({
