@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/" element={<Index></Index>}></Route>
         <Route
           exact
-          path="/categorias"
+          path="/categorias/:categoria"
           element={<Categoria></Categoria>}
         ></Route>
          <Route
