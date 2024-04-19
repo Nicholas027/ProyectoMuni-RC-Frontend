@@ -1,10 +1,13 @@
-import "../../../styles/signUp.css";
+import "../../../styles/administrador-alta.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import logoMuni from "../../../assets/logo_muni_vertical_AZUL.png";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
 import useTitle from "../../../hooks/useTitle";
+import Swal from 'sweetalert2';
+import { professionalAdminRegisterAPI } from "../../../helpers/queries.js";
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const {
@@ -14,17 +17,45 @@ const SignUp = () => {
   } = useForm();
 
   useTitle("Añadir nuevo profesional")
+  const navigate = useNavigate();
 
-  const onSubmit = async (nuevoProfesional) => {
-    console.log(nuevoProfesional);
-  };
+  const onSubmit = async (formData) => {
+    try {
+      formData.pendiente = false;
+      const response = await professionalAdminRegisterAPI(formData);
+      if (response.profesional) {
+        Swal.fire({
+          title: '¡Hecho!',
+          text: `${response.mensaje}`,
+          icon: 'success'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/administrador");
+          }
+        });
+      } else {
+        Swal.fire({
+          title: "Ocurrió un error",
+          text: `Intenta esta operación en unos minutos.`,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error al registrar el profesional:", error);
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+      });
+    }
+  };;
 
   return (
     <>
-      <div className="position-relative">
+      <div className="position-relative all-contain">
         <div className="backgroundSignUp">
           <img
-            src="https://scontent.faep6-1.fna.fbcdn.net/v/t39.30808-6/251378801_4826907517342542_8931559505337231654_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeF9SiF35dffz4DalMzMoWP6vB_XlfWWEg68H9eV9ZYSDopXGgUimN4ZFjsGdm4-PIotal7hjaSqn4EPn_4SBKe5&_nc_ohc=UD3s6L6s1iEAb440Che&_nc_ht=scontent.faep6-1.fna&oh=00_AfCg2zMSinVwYbu6ijCcbD1DaelARCh9XEkBEcyhvtsYow&oe=6625F8BC"
+            src="https://vientostucumanos.com.ar/download/multimedia.normal.9757421f7482217b.4675656e74655f6e6f726d616c2e6a7067.jpg"
             alt="imgProducto"
           />
         </div>
@@ -93,7 +124,7 @@ const SignUp = () => {
                   type="text"
                   placeholder="Ingrese una dirección de foto"
                   {...register("foto", {
-                    required: "Ingrese su foto",
+                    required: "Ingrese la foto de perfil del profesional",
                     pattern: {
                       value:
                         /(http)=?s?:?(\/\/[^"'"]*\.(?:png|jpg|jpeg|gif|svg))/i,
@@ -157,7 +188,7 @@ const SignUp = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formCategoria">
-                <Form.Label>Categoría (Profesión que ejerce):</Form.Label>
+                <Form.Label>Categoría (Profesión ejercida por él):</Form.Label>
                 <Form.Select
                   {...register("categoria", {
                     required: "Seleccione una Categoría",
@@ -182,7 +213,7 @@ const SignUp = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Número de Teléfono (sin 15 ni 0 ni -)</Form.Label>
+                <Form.Label>Número de Teléfono de contacto (sin 15 ni 0 ni -)</Form.Label>
                 <Form.Control
                   type="tel"
                   placeholder="3865505050"

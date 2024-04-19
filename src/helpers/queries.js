@@ -37,4 +37,25 @@ export const modificarEstadoProfesionalAPI = async (profesionalId, nuevoEstado) 
     throw new Error(`Error en la petición para ${nuevoEstado ? 'dar de alta' : 'dar de baja'} al profesional`);
   }
 };
+
+//Registro de un profesional desde el panel de administrador.
+export const professionalAdminRegisterAPI = async (formData) => {
+  try {
+    const response = await fetch(`${URI_Profesionales}/registerAdmin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al registrar el profesional');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Error en la petición para registrar el profesional: ${error.message}`);
+  }
+};
   
