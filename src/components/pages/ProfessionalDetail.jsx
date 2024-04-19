@@ -1,10 +1,21 @@
 import { Button, Card, Container, Form, Modal } from "react-bootstrap";
-// Despues voy a usar esto para la portada.
-import imagenPortada from "../../assets/categoryLogos/albanilLogo.webp";
+import portadaAlbanil from "../../assets/categoryLogos/albanilLogo.webp";
+import portadaCarpintero from "../../assets/categoryLogos/carpinteriaLogo.jpg";
+import portadaCerrajero from "../../assets/categoryLogos/cerrajeroLogo.jpg";
+import portadaElectricista from "../../assets/categoryLogos/electricistaLogo.jpg";
+import portadaGasista from "../../assets/categoryLogos/gasistaLogo.png";
+import portadaHerrero from "../../assets/categoryLogos/herreroLogo.webp";
+import portadaJardinero from "../../assets/categoryLogos/jardineroLogo.jpg";
+import portadaMecanico from "../../assets/categoryLogos/mecanicoLogo.webp";
+import portadaOtros from "../../assets/categoryLogos/otrosLogo.jpg";
+import portadaPintor from "../../assets/categoryLogos/pintorLogo.jpeg";
+import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
 import imgValoracion from "../../assets/valoracion-cuadro.png";
 import "../../styles/ProfessionalDetail.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { obtenerProfesionalAPI } from "../../helpers/queries";
 import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
+import { useParams } from "react-router-dom";
 
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
@@ -15,11 +26,70 @@ const ProfessionalDetail = () => {
   const handleResenaClose = () => setEvento(false);
   const handleResenaShow = () => setEvento(true);
 
+  const [profesional, setProfesional] = useState({});
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    obtenerProfesional();
+  }, []);
+
+  const obtenerProfesional = async () => {
+    try {
+      const respuesta = await obtenerProfesionalAPI(id);
+      if (respuesta.status === 200) {
+        const dato = await respuesta.json();
+        setProfesional(dato);
+      } else {
+        throw new Error("Ocurrió un error al obtener al profesional.");
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+      });
+    }
+  };
+
+  // Email del profesional
+  const emailProfesional = `mailto:${profesional.email}`;
+  const cadena = `${profesional.telefono}`;
+  const telefonoSinMas = cadena.replace("+", "");
+
+  // WhatsApp del profesional
+  const telefono = `https://api.whatsapp.com/send/?phone=%2B${telefonoSinMas}&text&type=phone_number&app_absent=0`;
+
+  // Mostrar la cantidad de estrellas del Profesional
+  const estrellas = [];
+  for (let i = 0; i < profesional.calificacion; i++) {
+    estrellas.push(1);
+  }
+
+  // Logica para seleccionar la foto de portada por la categoria.
+  let categoria;
+  const fotosPortada = [
+    { nombre: "Albañil", direccion: portadaAlbanil },
+    { nombre: "Carpintero", direccion: portadaCarpintero },
+    { nombre: "Cerrajero", direccion: portadaCerrajero },
+    { nombre: "Electricista", direccion: portadaElectricista },
+    { nombre: "Gasista", direccion: portadaGasista },
+    { nombre: "Herrero", direccion: portadaHerrero },
+    { nombre: "Jardinero", direccion: portadaJardinero },
+    { nombre: "Mecanico", direccion: portadaMecanico },
+    { nombre: "Otros", direccion: portadaOtros },
+    { nombre: "Pintor", direccion: portadaPintor },
+    { nombre: "Plomero", direccion: portadaPlomero },
+  ];
+  fotosPortada.map((item) => {
+    if (profesional.categoria === item.nombre) categoria = item.direccion;
+  });
+
   return (
     <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
-          src={imagenPortada}
+          src={categoria}
           alt="Foto de portada con la categoria del profesional."
           height={200}
           className="cajaPortada"
@@ -27,21 +97,23 @@ const ProfessionalDetail = () => {
         <div className="d-flex justify-content-center cajaPerfil">
           <div className="estiloFotoPerfil">
             <img
-              src="https://allyounews.com/wp-content/uploads/2017/09/smiling-young-woman-looking-at-c-52426522.jpg"
+              src={profesional.foto}
               alt="Foto de perfil del profesional."
               className="estiloFotoPerfil"
             />
           </div>
         </div>
         <Container className="text-center mt-5">
-          <h1 className="mt-5 mb-2 tituloPrincipal">Marta María Vera</h1>
-          <span className="categoria px-1 text-light">Albañil</span>
+          <h1 className="mt-5 mb-2 tituloPrincipal">
+            {profesional.nombreCompleto}
+          </h1>
+          <span className="categoria px-1 text-light">
+            {profesional.categoria}
+          </span>
           <div className="mt-2 text-warning h4">
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
+            {estrellas.map((item,pos) => (
+              <i key={pos} className="bi bi-star-fill me-1"></i>
+            ))}
           </div>
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
@@ -49,8 +121,8 @@ const ProfessionalDetail = () => {
           >
             CONTACTAR
           </Button>
-          <p className="h4 my-3 container texto">
-          Hola! Soy María, una apasionada albañil con una sólida experiencia en la construcción y reparación de estructuras. Estoy decidida a encontrar un trabajo donde pueda aplicar mis habilidades y contribuir al éxito de un proyecto.
+          <p className="h4 my-3 container texto d-flex justify-content-center">
+            {profesional.descripcion}
           </p>
         </Container>
       </section>
@@ -58,7 +130,8 @@ const ProfessionalDetail = () => {
         <h3 className="mb-4 titulo">CURRICULUM VITAE</h3>
         <img
           src="https://cdn-v1.udocz-assets.com/uploads/book/cover/447297/447297.jpg"
-          alt="Curriculum Vitae del profesional."
+          // alt="Curriculum Vitae del profesional."
+          alt={profesional.cv}
           className="img-fluid"
         />
       </section>
@@ -95,7 +168,7 @@ const ProfessionalDetail = () => {
               <i className="bi bi-star-fill"></i>
             </Card.Header>
             <Card.Body>
-                <Card.Title>Luis Figal</Card.Title>
+              <Card.Title>Luis Figal</Card.Title>
               <Card.Text className="texto">
                 Trabajo realizado, todo ha quedado muy bien, profesional de
                 confianza.
@@ -114,7 +187,7 @@ const ProfessionalDetail = () => {
           closeButton
           className="h2 d-flex justify-content-center pt-3 titulo fondoAzul"
         >
-          Contactate con el Profesional
+          Contactate con {profesional.nombreCompleto}
         </Modal.Header>
         <Modal.Body>
           <div className="text-center mt-3">
@@ -123,11 +196,11 @@ const ProfessionalDetail = () => {
             </span>
             <div className="p-1"></div>
             <span className="border border-danger p-2 rounded-pill">
-              3865-202746
+              {profesional.telefono}
             </span>
             <br />
             <a
-              href="https://api.whatsapp.com/send/?phone=%2B5493865228080&text&type=phone_number&app_absent=0"
+              href={telefono}
               target="_blank"
               className="btn btn-outline-success my-3 mt-5 titulo"
             >
@@ -136,7 +209,7 @@ const ProfessionalDetail = () => {
             </a>
             <br />
             <a
-              href="mailto:prensa@concepcion.gob.ar"
+              href={emailProfesional}
               target="_blank"
               className="btn btn-outline-info my-4 titulo"
             >
@@ -195,17 +268,23 @@ const ProfessionalDetail = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="inputNombre">
               <Form.Label>Tu Nombre</Form.Label>
-              <Form.Control type="text" placeholder="Ej: Facundo Herrera"
-          required
-          minLength={3}
-          maxLength={20} />
+              <Form.Control
+                type="text"
+                placeholder="Ej: Facundo Herrera"
+                required
+                minLength={3}
+                maxLength={20}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="inputEmail">
               <Form.Label>Tu Dirección de Email</Form.Label>
-              <Form.Control type="email" placeholder="roberto@gmail.com" 
-          required
-          minLength={5}
-          maxLength={150} />
+              <Form.Control
+                type="email"
+                placeholder="roberto@gmail.com"
+                required
+                minLength={5}
+                maxLength={150}
+              />
             </Form.Group>
             <div className="text-center my-2">
               <Button type="submit" className="btnContacto">
