@@ -17,15 +17,8 @@ const SignUpProfessional = () => {
   const onSubmit = async (usuario) => {
     try {
       usuario.calificacion = 5;
-      usuario.telefono = "+5493865394857";
-      // usuario.nombreCompleto = "Brenda Vazque";
-      // usuario.foto = "https://i.com/img.jpg";
-      // usuario.dni = 41493485;
-      // usuario.password = "Contraseña1";
-      // usuario.cv = "My name";
-      // usuario.categoria = "Gasista";
-      // usuario.descripcion = "una gran persona jejej. Bueno...";
-      // usuario.email = "bren@vazq.com";
+      let telefono = "+549"+usuario.telefono;
+      usuario.telefono = telefono;
 
       console.log(usuario)
       const response = await professionalRegisterAPI(usuario);
