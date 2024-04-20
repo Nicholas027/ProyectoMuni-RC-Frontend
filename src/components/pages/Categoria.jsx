@@ -15,8 +15,14 @@ const Categoria = () => {
 
   const [profesionales, setProfesionales] = useState([]);
   const [categorias, setCategorias] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
+
+  const normalizarString = (string) => {
+    return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  };
 
   useEffect(() => {
+    setBusqueda("");
     listarProfesionales();
   }, [categoria]);
 
@@ -44,6 +50,28 @@ const Categoria = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const buscarProfesionales = async (searchTerm) => {
+    try {
+      const respuesta = await buscarProfesionalesAPI(categoria, searchTerm);
+      setProfesionales(respuesta);
+      console.log(respuesta)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleBusquedaChange = async (e) => {
+    const valorBusqueda = e.target.value;
+    setBusqueda(valorBusqueda);
+    console.log(valorBusqueda);
+    buscarProfesionales(normalizarString(valorBusqueda));
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    buscarProfesionales(normalizarString(busqueda));
   };
 
   return (
