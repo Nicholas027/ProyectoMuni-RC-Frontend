@@ -12,6 +12,7 @@ const SignUpProfessional = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (usuario) => {
@@ -22,6 +23,7 @@ const SignUpProfessional = () => {
 
       console.log(usuario)
       const response = await professionalRegisterAPI(usuario);
+      reset()
       if (response.profesional) {
         Swal.fire({
           title: '¡Hecho!',
