@@ -30,47 +30,40 @@ const CategoryGrid = () => {
         nombre={"Carpinteros"}
       ></CardCategory>
     </Link>,
-    <Link  to="/categorias/gasista"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/gasista" className="text-decoration-none text-dark">
       <CardCategory imagen={gasistaLogo} nombre={"Gasistas"}></CardCategory>
     </Link>,
-    <Link  to="/categorias/cerrajero"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/cerrajero" className="text-decoration-none text-dark">
       <CardCategory imagen={cerrajeroLogo} nombre={"Cerrajeros"}></CardCategory>
     </Link>,
-    <Link  to="/categorias/mecanico"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/mecanico" className="text-decoration-none text-dark">
       <CardCategory imagen={mecanicoLogo} nombre={"Mecánicos"}></CardCategory>
     </Link>,
-    <Link  to="/categorias/electricista"
-    className="text-decoration-none text-dark">
+    <Link
+      to="/categorias/electricista"
+      className="text-decoration-none text-dark"
+    >
       <CardCategory
         imagen={electricistaLogo}
         nombre={"Electricistas"}
       ></CardCategory>
     </Link>,
-    <Link  to="/categorias/albañil"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/albañil" className="text-decoration-none text-dark">
       <CardCategory imagen={albanilLogo} nombre={"Albañiles"}></CardCategory>
     </Link>,
-    <Link  to="/categorias/plomero"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/plomero" className="text-decoration-none text-dark">
       <CardCategory imagen={plomeriaLogo} nombre={"Plomeros"}></CardCategory>
     </Link>,
-    <Link  to="/categorias/pintor"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/pintor" className="text-decoration-none text-dark">
       <CardCategory imagen={pintorLogo} nombre={"Pintores"}></CardCategory>
     </Link>,
-    <Link  to="/categorias/herrero"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/herrero" className="text-decoration-none text-dark">
       <CardCategory imagen={herreroLogo} nombre={"Herreros"}></CardCategory>
     </Link>,
-    <Link  to="/categorias/jardinero"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/jardinero" className="text-decoration-none text-dark">
       <CardCategory imagen={jardineroLogo} nombre={"Jardineros"}></CardCategory>
     </Link>,
-    <Link  to="/categorias/otros"
-    className="text-decoration-none text-dark">
+    <Link to="/categorias/otros" className="text-decoration-none text-dark">
       <CardCategory imagen={otrosLogo} nombre={"Otros"}></CardCategory>
     </Link>,
   ];
