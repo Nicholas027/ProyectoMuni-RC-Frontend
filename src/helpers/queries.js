@@ -97,3 +97,22 @@ export const buscarProfesionalesAPI = async (categoria, search) =>{
     throw new Error(`Error al buscar a los profesionales: ${error.message}`);
   }
 }
+
+export const borrarProfesionalAPI = async (profesionalId) => {
+  try {
+    const response = await fetch(`${URI_Profesionales}/${profesionalId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Error al borrar el profesional');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Error al borrar al profesional: ${error.message}`);
+  }
+}

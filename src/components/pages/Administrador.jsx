@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { obtenerProfesionalesAPI, modificarEstadoProfesionalAPI } from "../../helpers/queries";
+import { obtenerProfesionalesAPI, modificarEstadoProfesionalAPI, borrarProfesionalAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
 
 import "../../styles/administrador.css";
@@ -96,6 +96,36 @@ const Administrador = () => {
     }
   };
 
+  const handleBorrarProfesional = async (profesionalId) => {
+    const confirmacion = await Swal.fire({
+      title: "Estás seguro de borrar a este profesional?",
+      text: "Estás a punto de borrar al profesional",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004b81',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, borrar',
+      cancelButtonText: 'Cancelar'
+    });
+    if (confirmacion.isConfirmed) {
+      try {
+        await borrarProfesionalAPI(profesionalId);
+        await obtenerProfesionales();
+        Swal.fire({
+          title: '¡Hecho!',
+          text: `El profesional ha sido borrado correctamente`,
+          icon: 'success'
+        });
+      } catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: `Hubo un error al borrar al profesional`,
+          icon: 'error'
+        });
+      }
+    }
+  }
+
   return (
     <Container className="mainContainer">
       <div className="d-flex justify-content-between align-items-center mt-5">
@@ -161,7 +191,8 @@ const Administrador = () => {
                   <Dropdown.Item onClick={() => handleDarAltaProfesional(profesional._id, profesional.pendiente)}>
                        {profesional.pendiente ? 'Dar alta' : 'Dar baja'}
                   </Dropdown.Item>
-                  <Dropdown.Item href="#">Borrar <i className="bi bi-trash"></i></Dropdown.Item>
+                  <Dropdown.Item onClick={()=> handleBorrarProfesional(profesional._id)}>Borrar <i className="bi bi-trash"></i></Dropdown.Item>
+                  <Dropdown.Item href="#">Editar <i className="bi bi-pencil"></i></Dropdown.Item>
                   </DropdownButton>
                 </td>
               </tr>
