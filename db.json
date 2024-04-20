@@ -1,0 +1,30 @@
+{
+    "profesionales": [
+        {
+            "id": "01",
+            "nombreCompleto": "Nicolas Saavedra",
+            "foto": "https://allyounews.com/wp-content/uploads/2017/09/smiling-young-woman-looking-at-c-52426522.jpg", 
+            "dni": 32115789,
+            "password": "123456",
+            "cv": "https://cdn-v1.udocz-assets.com/uploads/book/cover/447297/447297.jpg",
+            "categoria": "Carpintero",
+            "calificacion": 2,
+            "telefono": 12345678,
+            "email": "nicholas@mail.com",
+            "pendiente": true
+        },
+        {
+            "id": "02",
+            "nombreCompleto": "Manolo Gomez",
+            "foto": "https://allyounews.com/wp-content/uploads/2017/09/smiling-young-woman-looking-at-c-52426522.jpg", 
+            "dni": 32115789,
+            "password": "123456",
+            "cv": "https://cdn-v1.udocz-assets.com/uploads/book/cover/447297/447297.jpg",
+            "categoria": "Herrero",
+            "calificacion": 2,
+            "telefono": 12345678,
+            "email": "manolo@mail.com",
+            "pendiente": false
+        }
+    ]
+}
