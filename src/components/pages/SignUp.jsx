@@ -20,8 +20,6 @@ const SignUpProfessional = () => {
       usuario.calificacion = 5;
       let telefono = "+549"+usuario.telefono;
       usuario.telefono = telefono;
-
-      console.log(usuario)
       const response = await professionalRegisterAPI(usuario);
       reset()
       if (response.profesional) {
