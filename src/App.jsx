@@ -13,10 +13,12 @@ import Login from "./components/pages/Login.jsx";
 import Administrador from "./components/pages/Administrador.jsx";
 import SignUp from "./components/pages/SignUp.jsx";
 import DarAltaProfesional from './components/pages/administrador/DarAltaProfesional.jsx'
+import ScrollToTop from "./components/common/ScrollToTop.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <MenuNav></MenuNav>
       <Routes>
         <Route exact path="/signin" element={<Login></Login>}></Route>

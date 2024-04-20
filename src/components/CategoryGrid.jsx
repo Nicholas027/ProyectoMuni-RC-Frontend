@@ -11,6 +11,7 @@ import pintorLogo from "../assets/categoryLogos/pintorLogo.jpeg";
 import jardineroLogo from "../assets/categoryLogos/jardineroLogo.jpg";
 import otrosLogo from "../assets/categoryLogos/otrosLogo.jpg";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const CategoryGrid = () => {
   const [busqueda, setBusqueda] = useState("");
@@ -20,23 +21,58 @@ const CategoryGrid = () => {
   };
 
   const cards = [
-    <CardCategory
-      imagen={carpinteriaLogo}
-      nombre={"Carpinteros"}
-    ></CardCategory>,
-    <CardCategory imagen={gasistaLogo} nombre={"Gasistas"}></CardCategory>,
-    <CardCategory imagen={cerrajeroLogo} nombre={"Cerrajeros"}></CardCategory>,
-    <CardCategory imagen={mecanicoLogo} nombre={"Mecánicos"}></CardCategory>,
-    <CardCategory
-      imagen={electricistaLogo}
-      nombre={"Electricistas"}
-    ></CardCategory>,
-    <CardCategory imagen={albanilLogo} nombre={"Albañiles"}></CardCategory>,
-    <CardCategory imagen={plomeriaLogo} nombre={"Plomeros"}></CardCategory>,
-    <CardCategory imagen={pintorLogo} nombre={"Pintores"}></CardCategory>,
-    <CardCategory imagen={herreroLogo} nombre={"Herreros"}></CardCategory>,
-    <CardCategory imagen={jardineroLogo} nombre={"Jardineros"}></CardCategory>,
-    <CardCategory imagen={otrosLogo} nombre={"Otros"}></CardCategory>,
+    <Link
+      to="/categorias/carpintero"
+      className="text-decoration-none text-dark"
+    >
+      <CardCategory
+        imagen={carpinteriaLogo}
+        nombre={"Carpinteros"}
+      ></CardCategory>
+    </Link>,
+    <Link  to="/categorias/gasista"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={gasistaLogo} nombre={"Gasistas"}></CardCategory>
+    </Link>,
+    <Link  to="/categorias/cerrajero"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={cerrajeroLogo} nombre={"Cerrajeros"}></CardCategory>
+    </Link>,
+    <Link  to="/categorias/mecanico"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={mecanicoLogo} nombre={"Mecánicos"}></CardCategory>
+    </Link>,
+    <Link  to="/categorias/electricista"
+    className="text-decoration-none text-dark">
+      <CardCategory
+        imagen={electricistaLogo}
+        nombre={"Electricistas"}
+      ></CardCategory>
+    </Link>,
+    <Link  to="/categorias/albañil"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={albanilLogo} nombre={"Albañiles"}></CardCategory>
+    </Link>,
+    <Link  to="/categorias/plomero"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={plomeriaLogo} nombre={"Plomeros"}></CardCategory>
+    </Link>,
+    <Link  to="/categorias/pintor"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={pintorLogo} nombre={"Pintores"}></CardCategory>
+    </Link>,
+    <Link  to="/categorias/herrero"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={herreroLogo} nombre={"Herreros"}></CardCategory>
+    </Link>,
+    <Link  to="/categorias/jardinero"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={jardineroLogo} nombre={"Jardineros"}></CardCategory>
+    </Link>,
+    <Link  to="/categorias/otros"
+    className="text-decoration-none text-dark">
+      <CardCategory imagen={otrosLogo} nombre={"Otros"}></CardCategory>
+    </Link>,
   ];
 
   const filteredCards = busqueda
