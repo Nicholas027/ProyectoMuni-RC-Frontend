@@ -88,3 +88,12 @@ export const obtenerProfesionalAPI = async (id) => {
     console.error(error);
   }
 };
+
+export const buscarProfesionalesAPI = async (categoria, search) =>{
+  try {
+    const respuesta = await fetch(URI_Profesionales + '/' + 'category' + '/' + categoria + '/' + search)
+    return await respuesta.json()
+  } catch (error) {
+    throw new Error(`Error al buscar a los profesionales: ${error.message}`);
+  }
+}
