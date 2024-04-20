@@ -1,8 +1,9 @@
-import { Container, Row, Dropdown } from "react-bootstrap";
+import { Container, Row, Dropdown, Form, Col } from "react-bootstrap";
 import CardProfesional from "./profesional/CardProfesional";
 import "../../styles/categoria.css";
 import { useEffect, useState } from "react";
 import {
+  buscarProfesionalesAPI,
   obtenerCategoriasAPI,
   obtenerProfesionalesCategoriaAPI,
 } from "../../helpers/queries";
@@ -56,7 +57,7 @@ const Categoria = () => {
     try {
       const respuesta = await buscarProfesionalesAPI(categoria, searchTerm);
       setProfesionales(respuesta);
-      console.log(respuesta)
+      console.log(respuesta);
     } catch (error) {
       console.error(error);
     }
@@ -76,22 +77,42 @@ const Categoria = () => {
 
   return (
     <Container className="mainSection my-5">
-      <h1 className="text-center tituloCategoria">{categoria}</h1>
-      <Dropdown className="d-flex justify-content-end">
-        <Dropdown.Toggle variant="secondary" id="dropdownCategorias" size="sm">
-          CATEGORÍAS
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="dropdownMenu">
-          {categorias.map((categoria) => (
-            <Dropdown.Item
-              key={categoria}
-              onClick={() => navigate(`/categorias/${categoria}`)}
+      <h1 className="text-center tituloCategoria">{categoria.toUpperCase()}</h1>
+      <Row>
+        <Col>
+          <Form onSubmit={handleFormSubmit} className="w-75">
+            <Form.Group className="mb-3" controlId="formBuscador">
+              <Form.Control
+                type="text"
+                placeholder="Buscar por nombre"
+                value={busqueda}
+                onChange={handleBusquedaChange}
+              />
+            </Form.Group>
+          </Form>
+        </Col>
+        <Col>
+          <Dropdown className="d-flex justify-content-end">
+            <Dropdown.Toggle
+              variant="secondary"
+              id="dropdownCategorias"
+              size="sm"
             >
-              {categoria}
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+              CATEGORÍAS
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="dropdownMenu">
+              {categorias.map((categoria) => (
+                <Dropdown.Item
+                  key={categoria}
+                  onClick={() => navigate(`/categorias/${categoria}`)}
+                >
+                  {categoria}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+      </Row>
       <Row className="my-4">
         {profesionales.length === 0 ? (
           <p className="text-center">
