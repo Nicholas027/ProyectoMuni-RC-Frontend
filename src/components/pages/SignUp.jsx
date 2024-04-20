@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
 import { useState } from "react";
 
-const SignUp = () => {
+const SignUpProfessional = () => {
   const {
     register,
     handleSubmit,
@@ -14,7 +14,30 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = async (usuario) => {
-    console.log(usuario);
+    try {
+      usuario.pendiente = true;
+      const response = await professionalRegisterAPI(usuario);
+      if (response.profesional) {
+        Swal.fire({
+          title: '¡Hecho!',
+          text: `${response.mensaje}`,
+          icon: 'success'
+        });
+      } else {
+        Swal.fire({
+          title: "Ocurrió un error",
+          text: `Intenta esta operación en unos minutos.`,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error al registrar el profesional:", error);
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+      });
+    }
   };
 
   return (
@@ -227,4 +250,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpProfessional;
