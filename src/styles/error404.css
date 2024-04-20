@@ -4,7 +4,7 @@
   font-family: "Rubik", sans-serif;
   font-weight: 600;
   font-style: normal;
-  color: white;
+  color: #151544;
 }
 
 .mensajeError {
@@ -13,38 +13,17 @@
   font-style: normal;
 }
 
-.wrapper {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-}
-
-.overlay {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  background-color: #151544b5;
-}
-
-.wrapper a {
-  color: white;
+.iconsError a {
+  color: #151544;
   padding: 10px;
   margin: 5px;
   transition: background-color 0.3s, color 0.3s;
   border-radius: 50px;
 }
 
-.wrapper a:hover {
-  background-color: white;
-  color: #151544;
+.iconsError a:hover {
+  background-color: #151544;
+  color: white;
 }
 
 .btn {
