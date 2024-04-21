@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
 import { obtenerProfesionalAPI, professionalRegisterAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const SignUpProfessional = ({ editar, titulo, boton }) => {
@@ -25,6 +25,7 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
   },[])
 
   const { id } = useParams();
+  // const navegacion = useNavigate();
 
   const cargarDatosProfesional = async ()=>{
     const respuesta = await obtenerProfesionalAPI(id);
@@ -47,6 +48,19 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
     if (editar) {
       try {
         console.log("Editar el producto.");
+
+      //   //aqui agregar la solicitud a la api para editar un producto
+      // console.log('aqui tendria que editar');
+      // const respuesta = await modificarProductoAPI(producto, id);
+      // if(respuesta.status === 200){
+      //   //se modifico el producto
+      //   Swal.fire({
+      //     title: "Producto modificado",
+      //     text: `El producto "${producto.nombreProducto}" fue modificado correctamente`,
+      //     icon: "success",
+      //   });
+      //   //redireccionar
+      //   navegacion('/administrador');
       } catch (error) {
         console.error("Error al editar el profesional:", error);
         Swal.fire({
