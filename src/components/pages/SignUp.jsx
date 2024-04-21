@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import logoMuni from "../../assets/logo_muni_vertical_AZUL.png";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
-import { obtenerProfesionalAPI, professionalRegisterAPI } from "../../helpers/queries";
+import { obtenerProfesionalAPI, professionalAdminEditAPI, professionalRegisterAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -25,7 +25,7 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
   },[])
 
   const { id } = useParams();
-  // const navegacion = useNavigate();
+  const navegacion = useNavigate();
 
   const cargarDatosProfesional = async ()=>{
     const respuesta = await obtenerProfesionalAPI(id);
@@ -47,27 +47,25 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
   const onSubmit = async (usuario) => {
     if (editar) {
       try {
-        console.log("Editar el producto.");
-
-      //   //aqui agregar la solicitud a la api para editar un producto
-      // console.log('aqui tendria que editar');
-      // const respuesta = await modificarProductoAPI(producto, id);
-      // if(respuesta.status === 200){
-      //   //se modifico el producto
-      //   Swal.fire({
-      //     title: "Producto modificado",
-      //     text: `El producto "${producto.nombreProducto}" fue modificado correctamente`,
-      //     icon: "success",
-      //   });
-      //   //redireccionar
-      //   navegacion('/administrador');
+        // let telefono = "+549" + usuario.telefono;
+        // usuario.telefono = telefono;
+        usuario.calificacion = 5;
+        const respuesta = await professionalAdminEditAPI(usuario, id);
+        if(respuesta.status === 200) {
+          Swal.fire({
+            title: "Profesional modificado",
+            text: `El profesional "${usuario.nombreCompleto}" fue modificado correctamente`,
+            icon: "success",
+          });
+          navegacion("/administrador");
+        }
       } catch (error) {
         console.error("Error al editar el profesional:", error);
         Swal.fire({
           title: "Ocurrió un error",
           text: `Intenta esta operación en unos minutos.`,
           icon: "error",
-        });
+        });        
       }
     } else {
       try {
