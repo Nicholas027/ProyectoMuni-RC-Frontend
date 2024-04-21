@@ -129,7 +129,7 @@ const Administrador = () => {
   const navigate = useNavigate();
 
   const handleEditarProfesional = (id) => {
-    navigate("/administrador/editar");
+    navigate("/administrador/editar/"+id);
   }
 
   return (

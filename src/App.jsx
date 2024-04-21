@@ -46,7 +46,7 @@ function App() {
         ></Route>
         <Route
           exact
-          path="/administrador/editar"
+          path="/administrador/editar/:id"
           element={<SignUp></SignUp>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
