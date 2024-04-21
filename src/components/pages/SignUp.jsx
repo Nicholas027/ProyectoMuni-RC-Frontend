@@ -4,8 +4,10 @@ import Form from "react-bootstrap/Form";
 import logoMuni from "../../assets/logo_muni_vertical_AZUL.png";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
-import { professionalRegisterAPI } from "../../helpers/queries";
+import { obtenerProfesionalAPI, professionalRegisterAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const SignUpProfessional = ({ editar, titulo, boton }) => {
   const {
@@ -13,11 +15,46 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm();
+
+  useEffect(()=>{
+    if(editar){
+      cargarDatosProfesional();
+    }
+  },[])
+
+  const { id } = useParams();
+
+  const cargarDatosProfesional = async ()=>{
+    const respuesta = await obtenerProfesionalAPI(id);
+    if(respuesta.status === 200){
+      const profesionalBuscado = await respuesta.json();
+      setValue('nombreCompleto', profesionalBuscado.nombreCompleto);
+      setValue("foto",profesionalBuscado.foto);
+      setValue("dni",profesionalBuscado.dni);
+      setValue("password",profesionalBuscado.password);
+      setValue("cv",profesionalBuscado.cv);
+      setValue("categoria",profesionalBuscado.categoria);
+      setValue("descripcion",profesionalBuscado.descripcion);
+      setValue("telefono",profesionalBuscado.telefono);
+      setValue("email",profesionalBuscado.email);
+    }
+  }
+
 
   const onSubmit = async (usuario) => {
     if (editar) {
-      console.log("Editar el producto.");
+      try {
+        console.log("Editar el producto.");
+      } catch (error) {
+        console.error("Error al editar el profesional:", error);
+        Swal.fire({
+          title: "Ocurrió un error",
+          text: `Intenta esta operación en unos minutos.`,
+          icon: "error",
+        });
+      }
     } else {
       try {
         usuario.calificacion = 5;
