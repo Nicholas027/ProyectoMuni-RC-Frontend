@@ -4,44 +4,99 @@ import Form from "react-bootstrap/Form";
 import logoMuni from "../../assets/logo_muni_vertical_AZUL.png";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
-import { professionalRegisterAPI } from "../../helpers/queries";
+import { obtenerProfesionalAPI, professionalAdminEditAPI, professionalRegisterAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-const SignUpProfessional = () => {
+const SignUpProfessional = ({ editar, titulo, boton }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm();
 
+  useEffect(()=>{
+    if(editar){
+      cargarDatosProfesional();
+    }
+  },[])
+
+  const { id } = useParams();
+  const navegacion = useNavigate();
+
+  const cargarDatosProfesional = async ()=>{
+    const respuesta = await obtenerProfesionalAPI(id);
+    if(respuesta.status === 200){
+      const profesionalBuscado = await respuesta.json();
+      setValue('nombreCompleto', profesionalBuscado.nombreCompleto);
+      setValue("foto",profesionalBuscado.foto);
+      setValue("dni",profesionalBuscado.dni);
+      setValue("password",profesionalBuscado.password);
+      setValue("cv",profesionalBuscado.cv);
+      setValue("categoria",profesionalBuscado.categoria);
+      setValue("descripcion",profesionalBuscado.descripcion);
+      setValue("telefono",profesionalBuscado.telefono);
+      setValue("email",profesionalBuscado.email);
+    }
+  }
+
+
   const onSubmit = async (usuario) => {
-    try {
-      usuario.calificacion = 5;
-      let telefono = "+549"+usuario.telefono;
-      usuario.telefono = telefono;
-      const response = await professionalRegisterAPI(usuario);
-      reset()
-      if (response.profesional) {
+    if (editar) {
+      try {
+        if(!usuario.telefono.includes("+549")){
+          let telefono = "+549" + usuario.telefono;
+          usuario.telefono = telefono;
+        }
+        usuario.calificacion = 5;
+        const respuesta = await professionalAdminEditAPI(usuario, id);
+        if(respuesta.status === 200) {
+          Swal.fire({
+            title: "Profesional modificado",
+            text: `El profesional "${usuario.nombreCompleto}" fue modificado correctamente`,
+            icon: "success",
+          });
+          navegacion("/administrador");
+        }
+      } catch (error) {
+        console.error("Error al editar el profesional:", error);
         Swal.fire({
-          title: '¡Hecho!',
-          text: `${response.mensaje}`,
-          icon: 'success'
-        });
-      } else {
+          title: "Ocurrió un error",
+          text: `Intenta esta operación en unos minutos.`,
+          icon: "error",
+        });        
+      }
+    } else {
+      try {
+        usuario.calificacion = 5;
+        let telefono = "+549" + usuario.telefono;
+        usuario.telefono = telefono;
+        const response = await professionalRegisterAPI(usuario);
+        reset();
+        if (response.profesional) {
+          Swal.fire({
+            title: "¡Hecho!",
+            text: `${response.mensaje}`,
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            title: "Ocurrió un error",
+            text: `Intenta esta operación en unos minutos.`,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        console.error("Error al registrar el profesional:", error);
         Swal.fire({
           title: "Ocurrió un error",
           text: `Intenta esta operación en unos minutos.`,
           icon: "error",
         });
       }
-    } catch (error) {
-      console.error("Error al registrar el profesional:", error);
-      Swal.fire({
-        title: "Ocurrió un error",
-        text: `Intenta esta operación en unos minutos.`,
-        icon: "error",
-      });
     }
   };
 
@@ -64,7 +119,7 @@ const SignUpProfessional = () => {
               width={140}
               height={155}
             />
-            <h1>REGISTRARSE</h1>
+            <h1>{titulo}</h1>
           </div>
 
           <div className="formContent">
@@ -247,7 +302,7 @@ const SignUpProfessional = () => {
 
               <div className="btnConteiner">
                 <Button className="btnPrincipal" type="submit">
-                  Registrarse
+                  {boton}
                 </Button>
               </div>
             </Form>
