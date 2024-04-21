@@ -22,7 +22,17 @@ function App() {
       <MenuNav></MenuNav>
       <Routes>
         <Route exact path="/signin" element={<Login></Login>}></Route>
-        <Route exact path="/signup" element={<SignUp></SignUp>}></Route>
+        <Route
+          exact
+          path="/signup"
+          element={
+            <SignUp
+              editar={false}
+              titulo="REGISTRARSE"
+              boton="Registrarse"
+            ></SignUp>
+          }
+        ></Route>
         <Route exact path="/" element={<Index></Index>}></Route>
         <Route
           exact
@@ -47,7 +57,13 @@ function App() {
         <Route
           exact
           path="/administrador/editar/:id"
-          element={<SignUp></SignUp>}
+          element={
+            <SignUp
+              editar={true}
+              titulo="EDITAR PROFESIONAL"
+              boton="Editar"
+            ></SignUp>
+          }
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>

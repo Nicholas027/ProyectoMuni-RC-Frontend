@@ -7,7 +7,7 @@ import { Container } from "react-bootstrap";
 import { professionalRegisterAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
 
-const SignUpProfessional = () => {
+const SignUpProfessional = ({ editar, titulo, boton }) => {
   const {
     register,
     handleSubmit,
@@ -16,32 +16,36 @@ const SignUpProfessional = () => {
   } = useForm();
 
   const onSubmit = async (usuario) => {
-    try {
-      usuario.calificacion = 5;
-      let telefono = "+549"+usuario.telefono;
-      usuario.telefono = telefono;
-      const response = await professionalRegisterAPI(usuario);
-      reset()
-      if (response.profesional) {
-        Swal.fire({
-          title: '¡Hecho!',
-          text: `${response.mensaje}`,
-          icon: 'success'
-        });
-      } else {
+    if (editar) {
+      console.log("Editar el producto.");
+    } else {
+      try {
+        usuario.calificacion = 5;
+        let telefono = "+549" + usuario.telefono;
+        usuario.telefono = telefono;
+        const response = await professionalRegisterAPI(usuario);
+        reset();
+        if (response.profesional) {
+          Swal.fire({
+            title: "¡Hecho!",
+            text: `${response.mensaje}`,
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            title: "Ocurrió un error",
+            text: `Intenta esta operación en unos minutos.`,
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        console.error("Error al registrar el profesional:", error);
         Swal.fire({
           title: "Ocurrió un error",
           text: `Intenta esta operación en unos minutos.`,
           icon: "error",
         });
       }
-    } catch (error) {
-      console.error("Error al registrar el profesional:", error);
-      Swal.fire({
-        title: "Ocurrió un error",
-        text: `Intenta esta operación en unos minutos.`,
-        icon: "error",
-      });
     }
   };
 
@@ -64,7 +68,7 @@ const SignUpProfessional = () => {
               width={140}
               height={155}
             />
-            <h1>REGISTRARSE</h1>
+            <h1>{titulo}</h1>
           </div>
 
           <div className="formContent">
@@ -247,7 +251,7 @@ const SignUpProfessional = () => {
 
               <div className="btnConteiner">
                 <Button className="btnPrincipal" type="submit">
-                  Registrarse
+                  {boton}
                 </Button>
               </div>
             </Form>
