@@ -5,12 +5,12 @@ import {
   Modal,
   Dropdown,
   DropdownButton,
+  Form
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { obtenerProfesionalesAPI, modificarEstadoProfesionalAPI, borrarProfesionalAPI } from "../../helpers/queries";
+import { obtenerProfesionalesAPI, modificarEstadoProfesionalAPI, borrarProfesionalAPI, obtenerCategoriasAPI} from "../../helpers/queries";
 import Swal from "sweetalert2";
-
 import "../../styles/administrador.css";
 import useTitle from "../../hooks/useTitle";
 import ProfesionalId from "./administrador/ProfesionalId";
@@ -22,11 +22,75 @@ const Administrador = () => {
   const [fotoCV, setFotoCV] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showModalFotoPerfil, setShowModalFotoPerfil] = useState(false);
+  const [filtroEstado, setFiltroEstado] = useState("todos");
+  const [busqueda, setBusqueda] = useState("");
   const [foto, setFoto] = useState(false);
+  const [categorias, setCategorias] = useState([]);
+  const [filtroCategoria, setFiltroCategoria] = useState("");
 
   useEffect(() => {
     obtenerProfesionales();
   }, []);
+
+  useEffect(() => {
+    cargarCategorias();
+  }, []);
+
+  const handleFiltroEstadoChange = (estado) => {
+    setFiltroEstado(estado);
+  };
+
+  const handleBusquedaChange = (e) => {
+    setBusqueda(e.target.value);
+  };
+
+  const handleFiltroCategoriaChange = (categoria) => {
+    setFiltroCategoria(categoria);
+  };
+
+  const profesionalesFiltrados = profesionales.filter((profesional) => {
+    if (filtroEstado === "activos") {
+      if (profesional.pendiente) {
+        return false;
+      }
+    } else if (filtroEstado === "pendientes") {
+      if (!profesional.pendiente) {
+        return false;
+      }
+    }
+  
+    const busquedaNormalizada = busqueda
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+    const nombreNormalizado = profesional.nombreCompleto
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+    const dni = profesional.dni.toString();
+    const emailNormalizado = profesional.email
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+    const telefono = profesional.telefono.toString();
+
+    return (
+        (nombreNormalizado.includes(busquedaNormalizada) ||
+    dni.includes(busquedaNormalizada) ||
+    emailNormalizado.includes(busquedaNormalizada) ||
+    telefono.includes(busquedaNormalizada)) &&
+    (filtroCategoria === "" || profesional.categoria === filtroCategoria)
+    );
+  });
+
+  const cargarCategorias = async () => {
+    try {
+      const respuesta = await obtenerCategoriasAPI();
+      setCategorias(respuesta);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const obtenerProfesionales = async () => {
     try {
@@ -140,6 +204,47 @@ const Administrador = () => {
           <i className="bi bi-person-plus"></i> Dar de alta un profesional
         </Link>
       </div>
+      <Container className="filterContainer mb-4 mt-2">
+         {/* Filtrar por nombre, dni o email search */}
+          <Form.Control
+            type="text"
+            placeholder="Buscar por nombre, dni o email"
+            value={busqueda}
+            onChange={handleBusquedaChange}
+            className="mb-3 search-bar"
+          />
+           {/* Filtrar por estado dropdown */}
+          <DropdownButton
+            id="state-dropdown"
+            title={`Filtrar por estado: ${filtroEstado}`}
+            className="mb-3"
+          >
+            <Dropdown.Item onClick={() => handleFiltroEstadoChange("todos")}>
+              Todos
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleFiltroEstadoChange("activos")}>
+              Activos
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleFiltroEstadoChange("pendientes")}>
+              Pendientes de alta
+            </Dropdown.Item>
+          </DropdownButton>
+          {/* Filtrar por categoria dropdown */}
+          <DropdownButton
+          id="state-dropdown"
+          title={`Filtrar por categoría: ${filtroCategoria === "" ? "Todos" : filtroCategoria}`}
+          className="mb-3"
+        >
+          <Dropdown.Item onClick={() => handleFiltroCategoriaChange("")}>
+            Todos
+          </Dropdown.Item>
+          {categorias.map((categoria) => (
+            <Dropdown.Item key={categoria} onClick={() => handleFiltroCategoriaChange(categoria)}>
+              {categoria}
+            </Dropdown.Item>
+          ))}
+        </DropdownButton>
+      </Container>
       <div className="table-responsive table-container">
         <Table responsive striped bordered hover>
           <thead>
@@ -157,7 +262,7 @@ const Administrador = () => {
             </tr>
           </thead>
           <tbody>
-            {profesionales.map((profesional) => (
+            {profesionalesFiltrados.map((profesional) => (
               <tr key={profesional._id} className="text-center">
                 <td>#<ProfesionalId id={profesional._id} /></td>
                 <td>{profesional.nombreCompleto}</td>
@@ -205,6 +310,11 @@ const Administrador = () => {
             ))}
           </tbody>
         </Table>
+        {profesionalesFiltrados.length === 0 && (
+          <div className="text-center mt-3">
+            <p>No se encontraron profesionales con los parámetros de búsqueda insertados o no se encuentran disponibles.</p>
+          </div>
+        )}
       </div>
       <Modal show={showModal} onHide={cerrarModal} className="table-container">
         <Modal.Header closeButton>
