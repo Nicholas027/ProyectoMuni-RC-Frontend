@@ -88,3 +88,51 @@ export const obtenerProfesionalAPI = async (id) => {
     console.error(error);
   }
 };
+
+export const buscarProfesionalesAPI = async (categoria, search) =>{
+  try {
+    const respuesta = await fetch(URI_Profesionales + '/' + 'category' + '/' + categoria + '/' + search)
+    return await respuesta.json()
+  } catch (error) {
+    throw new Error(`Error al buscar a los profesionales: ${error.message}`);
+  }
+}
+
+export const borrarProfesionalAPI = async (profesionalId) => {
+  try {
+    const response = await fetch(`${URI_Profesionales}/${profesionalId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Error al borrar el profesional');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Error al borrar al profesional: ${error.message}`);
+  }
+}
+
+export const professionalRegisterAPI = async (datos) => {
+  try {
+    const response = await fetch(`${URI_Profesionales}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datos)
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al registrar el profesional');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Error en la petición para registrar el profesional: ${error.message}`);
+  }
+}

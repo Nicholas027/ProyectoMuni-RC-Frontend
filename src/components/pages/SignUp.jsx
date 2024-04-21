@@ -4,17 +4,45 @@ import Form from "react-bootstrap/Form";
 import logoMuni from "../../assets/logo_muni_vertical_AZUL.png";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
-import { useState } from "react";
+import { professionalRegisterAPI } from "../../helpers/queries";
+import Swal from "sweetalert2";
 
-const SignUp = () => {
+const SignUpProfessional = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (usuario) => {
-    console.log(usuario);
+    try {
+      usuario.calificacion = 5;
+      let telefono = "+549"+usuario.telefono;
+      usuario.telefono = telefono;
+      const response = await professionalRegisterAPI(usuario);
+      reset()
+      if (response.profesional) {
+        Swal.fire({
+          title: '¡Hecho!',
+          text: `${response.mensaje}`,
+          icon: 'success'
+        });
+      } else {
+        Swal.fire({
+          title: "Ocurrió un error",
+          text: `Intenta esta operación en unos minutos.`,
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error al registrar el profesional:", error);
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+      });
+    }
   };
 
   return (
@@ -66,18 +94,18 @@ const SignUp = () => {
               <Form.Group className="mb-3" controlId="formBasicDni">
                 <Form.Label>DNI (sin puntos)</Form.Label>
                 <Form.Control
-                  type="number" 
+                  type="number"
                   placeholder="10000000"
                   {...register("dni", {
                     required: "Ingrese su DNI",
                     min: {
-                        value: 10000000,
-                        message: "Ingrese un dni valido",
-                      },
-                      max: {
-                        value: 99999999,
-                        message: "Ingrese un dni valido",
-                      },
+                      value: 10000000,
+                      message: "Ingrese un dni valido",
+                    },
+                    max: {
+                      value: 99999999,
+                      message: "Ingrese un dni valido",
+                    },
                   })}
                 />
                 <Form.Text className="text-danger">
@@ -131,7 +159,8 @@ const SignUp = () => {
                     required: "Ingrese su contraseña",
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*\d).{6,20}$/,
-                      message: "La contraseña debe minimo 6 caracteres, Una mayuscula y un numero",
+                      message:
+                        "La contraseña debe minimo 6 caracteres, Una mayuscula y un numero",
                     },
                   })}
                 />
@@ -217,7 +246,9 @@ const SignUp = () => {
               </Form.Group>
 
               <div className="btnConteiner">
-                <Button className="btnPrincipal" type="submit">Registrarse</Button>
+                <Button className="btnPrincipal" type="submit">
+                  Registrarse
+                </Button>
               </div>
             </Form>
           </div>
@@ -227,4 +258,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpProfessional;
