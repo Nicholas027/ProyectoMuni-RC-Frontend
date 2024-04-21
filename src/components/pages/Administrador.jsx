@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
 import "../../styles/administrador.css";
 import useTitle from "../../hooks/useTitle";
 import ProfesionalId from "./administrador/ProfesionalId";
+import { useNavigate } from "react-router-dom";
 
 const Administrador = () => {
   useTitle("Panel de Administrador");
@@ -125,6 +126,11 @@ const Administrador = () => {
       }
     }
   }
+  const navigate = useNavigate();
+
+  const handleEditarProfesional = (id) => {
+    navigate("/administrador/editar");
+  }
 
   return (
     <Container className="mainContainer">
@@ -192,7 +198,7 @@ const Administrador = () => {
                        {profesional.pendiente ? 'Dar alta' : 'Dar baja'}
                   </Dropdown.Item>
                   <Dropdown.Item onClick={()=> handleBorrarProfesional(profesional._id)}>Borrar <i className="bi bi-trash"></i></Dropdown.Item>
-                  <Dropdown.Item href="#">Editar <i className="bi bi-pencil"></i></Dropdown.Item>
+                  <Dropdown.Item onClick={()=> handleEditarProfesional(profesional._id)}>Editar <i className="bi bi-pencil"></i></Dropdown.Item>
                   </DropdownButton>
                 </td>
               </tr>

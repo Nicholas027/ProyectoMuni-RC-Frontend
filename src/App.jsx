@@ -44,6 +44,11 @@ function App() {
           path="/administrador"
           element={<Administrador></Administrador>}
         ></Route>
+        <Route
+          exact
+          path="/administrador/editar"
+          element={<SignUp></SignUp>}
+        ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>
       <Footer></Footer>
