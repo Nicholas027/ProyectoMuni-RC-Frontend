@@ -47,8 +47,10 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
   const onSubmit = async (usuario) => {
     if (editar) {
       try {
-        // let telefono = "+549" + usuario.telefono;
-        // usuario.telefono = telefono;
+        if(!usuario.telefono.includes("+549")){
+          let telefono = "+549" + usuario.telefono;
+          usuario.telefono = telefono;
+        }
         usuario.calificacion = 5;
         const respuesta = await professionalAdminEditAPI(usuario, id);
         if(respuesta.status === 200) {
