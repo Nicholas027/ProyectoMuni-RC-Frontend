@@ -136,3 +136,19 @@ export const professionalRegisterAPI = async (datos) => {
     throw new Error(`Error en la petición para registrar el profesional: ${error.message}`);
   }
 }
+
+export const professionalAdminEditAPI = async (profesional, id) => {
+  try {
+    const respuesta = await fetch(`${URI_Profesionales}/${id}`,{
+      method: "PUT",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(profesional)
+    })
+    console.log(respuesta);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+}
