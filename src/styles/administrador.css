@@ -12,6 +12,30 @@
     margin-bottom: 100px;
 }
 
+.filterContainer {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Rubik", sans-serif;
+}
+
+.search-bar{
+    width: 57%;
+}
+
+#state-dropdown {
+    background-color: #f7e9b7; 
+    color: #004b81;
+    border: solid 1px #f7e9b7;
+  }
+  
+  #state-dropdown .dropdown-item {
+    color: #004b81; 
+  }
+  
+  #state-dropdown .dropdown-item:hover {
+    background-color: #41bcc5; 
+  }
+
 .btn-blue-outline {
     border: 1px solid #004b81;
     color: #004b81;
