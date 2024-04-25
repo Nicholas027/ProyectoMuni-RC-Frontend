@@ -19,7 +19,7 @@ const CardProfesional = ({ profesional }) => {
             alt={profesional.nombreCompleto}
             className="my-3"
             width={200}
-            roundedCircle
+            // roundedCircle
           />
         </div>
         <Card.Body>
