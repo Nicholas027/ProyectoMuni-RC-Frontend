@@ -84,23 +84,21 @@ const Categoria = () => {
     buscarProfesionales(normalizarString(busqueda));
   };
 
-  // const mostrarComponente = mostrarLoader ? (
-  //   <div className="wrapper">
-  //     <div className="card-loader card-loader--tabs"></div>
-  //   </div>
-  // ) : (
-  //   <Row className="my-4">
-  //     {profesionales.length === 0 ? (
-  //       <p className="text-center">
-  //         No existen profesionales en esta categoría.
-  //       </p>
-  //     ) : (
-  //       profesionales.map((profesional) => (
-  //         <CardProfesional key={profesional._id} profesional={profesional} />
-  //       ))
-  //     )}
-  //   </Row>
-  // );
+  const mostrarComponente = mostrarLoader ? (
+    <span className="loader"><i className="bi bi-search"></i></span>
+  ) : (
+    <Row className="my-4">
+      {profesionales.length === 0 ? (
+        <p className="text-center">
+          No existen profesionales en esta categoría.
+        </p>
+      ) : (
+        profesionales.map((profesional) => (
+          <CardProfesional key={profesional._id} profesional={profesional} />
+        ))
+      )}
+    </Row>
+  );
 
   return (
     <Container className="mainSection my-5">
@@ -141,7 +139,7 @@ const Categoria = () => {
         </Col>
       </Row>
       {mostrarComponente}
-      <Row className="my-4">
+      {/* <Row className="my-4">
         {profesionales.length === 0 ? (
           <p className="text-center">
             No existen profesionales en esta categoría.
@@ -151,7 +149,7 @@ const Categoria = () => {
             <CardProfesional key={profesional._id} profesional={profesional} />
           ))
         )}
-      </Row>
+      </Row> */}
     </Container>
   );
 };
