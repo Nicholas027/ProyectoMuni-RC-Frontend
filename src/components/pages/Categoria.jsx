@@ -1,6 +1,7 @@
 import { Container, Row, Dropdown, Form, Col } from "react-bootstrap";
 import CardProfesional from "./profesional/CardProfesional";
 import "../../styles/categoria.css";
+import "../../styles/loader.css";
 import { useEffect, useState } from "react";
 import {
   buscarProfesionalesAPI,
@@ -17,6 +18,7 @@ const Categoria = () => {
   const [profesionales, setProfesionales] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [busqueda, setBusqueda] = useState("");
+  const [mostrarLoader, setMostrarLoader] = useState(true);
 
   const normalizarString = (string) => {
     return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -33,8 +35,11 @@ const Categoria = () => {
 
   const listarProfesionales = async () => {
     try {
+      //mostrar el loader
+      setMostrarLoader(true);
       const respuesta = await obtenerProfesionalesCategoriaAPI(categoria);
       setProfesionales(respuesta);
+      setMostrarLoader(false);
     } catch (error) {
       Swal.fire({
         title: "Ocurrió un error",
@@ -55,8 +60,12 @@ const Categoria = () => {
 
   const buscarProfesionales = async (searchTerm) => {
     try {
+      //mostrar el loader
+      setMostrarLoader(true);
       const respuesta = await buscarProfesionalesAPI(categoria, searchTerm);
       setProfesionales(respuesta);
+      //ocultar loader
+      setMostrarLoader(false);
       console.log(respuesta);
     } catch (error) {
       console.error(error);
@@ -74,6 +83,24 @@ const Categoria = () => {
     e.preventDefault();
     buscarProfesionales(normalizarString(busqueda));
   };
+
+  // const mostrarComponente = mostrarLoader ? (
+  //   <div className="wrapper">
+  //     <div className="card-loader card-loader--tabs"></div>
+  //   </div>
+  // ) : (
+  //   <Row className="my-4">
+  //     {profesionales.length === 0 ? (
+  //       <p className="text-center">
+  //         No existen profesionales en esta categoría.
+  //       </p>
+  //     ) : (
+  //       profesionales.map((profesional) => (
+  //         <CardProfesional key={profesional._id} profesional={profesional} />
+  //       ))
+  //     )}
+  //   </Row>
+  // );
 
   return (
     <Container className="mainSection my-5">
@@ -113,6 +140,7 @@ const Categoria = () => {
           </Dropdown>
         </Col>
       </Row>
+      {mostrarComponente}
       <Row className="my-4">
         {profesionales.length === 0 ? (
           <p className="text-center">

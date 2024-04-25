@@ -1,5 +1,5 @@
 import Card from "react-bootstrap/Card";
-import { Col, Image, Button } from "react-bootstrap";
+import { Col, Image} from "react-bootstrap";
 import EstrellasCalificaciones from "./EstrellasCalificaciones";
 import { Link } from "react-router-dom";
 
