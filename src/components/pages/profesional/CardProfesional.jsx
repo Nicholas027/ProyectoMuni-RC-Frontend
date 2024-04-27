@@ -1,5 +1,5 @@
 import Card from "react-bootstrap/Card";
-import { Col, Image, Button } from "react-bootstrap";
+import { Col, Image} from "react-bootstrap";
 import EstrellasCalificaciones from "./EstrellasCalificaciones";
 import { Link } from "react-router-dom";
 
@@ -19,7 +19,6 @@ const CardProfesional = ({ profesional }) => {
             alt={profesional.nombreCompleto}
             className="my-3"
             width={200}
-            roundedCircle
           />
         </div>
         <Card.Body>
