@@ -35,7 +35,6 @@ const Categoria = () => {
 
   const listarProfesionales = async () => {
     try {
-      //mostrar el loader
       setMostrarLoader(true);
       const respuesta = await obtenerProfesionalesCategoriaAPI(categoria);
       setProfesionales(respuesta);
@@ -60,13 +59,10 @@ const Categoria = () => {
 
   const buscarProfesionales = async (searchTerm) => {
     try {
-      //mostrar el loader
       setMostrarLoader(true);
       const respuesta = await buscarProfesionalesAPI(categoria, searchTerm);
       setProfesionales(respuesta);
-      //ocultar loader
       setMostrarLoader(false);
-      console.log(respuesta);
     } catch (error) {
       console.error(error);
     }
@@ -75,7 +71,6 @@ const Categoria = () => {
   const handleBusquedaChange = async (e) => {
     const valorBusqueda = e.target.value;
     setBusqueda(valorBusqueda);
-    console.log(valorBusqueda);
     buscarProfesionales(normalizarString(valorBusqueda));
   };
 
@@ -85,11 +80,15 @@ const Categoria = () => {
   };
 
   const mostrarComponente = mostrarLoader ? (
-    <span className="loader"><i className="bi bi-search"></i></span>
+    <span className="loader d-flex justify-content-center">
+      <p className="lead d-flex">
+        Buscando<i className="bi bi-search ms-1"></i>
+      </p>
+    </span>
   ) : (
     <Row className="my-4">
       {profesionales.length === 0 ? (
-        <p className="text-center">
+        <p className="text-center lead">
           No existen profesionales en esta categoría.
         </p>
       ) : (
@@ -139,17 +138,6 @@ const Categoria = () => {
         </Col>
       </Row>
       {mostrarComponente}
-      {/* <Row className="my-4">
-        {profesionales.length === 0 ? (
-          <p className="text-center">
-            No existen profesionales en esta categoría.
-          </p>
-        ) : (
-          profesionales.map((profesional) => (
-            <CardProfesional key={profesional._id} profesional={profesional} />
-          ))
-        )}
-      </Row> */}
     </Container>
   );
 };
