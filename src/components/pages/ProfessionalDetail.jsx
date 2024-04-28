@@ -10,12 +10,13 @@ import portadaMecanico from "../../assets/categoryLogos/mecanicoLogo.webp";
 import portadaOtros from "../../assets/categoryLogos/otrosLogo.jpg";
 import portadaPintor from "../../assets/categoryLogos/pintorLogo.jpeg";
 import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
-import imgValoracion from "../../assets/valoracion-cuadro.png";
+
 import "../../styles/ProfessionalDetail.css";
 import { useEffect, useState } from "react";
 import { obtenerProfesionalAPI } from "../../helpers/queries";
 import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
 import { useParams } from "react-router-dom";
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
@@ -40,6 +41,7 @@ const ProfessionalDetail = () => {
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
+
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
       }
@@ -51,6 +53,26 @@ const ProfessionalDetail = () => {
       });
     }
   };
+    const estrellasLlenas = Math.floor(profesional.calificacion); 
+    const estrellaMedia = profesional.calificacion - estrellasLlenas;
+    const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.5 ? 1 : 0);
+
+    const renderEstrellas = () => {
+        const estrellas = [];
+        for (let i = 0; i < estrellasLlenas; i++) {
+            estrellas.push(<i key={i} className="bi bi-star-fill me-1 estrella-amarilla"></i>);
+        }
+
+        if (estrellaMedia >= 0.5) {
+            estrellas.push(<i key={estrellas.length} className="bi bi-star-half me-1 estrella-amarilla"></i>);
+        }
+
+        for (let i = 0; i < estrellasVacias; i++) {
+            estrellas.push(<i key={estrellas.length + i} className="bi bi-star-fill me-1 estrella-gris"></i>);
+        }
+
+        return estrellas;
+    };
 
   // Email del profesional
   const emailProfesional = `mailto:${profesional.email}`;
@@ -138,19 +160,37 @@ const ProfessionalDetail = () => {
       <section className="m-4 p-2 pt-3 fondoTextos text-center px-5">
         <h3 className="titulo">OPINIONES</h3>
         <article className="p-3 px-5 bg-light mb-3 mt-3">
-          <h3 className="text-warning h1 d-flex justify-content-center">
-            5.0
-            <i className="bi bi-star-fill ms-2 me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill"></i>
+          <h3 className="text-warning h1 d-flex justify-content-center ">
+            <span className="display-5">
+              {profesional.calificacion !== undefined ? profesional.calificacion.toFixed(1) : ""}
+            </span>
+            <span className="ms-3 mt-1">
+              {renderEstrellas()}
+            </span>
           </h3>
-          <img
-            src={imgValoracion}
-            alt="valoración de opiniones"
-            className="img-fluid"
-          />
+          <article>
+            <div className="mb-3">
+                <span>Calificaciones de 5 estrellas: </span>
+                <ProgressBar variant="warning" label={"20%"} now={20} />
+            </div>
+            <div className="mb-3">
+                <span>Calificaciones de 4 estrellas: </span>
+                <ProgressBar variant="warning" label={"40%"} now={40} />
+            </div>
+            <div className="mb-3">
+                <span>Calificaciones de 5 estrellas: </span>
+                <ProgressBar variant="warning" label={"10%"} now={10} />
+            </div>
+            <div className="mb-3">
+                <span>Calificaciones de 5 estrellas: </span>
+                <ProgressBar variant="warning" label={"10%"} now={10} />
+            </div>
+            <div className="mb-3">
+                <span>Calificaciones de 5 estrellas: </span>
+                <ProgressBar variant="warning" label={"20%"} now={20} />
+            </div>
+          </article>
+
         </article>
         <Button
           className="my-3 mb-4 px-5 btn btnContacto"
@@ -159,26 +199,33 @@ const ProfessionalDetail = () => {
           AGREGAR RESEÑA
         </Button>
         <article className="pCard">
-          <Card className="cardOpinion mb-3">
-            <Card.Header className="text-warning d-flex justify-content-center">
-              <i className="bi bi-star-fill me-1"></i>
-              <i className="bi bi-star-fill me-1"></i>
-              <i className="bi bi-star-fill me-1"></i>
-              <i className="bi bi-star-fill me-1"></i>
-              <i className="bi bi-star-fill"></i>
-            </Card.Header>
-            <Card.Body>
-              <Card.Title>Luis Figal</Card.Title>
-              <Card.Text className="texto">
-                Trabajo realizado, todo ha quedado muy bien, profesional de
-                confianza.
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <i className="bi bi-hand-thumbs-up-fill color h2 me-2"></i>{" "}
-              <i className="bi bi-hand-thumbs-down-fill h2 color"></i>
-            </Card.Footer>
-          </Card>
+          {profesional.comentarios && profesional.comentarios.length > 0 ? (
+              profesional.comentarios.map((comentario, index) => (
+                <Card className="cardOpinion mb-3" key={index}>
+                  <Card.Header className="text-warning d-flex justify-content-center">
+                  {[...Array(comentario.calificacion)].map((_, i) => (
+                    <i key={i} className="bi bi-star-fill me-1 estrella estrella-amarilla"></i>
+                  ))}
+                  {[...Array(5 - comentario.calificacion)].map((_, i) => (
+                    <i key={i + comentario.calificacion} className="bi bi-star-fill me-1 estrella estrella-gris"></i>
+                  ))}
+                  </Card.Header>
+                  <Card.Body>
+                    <Card.Title>{comentario.autor}</Card.Title>
+                    <Card.Text className="texto">
+                      {comentario.descripcion}
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <i className="bi bi-hand-thumbs-up-fill color h2 me-2"></i>{" "}
+                    <i className="bi bi-hand-thumbs-down-fill h2 color"></i>
+                  </Card.Footer>
+                </Card>
+              ))
+          ) : (
+              <p>No hay comentarios disponibles</p>
+          )}
+          
         </article>
       </section>
       {/* Modal - Contacto */}
