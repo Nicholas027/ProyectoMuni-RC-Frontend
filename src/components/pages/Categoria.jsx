@@ -37,7 +37,10 @@ const Categoria = () => {
     try {
       setMostrarLoader(true);
       const respuesta = await obtenerProfesionalesCategoriaAPI(categoria);
-      setProfesionales(respuesta);
+      const profesionalesFiltrados = respuesta.filter(
+        (profesional) => !profesional.pendiente
+      );
+      setProfesionales(profesionalesFiltrados);
       setMostrarLoader(false);
     } catch (error) {
       Swal.fire({
