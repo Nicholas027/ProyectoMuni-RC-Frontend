@@ -53,26 +53,7 @@ const ProfessionalDetail = () => {
       });
     }
   };
-    const estrellasLlenas = Math.floor(profesional.calificacion); 
-    const estrellaMedia = profesional.calificacion - estrellasLlenas;
-    const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.5 ? 1 : 0);
 
-    const renderEstrellas = () => {
-        const estrellas = [];
-        for (let i = 0; i < estrellasLlenas; i++) {
-            estrellas.push(<i key={i} className="bi bi-star-fill me-1 estrella-amarilla"></i>);
-        }
-
-        if (estrellaMedia >= 0.5) {
-            estrellas.push(<i key={estrellas.length} className="bi bi-star-half me-1 estrella-amarilla"></i>);
-        }
-
-        for (let i = 0; i < estrellasVacias; i++) {
-            estrellas.push(<i key={estrellas.length + i} className="bi bi-star-fill me-1 estrella-gris"></i>);
-        }
-
-        return estrellas;
-    };
 
   // Email del profesional
   const emailProfesional = `mailto:${profesional.email}`;
@@ -82,11 +63,27 @@ const ProfessionalDetail = () => {
   // WhatsApp del profesional
   const telefono = `https://api.whatsapp.com/send/?phone=%2B${telefonoSinMas}&text&type=phone_number&app_absent=0`;
 
-  // Mostrar la cantidad de estrellas del Profesional
-  const estrellas = [];
-  for (let i = 0; i < profesional.calificacion; i++) {
-    estrellas.push(1);
-  }
+  // Mostrar la cantidad de estrellas real del Profesional
+  const estrellasLlenas = Math.floor(profesional.calificacion); 
+  const estrellaMedia = profesional.calificacion - estrellasLlenas;
+  const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.5 ? 1 : 0);
+
+  const renderEstrellas = () => {
+      const estrellas = [];
+      for (let i = 0; i < estrellasLlenas; i++) {
+          estrellas.push(<i key={i} className="bi bi-star-fill me-1 estrella-amarilla"></i>);
+      }
+
+      if (estrellaMedia >= 0.5) {
+          estrellas.push(<i key={estrellas.length} className="bi bi-star-half me-1 estrella-amarilla"></i>);
+      }
+
+      for (let i = 0; i < estrellasVacias; i++) {
+          estrellas.push(<i key={estrellas.length + i} className="bi bi-star-fill me-1 estrella-gris"></i>);
+      }
+
+      return estrellas;
+  };
 
   // Logica para seleccionar la foto de portada por la categoria.
   let categoria;
@@ -133,9 +130,7 @@ const ProfessionalDetail = () => {
             {profesional.categoria}
           </span>
           <div className="mt-2 text-warning h4">
-            {estrellas.map((item,pos) => (
-              <i key={pos} className="bi bi-star-fill me-1"></i>
-            ))}
+            {renderEstrellas()}
           </div>
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
