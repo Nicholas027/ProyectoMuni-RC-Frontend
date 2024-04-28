@@ -28,6 +28,13 @@ const ProfessionalDetail = () => {
   const handleResenaShow = () => setEvento(true);
 
   const [profesional, setProfesional] = useState({});
+  const [cantidadCalificaciones, setcantidadCalificaciones] = useState(0);
+  const [cantidad5e, setCantidad5e] = useState(0);
+  const [cantidad4e, setCantidad4e] = useState(0);
+  const [cantidad3e, setCantidad3e] = useState(0);
+  const [cantidad2e, setCantidad2e] = useState(0);
+  const [cantidad1e, setCantidad1e] = useState(0);
+
 
   const { id } = useParams();
 
@@ -35,13 +42,59 @@ const ProfessionalDetail = () => {
     obtenerProfesional();
   }, []);
 
+  useEffect(() => {
+    // Verificar si profesional.comentarios está definido antes de usarlo
+    if (profesional.comentarios) {
+        // Establecer la cantidad total de calificaciones
+        setcantidadCalificaciones(profesional.comentarios.length);
+
+        // Inicializar variables para las cantidades de estrellas
+        let cantidad5e = 0;
+        let cantidad4e = 0;
+        let cantidad3e = 0;
+        let cantidad2e = 0;
+        let cantidad1e = 0;
+
+        // Iterar sobre los comentarios para contar las calificaciones
+        profesional.comentarios.forEach((comentario) => {
+            switch (comentario.calificacion) {
+                case 5:
+                    cantidad5e++;
+                    break;
+                case 4:
+                    cantidad4e++;
+                    break;
+                case 3:
+                    cantidad3e++;
+                    break;
+                case 2:
+                    cantidad2e++;
+                    break;
+                case 1:
+                    cantidad1e++;
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        // Actualizar el estado con las cantidades de estrellas
+        setCantidad5e(cantidad5e);
+        setCantidad4e(cantidad4e);
+        setCantidad3e(cantidad3e);
+        setCantidad2e(cantidad2e);
+        setCantidad1e(cantidad1e);
+    }
+}, [profesional.comentarios]);
+
+
   const obtenerProfesional = async () => {
     try {
       const respuesta = await obtenerProfesionalAPI(id);
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
-
+        
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
       }
@@ -69,6 +122,7 @@ const ProfessionalDetail = () => {
   const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.5 ? 1 : 0);
 
   const renderEstrellas = () => {
+    
       const estrellas = [];
       for (let i = 0; i < estrellasLlenas; i++) {
           estrellas.push(<i key={i} className="bi bi-star-fill me-1 estrella-amarilla"></i>);
@@ -163,27 +217,55 @@ const ProfessionalDetail = () => {
               {renderEstrellas()}
             </span>
           </h3>
-          <article>
-            <div className="mb-3">
-                <span>Calificaciones de 5 estrellas: </span>
-                <ProgressBar variant="warning" label={"20%"} now={20} />
+          <article className="mx-auto mt-3">
+            <div className="barCount">
+                <div className="bar">
+                  <ProgressBar variant="warning" now={cantidad5e/cantidadCalificaciones*100} label={`${(cantidad5e/cantidadCalificaciones*100).toFixed(1)}%`}/>
+                  
+                </div>
+                <h3 className="ms-4 text-secondary"> ({cantidad5e})</h3>
+                <div className="count">
+                  <h3 className="text-warning ">5 <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i></h3>
+                </div>                     
             </div>
-            <div className="mb-3">
-                <span>Calificaciones de 4 estrellas: </span>
-                <ProgressBar variant="warning" label={"40%"} now={40} />
+            <div className="barCount">
+                <div className="bar">
+                  <ProgressBar variant="warning" now={cantidad4e/cantidadCalificaciones*100} label={`${(cantidad4e/cantidadCalificaciones*100).toFixed(1)}%`}/>
+                </div>
+                  <h3 className="ms-4 text-secondary"> ({cantidad4e})</h3>
+                <div className="count">
+                  <h3 className="text-warning ">4 <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i></h3>
+                </div>                     
             </div>
-            <div className="mb-3">
-                <span>Calificaciones de 5 estrellas: </span>
-                <ProgressBar variant="warning" label={"10%"} now={10} />
+            <div className="barCount">
+                <div className="bar">
+                  <ProgressBar variant="warning" now={cantidad3e/cantidadCalificaciones*100} label={`${(cantidad3e/cantidadCalificaciones*100).toFixed(1)}%`}/>
+                </div>
+                  <h3 className="ms-4 text-secondary"> ({cantidad3e})</h3>
+                <div className="count">
+                  <h3 className="text-warning ">3 <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i></h3>
+                </div>                     
             </div>
-            <div className="mb-3">
-                <span>Calificaciones de 5 estrellas: </span>
-                <ProgressBar variant="warning" label={"10%"} now={10} />
+            <div className="barCount">
+                <div className="bar">
+                  <ProgressBar variant="warning" now={cantidad2e/cantidadCalificaciones*100} label={`${(cantidad2e/cantidadCalificaciones*100).toFixed(1)}%`}/>
+                </div>
+                  <h3 className="ms-4 text-secondary"> ({cantidad2e})</h3>
+                <div className="count">
+
+                  <h3 className="text-warning">2 <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i></h3>
+                </div>                     
             </div>
-            <div className="mb-3">
-                <span>Calificaciones de 5 estrellas: </span>
-                <ProgressBar variant="warning" label={"20%"} now={20} />
+            <div className="barCount">
+                <div className="bar">
+                  <ProgressBar variant="warning" now={cantidad1e/cantidadCalificaciones*100} label={`${(cantidad1e/cantidadCalificaciones*100).toFixed(1)}%`}/>
+                </div>
+                  <h3 className="ms-4 text-secondary"> ({cantidad1e})</h3>
+                <div className="count">
+                  <h3 className="text-warning">1 <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i></h3>
+                </div>                     
             </div>
+            
           </article>
 
         </article>
@@ -194,6 +276,7 @@ const ProfessionalDetail = () => {
           AGREGAR RESEÑA
         </Button>
         <article className="pCard">
+          <h3>{cantidadCalificaciones} comentarios en total</h3>
           {profesional.comentarios && profesional.comentarios.length > 0 ? (
               profesional.comentarios.map((comentario, index) => (
                 <Card className="cardOpinion mb-3" key={index}>

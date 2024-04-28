@@ -99,7 +99,18 @@
   font-weight: 400;
   font-weight: bold;
 }
-
+.barCount{
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bar{
+  width: 86%;
+}
+.count{
+  width: 14%;
+}
 
 @media screen and (min-width: 767px) {
   .pCard {
