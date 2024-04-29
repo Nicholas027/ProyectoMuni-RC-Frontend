@@ -289,14 +289,13 @@ const ProfessionalDetail = () => {
                   ))}
                   </Card.Header>
                   <Card.Body>
-                    <Card.Title>{comentario.autor}</Card.Title>
+                    <Card.Title className="tituloComentario">{comentario.tituloComentario}</Card.Title>
                     <Card.Text className="texto">
                       {comentario.descripcion}
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer>
-                    <i className="bi bi-hand-thumbs-up-fill color h2 me-2"></i>{" "}
-                    <i className="bi bi-hand-thumbs-down-fill h2 color"></i>
+                    <Card.Title >{comentario.autor}</Card.Title>
                   </Card.Footer>
                 </Card>
               ))

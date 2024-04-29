@@ -67,6 +67,14 @@
   border-width: 20%;
 }
 
+.tituloComentario{
+  font-size: 28px;
+  font-style: italic;
+  border-radius: 5%;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+}
+
 .titulo {
   font-family: "Lato", sans-serif;
   font-weight: 400;
