@@ -27,7 +27,6 @@ function App() {
           path="/signup"
           element={
             <SignUp
-              editar={false}
               titulo="REGISTRARSE"
               boton="Registrarse"
             ></SignUp>
@@ -47,7 +46,11 @@ function App() {
         <Route
           exact
           path="/profesional/crear"
-          element={<DarAltaProfesional></DarAltaProfesional>}
+          element={<DarAltaProfesional 
+            editar={false}
+            titulo="REGISTRAR UN NUEVO PROFESIONAL"
+            boton="REGISTRAR"
+          ></DarAltaProfesional>}
         ></Route>
         <Route
           exact
@@ -58,11 +61,11 @@ function App() {
           exact
           path="/administrador/editar/:id"
           element={
-            <SignUp
+            <DarAltaProfesional
               editar={true}
               titulo="EDITAR PROFESIONAL"
               boton="Editar"
-            ></SignUp>
+            ></DarAltaProfesional>
           }
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
