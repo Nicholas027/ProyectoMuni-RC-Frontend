@@ -4,74 +4,20 @@ import Form from "react-bootstrap/Form";
 import logoMuni from "../../assets/logo_muni_vertical_AZUL.png";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
-import { obtenerProfesionalAPI, professionalAdminEditAPI, professionalRegisterAPI } from "../../helpers/queries";
+import { professionalRegisterAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
 
-const SignUpProfessional = ({ editar, titulo, boton }) => {
+const SignUpProfessional = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
   } = useForm();
 
-  useEffect(()=>{
-    if(editar){
-      cargarDatosProfesional();
-    }
-  },[])
-
-  const { id } = useParams();
-  const navegacion = useNavigate();
-
-  const cargarDatosProfesional = async ()=>{
-    const respuesta = await obtenerProfesionalAPI(id);
-    if(respuesta.status === 200){
-      const profesionalBuscado = await respuesta.json();
-      setValue('nombreCompleto', profesionalBuscado.nombreCompleto);
-      setValue("foto",profesionalBuscado.foto);
-      setValue("dni",profesionalBuscado.dni);
-      setValue("password",profesionalBuscado.password);
-      setValue("cv",profesionalBuscado.cv);
-      setValue("categoria",profesionalBuscado.categoria);
-      setValue("descripcion",profesionalBuscado.descripcion);
-      setValue("telefono",profesionalBuscado.telefono);
-      setValue("email",profesionalBuscado.email);
-    }
-  }
-
-
   const onSubmit = async (usuario) => {
-    if (editar) {
       try {
-        if(!usuario.telefono.includes("+549")){
-          let telefono = "+549" + usuario.telefono;
-          usuario.telefono = telefono;
-        }
-        usuario.calificacion = 5;
-        const respuesta = await professionalAdminEditAPI(usuario, id);
-        if(respuesta.status === 200) {
-          Swal.fire({
-            title: "Profesional modificado",
-            text: `El profesional "${usuario.nombreCompleto}" fue modificado correctamente`,
-            icon: "success",
-          });
-          navegacion("/administrador");
-        }
-      } catch (error) {
-        console.error("Error al editar el profesional:", error);
-        Swal.fire({
-          title: "Ocurrió un error",
-          text: `Intenta esta operación en unos minutos.`,
-          icon: "error",
-        });        
-      }
-    } else {
-      try {
-        usuario.calificacion = 5;
+        usuario.calificacion = 1;
         let telefono = "+549" + usuario.telefono;
         usuario.telefono = telefono;
         const response = await professionalRegisterAPI(usuario);
@@ -97,7 +43,6 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
           icon: "error",
         });
       }
-    }
   };
 
   return (
@@ -106,7 +51,7 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
         <div className="backgroundSignUp">
           <img
             src="https://scontent.faep6-1.fna.fbcdn.net/v/t39.30808-6/251378801_4826907517342542_8931559505337231654_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeF9SiF35dffz4DalMzMoWP6vB_XlfWWEg68H9eV9ZYSDopXGgUimN4ZFjsGdm4-PIotal7hjaSqn4EPn_4SBKe5&_nc_ohc=UD3s6L6s1iEAb440Che&_nc_ht=scontent.faep6-1.fna&oh=00_AfCg2zMSinVwYbu6ijCcbD1DaelARCh9XEkBEcyhvtsYow&oe=6625F8BC"
-            alt="imgProducto"
+            alt="Backgound"
           />
         </div>
 
@@ -114,12 +59,12 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
           <div className="title">
             <img
               src={logoMuni}
-              alt="imgProducto"
+              alt="Logo Municipalidad"
               className="rounded-start-4 "
               width={140}
               height={155}
             />
-            <h1>{titulo}</h1>
+            <h1>REGISTRARSE</h1>
           </div>
 
           <div className="formContent">
@@ -302,7 +247,7 @@ const SignUpProfessional = ({ editar, titulo, boton }) => {
 
               <div className="btnConteiner">
                 <Button className="btnPrincipal" type="submit">
-                  {boton}
+                  Registrarse
                 </Button>
               </div>
             </Form>
