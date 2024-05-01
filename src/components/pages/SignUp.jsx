@@ -17,7 +17,7 @@ const SignUpProfessional = () => {
 
   const onSubmit = async (usuario) => {
       try {
-        usuario.calificacion = 5;
+        usuario.calificacion = 1;
         let telefono = "+549" + usuario.telefono;
         usuario.telefono = telefono;
         const response = await professionalRegisterAPI(usuario);
