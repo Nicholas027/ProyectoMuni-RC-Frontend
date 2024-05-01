@@ -15,6 +15,7 @@ import "../../styles/administrador.css";
 import useTitle from "../../hooks/useTitle";
 import ProfesionalId from "./administrador/ProfesionalId";
 import { useNavigate } from "react-router-dom";
+import TableSkeletonLoader from "./administrador/Skeleton Loader/TableSkeletonLoader";
 
 const Administrador = () => {
   useTitle("Panel de Administrador");
@@ -27,6 +28,7 @@ const Administrador = () => {
   const [foto, setFoto] = useState(false);
   const [categorias, setCategorias] = useState([]);
   const [filtroCategoria, setFiltroCategoria] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     obtenerProfesionales();
@@ -98,14 +100,15 @@ const Administrador = () => {
       if (respuesta.status === 200) {
         const datos = await respuesta.json();
         setProfesionales(datos);
+        setLoading(false);
       } else {
-        throw new Error("Ocurrió un error al obtener los profesionales.");
+        throw new Error('Ocurrió un error al obtener los profesionales.');
       }
     } catch (error) {
       Swal.fire({
-        title: "Ocurrió un error",
-        text: `Intenta esta operación en unos minutos.`,
-        icon: "error",
+        title: 'Ocurrió un error',
+        text: 'Intenta esta operación en unos minutos.',
+        icon: 'error',
       });
     }
   };
@@ -245,6 +248,9 @@ const Administrador = () => {
           ))}
         </DropdownButton>
       </Container>
+      {loading ? (
+        <TableSkeletonLoader />
+      ) : (
       <div className="table-responsive table-container">
         <Table responsive striped bordered hover>
           <thead>
@@ -300,7 +306,7 @@ const Administrador = () => {
                 <td>
                   <DropdownButton id="custom-dropdown" title="Opciones">
                   <Dropdown.Item onClick={() => handleDarAltaProfesional(profesional._id, profesional.pendiente)}>
-                       {profesional.pendiente ? 'Dar alta' : 'Dar baja'}
+                       {profesional.pendiente ? 'Dar alta' : 'Inactivar'}
                   </Dropdown.Item>
                   <Dropdown.Item onClick={()=> handleBorrarProfesional(profesional._id)}>Borrar <i className="bi bi-trash"></i></Dropdown.Item>
                   <Dropdown.Item onClick={()=> handleEditarProfesional(profesional._id)}>Editar <i className="bi bi-pencil"></i></Dropdown.Item>
@@ -316,6 +322,7 @@ const Administrador = () => {
           </div>
         )}
       </div>
+       )}
       <Modal show={showModal} onHide={cerrarModal} className="table-container">
         <Modal.Header closeButton>
           <Modal.Title>Curriculum Vitae</Modal.Title>

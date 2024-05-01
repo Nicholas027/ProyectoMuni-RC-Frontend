@@ -14,6 +14,7 @@ import Administrador from "./components/pages/Administrador.jsx";
 import SignUp from "./components/pages/SignUp.jsx";
 import DarAltaProfesional from "./components/pages/administrador/DarAltaProfesional.jsx";
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
+import SelectLoginMethod from "./components/pages/SelectLoginMethod.jsx";
 
 function App() {
   return (
@@ -21,13 +22,13 @@ function App() {
       <ScrollToTop />
       <MenuNav></MenuNav>
       <Routes>
+        <Route exact path="/selectSigninMethod" element={<SelectLoginMethod></SelectLoginMethod>}></Route>
         <Route exact path="/signin" element={<Login></Login>}></Route>
         <Route
           exact
           path="/signup"
           element={
             <SignUp
-              editar={false}
               titulo="REGISTRARSE"
               boton="Registrarse"
             ></SignUp>
@@ -47,7 +48,11 @@ function App() {
         <Route
           exact
           path="/profesional/crear"
-          element={<DarAltaProfesional></DarAltaProfesional>}
+          element={<DarAltaProfesional 
+            editar={false}
+            titulo="REGISTRAR UN NUEVO PROFESIONAL"
+            boton="REGISTRAR"
+          ></DarAltaProfesional>}
         ></Route>
         <Route
           exact
@@ -58,11 +63,11 @@ function App() {
           exact
           path="/administrador/editar/:id"
           element={
-            <SignUp
+            <DarAltaProfesional
               editar={true}
               titulo="EDITAR PROFESIONAL"
               boton="Editar"
-            ></SignUp>
+            ></DarAltaProfesional>
           }
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>

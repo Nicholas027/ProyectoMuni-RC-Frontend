@@ -22,7 +22,8 @@ const MenuNav = () => {
             <Nav.Link href="/">INICIO</Nav.Link>
             <Nav.Link href="/signup">REGISTRARSE</Nav.Link>
             <Nav.Link href="/about">NOSOTROS</Nav.Link>
-            <Nav.Link href="/signin">
+            <Nav.Link href="/administrador">PANEL DE ADMINISTRADOR</Nav.Link>
+            <Nav.Link href="/selectSigninMethod">
               <i className="bi bi-box-arrow-in-right"></i> INGRESAR
             </Nav.Link>
           </Nav>
