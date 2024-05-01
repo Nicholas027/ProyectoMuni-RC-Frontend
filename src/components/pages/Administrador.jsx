@@ -306,7 +306,7 @@ const Administrador = () => {
                 <td>
                   <DropdownButton id="custom-dropdown" title="Opciones">
                   <Dropdown.Item onClick={() => handleDarAltaProfesional(profesional._id, profesional.pendiente)}>
-                       {profesional.pendiente ? 'Dar alta' : 'Dar baja'}
+                       {profesional.pendiente ? 'Dar alta' : 'Inactivar'}
                   </Dropdown.Item>
                   <Dropdown.Item onClick={()=> handleBorrarProfesional(profesional._id)}>Borrar <i className="bi bi-trash"></i></Dropdown.Item>
                   <Dropdown.Item onClick={()=> handleEditarProfesional(profesional._id)}>Editar <i className="bi bi-pencil"></i></Dropdown.Item>

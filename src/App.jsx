@@ -14,6 +14,7 @@ import Administrador from "./components/pages/Administrador.jsx";
 import SignUp from "./components/pages/SignUp.jsx";
 import DarAltaProfesional from "./components/pages/administrador/DarAltaProfesional.jsx";
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
+import SelectLoginMethod from "./components/pages/SelectLoginMethod.jsx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <ScrollToTop />
       <MenuNav></MenuNav>
       <Routes>
+        <Route exact path="/selectSigninMethod" element={<SelectLoginMethod></SelectLoginMethod>}></Route>
         <Route exact path="/signin" element={<Login></Login>}></Route>
         <Route
           exact

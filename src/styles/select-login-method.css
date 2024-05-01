@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+.main-container{
+    margin-bottom: 50px; 
+    font-family: "Rubik", sans-serif;
+}
+
+.btn-prof{
+    background-color: #004b81;
+    border: solid 1px #004b81;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Rubik", sans-serif;
+}
+
+.btn-prof:hover{
+    background-color: #0064ab;
+    border: solid 1px #0064ab;
+    font-family: "Rubik", sans-serif;
+}
+
+.btn-user{
+    background-color: #3b526c;
+    border: solid 1px #3b526c;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Rubik", sans-serif;
+}
+
+.btn-user:hover{
+    background-color: #476383;
+    border: solid 1px #476383;
+    font-family: "Rubik", sans-serif;
+}
