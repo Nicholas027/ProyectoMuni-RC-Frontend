@@ -17,6 +17,7 @@ import ScrollToTop from "./components/common/ScrollToTop.jsx";
 import SelectLoginMethod from "./components/pages/SelectLoginMethod.jsx";
 import ChangeCV from "./components/pages/administrador/ChangeCV.jsx";
 import ChangePhoto  from "./components/pages/administrador/ChangePhoto.jsx";
+import Nosotros from "./components/pages/Nosotros.jsx";
 
 function App() {
   return (
@@ -85,6 +86,11 @@ function App() {
           element={
             <ChangePhoto></ChangePhoto>
           }
+          </Route>
+       <Route 
+          exact
+          path="/about"
+          element={<Nosotros></Nosotros>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>
