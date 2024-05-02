@@ -12,7 +12,7 @@ import {
   professionalAdminEditAPI,
 } from "../../../helpers/queries.js";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const SignUp = ({ editar, titulo, boton }) => {
   const {
@@ -62,6 +62,8 @@ const SignUp = ({ editar, titulo, boton }) => {
             title: "Profesional modificado",
             text: `El profesional "${formData.nombreCompleto}" fue modificado correctamente`,
             icon: "success",
+            confirmButtonColor: "#004b81",
+            confirmButtonText: "Aceptar",
           });
           navigate("/administrador");
         }
@@ -71,6 +73,8 @@ const SignUp = ({ editar, titulo, boton }) => {
           title: "Ocurrió un error",
           text: `Intenta esta operación en unos minutos.`,
           icon: "error",
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
         });
       }
     } else {
@@ -82,6 +86,8 @@ const SignUp = ({ editar, titulo, boton }) => {
             title: "¡Hecho!",
             text: `${response.mensaje}`,
             icon: "success",
+            confirmButtonColor: "#004b81",
+            confirmButtonText: "Aceptar",
           }).then((result) => {
             if (result.isConfirmed) {
               navigate("/administrador");
@@ -92,6 +98,8 @@ const SignUp = ({ editar, titulo, boton }) => {
             title: "Ocurrió un error",
             text: `Intenta esta operación en unos minutos.`,
             icon: "error",
+            confirmButtonColor: "#004b81",
+            confirmButtonText: "Aceptar",
           });
         }
       } catch (error) {
@@ -100,6 +108,8 @@ const SignUp = ({ editar, titulo, boton }) => {
           title: "Ocurrió un error",
           text: `Intenta esta operación en unos minutos.`,
           icon: "error",
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
         });
       }
     }
@@ -174,25 +184,6 @@ const SignUp = ({ editar, titulo, boton }) => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Foto</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese una dirección de foto"
-                  {...register("foto", {
-                    required: "Ingrese la foto de perfil del profesional",
-                    pattern: {
-                      value:
-                        /(http)=?s?:?(\/\/[^"'"]*\.(?:png|jpg|jpeg|gif|svg))/i,
-                      message:
-                        "Ingrese una url de una imagen png, jpg, gif, svg",
-                    },
-                  })}
-                />
-                <Form.Text className="text-danger">
-                  {errors.foto?.message}
-                </Form.Text>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
@@ -226,20 +217,6 @@ const SignUp = ({ editar, titulo, boton }) => {
                 />
                 <Form.Text className="text-danger">
                   {errors.password?.message}
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>CV</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese su CV"
-                  {...register("cv", {
-                    required: "Ingrese su cv",
-                  })}
-                />
-                <Form.Text className="text-danger">
-                  {errors.cv?.message}
                 </Form.Text>
               </Form.Group>
 
@@ -288,6 +265,28 @@ const SignUp = ({ editar, titulo, boton }) => {
                 <Button className="btnPrincipal" type="submit">
                   {boton}
                 </Button>
+                {editar && (
+                  <>
+                  <Button
+                    className="btnPrincipal"
+                    type="button"
+                    onClick={() => {
+                      navigate(`/administrador/editar/${id}/cambiarCV`);
+                    }}
+                  >
+                    <i className="bi bi-plus-circle"></i> Agregar o Cambiar CV
+                  </Button>
+                   <Button
+                   className="btnPrincipal"
+                   type="button"
+                   onClick={() => {
+                     navigate(`/administrador/editar/${id}/cambiarFoto`);
+                   }}
+                 >
+                   <i className="bi bi-camera"></i> Agregar o Cambiar foto de perfil
+                 </Button>
+                 </>
+                )}
               </div>
             </Form>
           </div>

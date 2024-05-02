@@ -182,13 +182,17 @@ const Administrador = () => {
         Swal.fire({
           title: '¡Hecho!',
           text: `El profesional ha sido borrado correctamente`,
-          icon: 'success'
+          icon: 'success',
+          confirmButtonColor: '#004b81',
+          confirmButtonText: 'Aceptar',
         });
       } catch (error) {
         Swal.fire({
           title: 'Error',
           text: `Hubo un error al borrar al profesional`,
-          icon: 'error'
+          icon: 'error',
+          confirmButtonColor: '#004b81',
+          confirmButtonText: 'Aceptar',
         });
       }
     }

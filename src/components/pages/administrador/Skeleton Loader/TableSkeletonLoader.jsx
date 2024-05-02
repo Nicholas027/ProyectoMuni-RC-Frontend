@@ -7,137 +7,137 @@ const TableSkeletonLoader = () => {
       <table>
         <tbody>
           <tr>
-            <td class="td-1">
+            <td className="td-1">
               <span></span>
             </td>
-            <td class="td-2">
+            <td className="td-2">
               <span></span>
             </td>
-            <td class="td-3">
+            <td className="td-3">
               <span></span>
             </td>
-            <td class="td-4"></td>
-            <td class="td-5">
-              <span></span>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-1">
-              <span></span>
-            </td>
-            <td class="td-2">
-              <span></span>
-            </td>
-            <td class="td-3">
-              <span></span>
-            </td>
-            <td class="td-4"></td>
-            <td class="td-5">
+            <td className="td-4"></td>
+            <td className="td-5">
               <span></span>
             </td>
           </tr>
           <tr>
-            <td class="td-1">
+            <td className="td-1">
               <span></span>
             </td>
-            <td class="td-2">
+            <td className="td-2">
               <span></span>
             </td>
-            <td class="td-3">
+            <td className="td-3">
               <span></span>
             </td>
-            <td class="td-4"></td>
-            <td class="td-5">
-              <span></span>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-1">
-              <span></span>
-            </td>
-            <td class="td-2">
-              <span></span>
-            </td>
-            <td class="td-3">
-              <span></span>
-            </td>
-            <td class="td-4"></td>
-            <td class="td-5">
+            <td className="td-4"></td>
+            <td className="td-5">
               <span></span>
             </td>
           </tr>
           <tr>
-            <td class="td-1">
+            <td className="td-1">
               <span></span>
             </td>
-            <td class="td-2">
+            <td className="td-2">
               <span></span>
             </td>
-            <td class="td-3">
+            <td className="td-3">
               <span></span>
             </td>
-            <td class="td-4"></td>
-            <td class="td-5">
-              <span></span>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-1">
-              <span></span>
-            </td>
-            <td class="td-2">
-              <span></span>
-            </td>
-            <td class="td-3">
-              <span></span>
-            </td>
-            <td class="td-4"></td>
-            <td class="td-5">
+            <td className="td-4"></td>
+            <td className="td-5">
               <span></span>
             </td>
           </tr>
           <tr>
-            <td class="td-1">
+            <td className="td-1">
               <span></span>
             </td>
-            <td class="td-2">
+            <td className="td-2">
               <span></span>
             </td>
-            <td class="td-3">
+            <td className="td-3">
               <span></span>
             </td>
-            <td class="td-4"></td>
-            <td class="td-5">
-              <span></span>
-            </td>
-          </tr>
-          <tr>
-            <td class="td-1">
-              <span></span>
-            </td>
-            <td class="td-2">
-              <span></span>
-            </td>
-            <td class="td-3">
-              <span></span>
-            </td>
-            <td class="td-4"></td>
-            <td class="td-5">
+            <td className="td-4"></td>
+            <td className="td-5">
               <span></span>
             </td>
           </tr>
           <tr>
-            <td class="td-1">
+            <td className="td-1">
               <span></span>
             </td>
-            <td class="td-2">
+            <td className="td-2">
               <span></span>
             </td>
-            <td class="td-3">
+            <td className="td-3">
               <span></span>
             </td>
-            <td class="td-4"></td>
-            <td class="td-5">
+            <td className="td-4"></td>
+            <td className="td-5">
+              <span></span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td-1">
+              <span></span>
+            </td>
+            <td className="td-2">
+              <span></span>
+            </td>
+            <td className="td-3">
+              <span></span>
+            </td>
+            <td className="td-4"></td>
+            <td className="td-5">
+              <span></span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td-1">
+              <span></span>
+            </td>
+            <td className="td-2">
+              <span></span>
+            </td>
+            <td className="td-3">
+              <span></span>
+            </td>
+            <td className="td-4"></td>
+            <td className="td-5">
+              <span></span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td-1">
+              <span></span>
+            </td>
+            <td className="td-2">
+              <span></span>
+            </td>
+            <td className="td-3">
+              <span></span>
+            </td>
+            <td className="td-4"></td>
+            <td className="td-5">
+              <span></span>
+            </td>
+          </tr>
+          <tr>
+            <td className="td-1">
+              <span></span>
+            </td>
+            <td className="td-2">
+              <span></span>
+            </td>
+            <td className="td-3">
+              <span></span>
+            </td>
+            <td className="td-4"></td>
+            <td className="td-5">
               <span></span>
             </td>
           </tr>
