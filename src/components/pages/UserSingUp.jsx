@@ -13,7 +13,7 @@ const UserSingUp = () => {
       handleSubmit,
       formState: { errors },
       reset,
-    } = useForm();
+    } = useForm(); 
   
     const onSubmit = async (usuario) => {
         try {
