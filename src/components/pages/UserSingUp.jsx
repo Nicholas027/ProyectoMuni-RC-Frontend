@@ -4,8 +4,8 @@ import Form from "react-bootstrap/Form";
 import logoMuni from "../../assets/logo_muni_vertical_AZUL.png";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
-// import { professionalRegisterAPI } from "../../helpers/queries";
-// import Swal from "sweetalert2";
+import { userRegisterAPI } from "../../helpers/queries";
+import Swal from "sweetalert2";
 
 const UserSingUp = () => {
     const {
@@ -16,7 +16,34 @@ const UserSingUp = () => {
     } = useForm();
   
     const onSubmit = async (usuario) => {
-        console.log("Bueno se supone que aqui ya cargamos un usuario.")
+        try {
+            const response = await userRegisterAPI(usuario);
+            reset();
+            if (response.user) {
+              Swal.fire({
+                title: "¡Hecho!",
+                text: `${response.mensaje}`,
+                icon: "success",
+                confirmButtonColor: '#004b81',
+                confirmButtonText: 'Aceptar',
+              });
+            } else {
+              Swal.fire({
+                title: "Ocurrió un error",
+                text: `Intenta esta operación en unos minutos.`,
+                icon: "error",
+                confirmButtonColor: '#004b81',
+                confirmButtonText: 'Aceptar',
+              });
+            }
+          } catch (error) {
+            console.error("Error al registrar el usuario:", error);
+            Swal.fire({
+              title: "Ocurrió un error",
+              text: `Intenta esta operación en unos minutos.`,
+              icon: "error",
+            });
+          }
     };
   
     return (
