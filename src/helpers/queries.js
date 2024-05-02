@@ -191,7 +191,7 @@ export const userRegisterAPI = async (datos) => {
     });
 
     if (!response.ok) {
-      throw new Error('Error al registrar el usuario');
+      throw new Error('Error al registrar el usuario.');
     }
 
     return await response.json();
