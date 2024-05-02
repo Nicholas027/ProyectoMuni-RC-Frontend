@@ -152,3 +152,29 @@ export const professionalAdminEditAPI = async (profesional, id) => {
     console.log(error);
   }
 }
+
+export const sendCV = async (formData, id) => {
+  try {
+    const respuesta = await fetch(`${URI_Profesionales}/${id}/cv`,{
+      method: "POST",
+      body: formData,
+    })
+    console.log(respuesta);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const uploadProfilePhoto = async (formData, id) => {
+  try {
+    const respuesta = await fetch(`${URI_Profesionales}/${id}/photo`,{
+      method: "POST",
+      body: formData,
+    })
+    console.log(respuesta);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+}

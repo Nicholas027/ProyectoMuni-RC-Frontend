@@ -27,12 +27,16 @@ const SignUpProfessional = () => {
             title: "¡Hecho!",
             text: `${response.mensaje}`,
             icon: "success",
+            confirmButtonColor: '#004b81',
+            confirmButtonText: 'Aceptar',
           });
         } else {
           Swal.fire({
             title: "Ocurrió un error",
             text: `Intenta esta operación en unos minutos.`,
             icon: "error",
+            confirmButtonColor: '#004b81',
+            confirmButtonText: 'Aceptar',
           });
         }
       } catch (error) {
@@ -114,25 +118,6 @@ const SignUpProfessional = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Foto</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese una dirección de foto"
-                  {...register("foto", {
-                    required: "Ingrese su foto",
-                    pattern: {
-                      value:
-                        /(http)=?s?:?(\/\/[^"'"]*\.(?:png|jpg|jpeg|gif|svg))/i,
-                      message:
-                        "Ingrese una url de una imagen png, jpg, gif, svg",
-                    },
-                  })}
-                />
-                <Form.Text className="text-danger">
-                  {errors.foto?.message}
-                </Form.Text>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
@@ -166,20 +151,6 @@ const SignUpProfessional = () => {
                 />
                 <Form.Text className="text-danger">
                   {errors.password?.message}
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>CV</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese su CV"
-                  {...register("cv", {
-                    required: "Ingrese su cv",
-                  })}
-                />
-                <Form.Text className="text-danger">
-                  {errors.cv?.message}
                 </Form.Text>
               </Form.Group>
 
