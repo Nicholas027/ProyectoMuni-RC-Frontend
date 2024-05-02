@@ -86,7 +86,7 @@ function App() {
           element={
             <ChangePhoto></ChangePhoto>
           }
-          </Route>
+          ></Route>
        <Route 
           exact
           path="/about"
