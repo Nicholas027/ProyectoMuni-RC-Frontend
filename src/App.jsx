@@ -15,6 +15,8 @@ import SignUp from "./components/pages/SignUp.jsx";
 import DarAltaProfesional from "./components/pages/administrador/DarAltaProfesional.jsx";
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
 import SelectLoginMethod from "./components/pages/SelectLoginMethod.jsx";
+import ChangeCV from "./components/pages/administrador/ChangeCV.jsx";
+import ChangePhoto  from "./components/pages/administrador/ChangePhoto.jsx";
 import Nosotros from "./components/pages/Nosotros.jsx";
 
 function App() {
@@ -66,12 +68,26 @@ function App() {
           element={
             <DarAltaProfesional
               editar={true}
-              titulo="EDITAR PROFESIONAL"
+              titulo="EDITAR INFORMACIÓN"
               boton="Editar"
             ></DarAltaProfesional>
           }
         ></Route>
          <Route
+          exact
+          path="/administrador/editar/:id/cambiarCV"
+          element={
+            <ChangeCV></ChangeCV>
+          }
+        ></Route>
+         <Route
+          exact
+          path="/administrador/editar/:id/cambiarFoto"
+          element={
+            <ChangePhoto></ChangePhoto>
+          }
+          ></Route>
+       <Route 
           exact
           path="/about"
           element={<Nosotros></Nosotros>}
