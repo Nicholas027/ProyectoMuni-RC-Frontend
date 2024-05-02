@@ -15,6 +15,7 @@ import SignUp from "./components/pages/SignUp.jsx";
 import DarAltaProfesional from "./components/pages/administrador/DarAltaProfesional.jsx";
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
 import SelectLoginMethod from "./components/pages/SelectLoginMethod.jsx";
+import Nosotros from "./components/pages/Nosotros.jsx";
 
 function App() {
   return (
@@ -69,6 +70,11 @@ function App() {
               boton="Editar"
             ></DarAltaProfesional>
           }
+        ></Route>
+         <Route
+          exact
+          path="/about"
+          element={<Nosotros></Nosotros>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>
