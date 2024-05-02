@@ -21,7 +21,7 @@ const UserSingUp = () => {
   
     return (
       <>
-        <div className="position-relative">
+        <main className="position-relative">
           <div className="backgroundSignUp">
             <img
               src="https://scontent.faep6-1.fna.fbcdn.net/v/t39.30808-6/251378801_4826907517342542_8931559505337231654_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeF9SiF35dffz4DalMzMoWP6vB_XlfWWEg68H9eV9ZYSDopXGgUimN4ZFjsGdm4-PIotal7hjaSqn4EPn_4SBKe5&_nc_ohc=UD3s6L6s1iEAb440Che&_nc_ht=scontent.faep6-1.fna&oh=00_AfCg2zMSinVwYbu6ijCcbD1DaelARCh9XEkBEcyhvtsYow&oe=6625F8BC"
@@ -47,43 +47,21 @@ const UserSingUp = () => {
                   <Form.Label>Nombre Completo</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Ingrese su nombre y apellido"
-                    {...register("nombreCompleto", {
-                      required: "Ingrese su nombre completo",
+                    placeholder="Ingrese su nombre de usuario"
+                    {...register("nombre", {
+                      required: "Ingrese su nombre de usuario",
                       minLength: {
-                        value: 8,
-                        message: "Ingrese un nombre con mínimo 2 caracteres",
+                        value: 3,
+                        message: "Ingrese un nombre con mínimo 3 caracteres",
                       },
                       maxLength: {
-                        value: 100,
-                        message: "Ingrese un nombre con máximo 50 caracteres",
+                        value: 30,
+                        message: "Ingrese un nombre con máximo 30 caracteres",
                       },
                     })}
                   />
                   <Form.Text className="text-danger">
-                    {errors.nombreCompleto?.message}
-                  </Form.Text>
-                </Form.Group>
-  
-                <Form.Group className="mb-3" controlId="formBasicDni">
-                  <Form.Label>DNI (sin puntos)</Form.Label>
-                  <Form.Control
-                    type="number"
-                    placeholder="10000000"
-                    {...register("dni", {
-                      required: "Ingrese su DNI",
-                      min: {
-                        value: 10000000,
-                        message: "Ingrese un dni valido",
-                      },
-                      max: {
-                        value: 99999999,
-                        message: "Ingrese un dni valido",
-                      },
-                    })}
-                  />
-                  <Form.Text className="text-danger">
-                    {errors.dni?.message}
+                    {errors.nombre?.message}
                   </Form.Text>
                 </Form.Group>
   
@@ -96,7 +74,7 @@ const UserSingUp = () => {
                       required: "Ingrese su email",
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: "Email o Contraseña incorrecta",
+                        message: "Debe ingresar un Email valido.",
                       },
                     })}
                   />
@@ -115,74 +93,16 @@ const UserSingUp = () => {
                       pattern: {
                         value: /^(?=.*[A-Z])(?=.*\d).{6,20}$/,
                         message:
-                          "La contraseña debe minimo 6 caracteres, Una mayuscula y un numero",
+                          "La contraseña debe tener minimo 6 caracteres, Una mayuscula y un numero",
+                      },
+                      maxLength: {
+                        value: 20,
+                        message: "La contraseña debe tener máximo 20 caracteres",
                       },
                     })}
                   />
                   <Form.Text className="text-danger">
                     {errors.password?.message}
-                  </Form.Text>
-                </Form.Group>
-  
-                <Form.Group className="mb-3" controlId="formCategoria">
-                  <Form.Label>Categoría (Profesión que ejerce):</Form.Label>
-                  <Form.Select
-                    {...register("categoria", {
-                      required: "Seleccione una Categoría",
-                    })}
-                  >
-                    <option value="">Seleccione una Opción</option>
-                    <option value="Carpintero">Carpintero</option>
-                    <option value="Gasista">Gasista</option>
-                    <option value="Cerrajero">Cerrajero</option>
-                    <option value="Mecanico">Mecánico</option>
-                    <option value="Electricista">Electricista</option>
-                    <option value="Albañil">Albañil</option>
-                    <option value="Plomero">Plomero</option>
-                    <option value="Pintor">Pintor</option>
-                    <option value="Herrero">Herrero</option>
-                    <option value="Jardinero">Jardinero</option>
-                    <option value="Otros">Otros</option>
-                  </Form.Select>
-                  <Form.Text className="text-danger">
-                    {errors.categoria?.message}
-                  </Form.Text>
-                </Form.Group>
-  
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Descripcion (opcional)</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={2}
-                    placeholder="Descripcion describiendose a usted mismo, esta será vista por todos los usuarios interesados."
-                    {...register("descripcion", {
-                      minLength: {
-                        value: 20,
-                        message:
-                          "Ingrese una descripcion con mínimo 20 caracteres",
-                      },
-                      maxLength: {
-                        value: 1000,
-                        message: `Ingrese una descripcion amplia con máximo 1000 caracteres `,
-                      },
-                    })}
-                  />
-                  <Form.Text className="text-danger">
-                    {errors.descripcion?.message}
-                  </Form.Text>
-                </Form.Group>
-  
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Número de Teléfono (sin 15 ni 0 ni -)</Form.Label>
-                  <Form.Control
-                    type="tel"
-                    placeholder="3865505050"
-                    {...register("telefono", {
-                      required: "Ingrese su telefono",
-                    })}
-                  />
-                  <Form.Text className="text-danger">
-                    {errors.tel?.message}
                   </Form.Text>
                 </Form.Group>
   
@@ -194,7 +114,7 @@ const UserSingUp = () => {
               </Form>
             </div>
           </Container>
-        </div>
+        </main>
       </>
     );
   };
