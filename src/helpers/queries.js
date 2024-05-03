@@ -199,3 +199,23 @@ export const userRegisterAPI = async (datos) => {
     throw new Error(`Error en la petición para registrar el usuario: ${error.message}`);
   }
 }
+
+export const professionalAddComment = async (profesionalId, formData) => {
+  try {
+    const response = await fetch(`${URI_Profesionales}/${profesionalId}/comments/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al agregar el comentario');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Error en la petición para agregar comentario: ${error.message}`);
+  }
+};
