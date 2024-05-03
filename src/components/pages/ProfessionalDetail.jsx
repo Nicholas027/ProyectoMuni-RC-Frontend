@@ -10,13 +10,14 @@ import portadaMecanico from "../../assets/categoryLogos/mecanicoLogo.webp";
 import portadaOtros from "../../assets/categoryLogos/otrosLogo.jpg";
 import portadaPintor from "../../assets/categoryLogos/pintorLogo.jpeg";
 import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
-import imgValoracion from "../../assets/valoracion-cuadro.png";
+import { useForm } from "react-hook-form";
 import "../../styles/ProfessionalDetail.css";
 import { useEffect, useState } from "react";
 import { obtenerProfesionalAPI } from "../../helpers/queries";
-import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
+import { professionalAddComment } from "../../helpers/queries";
 import { useParams } from "react-router-dom";
-
+import ProgressBar from "react-bootstrap/ProgressBar";
+import Swal from "sweetalert2";
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -27,12 +28,104 @@ const ProfessionalDetail = () => {
   const handleResenaShow = () => setEvento(true);
 
   const [profesional, setProfesional] = useState({});
+  const [cantidadCalificaciones, setcantidadCalificaciones] = useState(0);
+  const [cantidad5e, setCantidad5e] = useState(0);
+  const [cantidad4e, setCantidad4e] = useState(0);
+  const [cantidad3e, setCantidad3e] = useState(0);
+  const [cantidad2e, setCantidad2e] = useState(0);
+  const [cantidad1e, setCantidad1e] = useState(0);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (formData) => {
+    try{
+
+      const response = await professionalAddComment(id ,formData)
+
+      if (response.mensaje === "Comentario agregado exitosamente") {
+
+        handleResenaClose();
+        Swal.fire({
+          title: `Comentario Agregado`,
+          text: "El comentario se agregó exitosamente",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: `Aceptar`,
+        })
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "El comentario no fue agregado, intentelo nuevamente más tarde",
+        });
+      }
+      
+    }catch (error) {
+      console.error("Error al agregar comentario", error);
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+        confirmButtonColor: "#004b81",
+        confirmButtonText: "Aceptar",
+      });
+    }
+  };
 
   const { id } = useParams();
 
   useEffect(() => {
     obtenerProfesional();
   }, []);
+
+  useEffect(() => {
+    // Verificar si profesional.comentarios está definido antes de usarlo
+    if (profesional.comentarios) {
+      // Establecer la cantidad total de calificaciones
+      setcantidadCalificaciones(profesional.comentarios.length);
+
+      // Inicializar variables para las cantidades de estrellas
+      let cantidad5e = 0;
+      let cantidad4e = 0;
+      let cantidad3e = 0;
+      let cantidad2e = 0;
+      let cantidad1e = 0;
+
+      // Iterar sobre los comentarios para contar las calificaciones
+      profesional.comentarios.forEach((comentario) => {
+        switch (comentario.calificacion) {
+          case 5:
+            cantidad5e++;
+            break;
+          case 4:
+            cantidad4e++;
+            break;
+          case 3:
+            cantidad3e++;
+            break;
+          case 2:
+            cantidad2e++;
+            break;
+          case 1:
+            cantidad1e++;
+            break;
+          default:
+            break;
+        }
+      });
+
+      // Actualizar el estado con las cantidades de estrellas
+      setCantidad5e(cantidad5e);
+      setCantidad4e(cantidad4e);
+      setCantidad3e(cantidad3e);
+      setCantidad2e(cantidad2e);
+      setCantidad1e(cantidad1e);
+    }
+  }, [profesional.comentarios]);
 
   const obtenerProfesional = async () => {
     try {
@@ -60,11 +153,39 @@ const ProfessionalDetail = () => {
   // WhatsApp del profesional
   const telefono = `https://api.whatsapp.com/send/?phone=%2B${telefonoSinMas}&text&type=phone_number&app_absent=0`;
 
-  // Mostrar la cantidad de estrellas del Profesional
-  const estrellas = [];
-  for (let i = 0; i < profesional.calificacion; i++) {
-    estrellas.push(1);
-  }
+  // Mostrar la cantidad de estrellas real del Profesional
+  const estrellasLlenas = Math.floor(profesional.calificacion);
+  const estrellaMedia = profesional.calificacion - estrellasLlenas;
+  const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.4 ? 1 : 0);
+
+  const renderEstrellas = () => {
+    const estrellas = [];
+    for (let i = 0; i < estrellasLlenas; i++) {
+      estrellas.push(
+        <i key={i} className="bi bi-star-fill me-1 estrella-amarilla"></i>
+      );
+    }
+
+    if (estrellaMedia >= 0.4) {
+      estrellas.push(
+        <i
+          key={estrellas.length}
+          className="bi bi-star-half me-1 estrella-amarilla"
+        ></i>
+      );
+    }
+
+    for (let i = 0; i < estrellasVacias; i++) {
+      estrellas.push(
+        <i
+          key={estrellas.length + i}
+          className="bi bi-star-fill me-1 estrella-gris"
+        ></i>
+      );
+    }
+
+    return estrellas;
+  };
 
   // Logica para seleccionar la foto de portada por la categoria.
   let categoria;
@@ -110,11 +231,7 @@ const ProfessionalDetail = () => {
           <span className="categoria px-1 text-light">
             {profesional.categoria}
           </span>
-          <div className="mt-2 text-warning h4">
-            {estrellas.map((item,pos) => (
-              <i key={pos} className="bi bi-star-fill me-1"></i>
-            ))}
-          </div>
+          <div className="mt-2 text-warning h4">{renderEstrellas()}</div>
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
             onClick={handleShow}
@@ -138,19 +255,111 @@ const ProfessionalDetail = () => {
       <section className="m-4 p-2 pt-3 fondoTextos text-center px-5">
         <h3 className="titulo">OPINIONES</h3>
         <article className="p-3 px-5 bg-light mb-3 mt-3">
-          <h3 className="text-warning h1 d-flex justify-content-center">
-            5.0
-            <i className="bi bi-star-fill ms-2 me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill me-1"></i>
-            <i className="bi bi-star-fill"></i>
+          <h3 className="text-warning h1 d-flex justify-content-center ">
+            <span className="display-5">
+              {profesional.calificacion !== undefined
+                ? profesional.calificacion.toFixed(1)
+                : ""}
+            </span>
+            <span className="ms-3 mt-1">{renderEstrellas()}</span>
           </h3>
-          <img
-            src={imgValoracion}
-            alt="valoración de opiniones"
-            className="img-fluid"
-          />
+          <article className="mx-auto mt-3">
+            <div className="barCount">
+              <div className="bar">
+                <ProgressBar
+                  variant="warning"
+                  now={(cantidad5e / cantidadCalificaciones) * 100}
+                  label={`${(
+                    (cantidad5e / cantidadCalificaciones) *
+                    100
+                  ).toFixed(1)}%`}
+                />
+              </div>
+              <h3 className="ms-4 text-secondary"> ({cantidad5e})</h3>
+              <div className="count">
+                <h3 className="text-warning ">
+                  5{" "}
+                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                </h3>
+              </div>
+            </div>
+            <div className="barCount">
+              <div className="bar">
+                <ProgressBar
+                  variant="warning"
+                  now={(cantidad4e / cantidadCalificaciones) * 100}
+                  label={`${(
+                    (cantidad4e / cantidadCalificaciones) *
+                    100
+                  ).toFixed(1)}%`}
+                />
+              </div>
+              <h3 className="ms-4 text-secondary"> ({cantidad4e})</h3>
+              <div className="count">
+                <h3 className="text-warning ">
+                  4{" "}
+                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                </h3>
+              </div>
+            </div>
+            <div className="barCount">
+              <div className="bar">
+                <ProgressBar
+                  variant="warning"
+                  now={(cantidad3e / cantidadCalificaciones) * 100}
+                  label={`${(
+                    (cantidad3e / cantidadCalificaciones) *
+                    100
+                  ).toFixed(1)}%`}
+                />
+              </div>
+              <h3 className="ms-4 text-secondary"> ({cantidad3e})</h3>
+              <div className="count">
+                <h3 className="text-warning ">
+                  3{" "}
+                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                </h3>
+              </div>
+            </div>
+            <div className="barCount">
+              <div className="bar">
+                <ProgressBar
+                  variant="warning"
+                  now={(cantidad2e / cantidadCalificaciones) * 100}
+                  label={`${(
+                    (cantidad2e / cantidadCalificaciones) *
+                    100
+                  ).toFixed(1)}%`}
+                />
+              </div>
+              <h3 className="ms-4 text-secondary"> ({cantidad2e})</h3>
+              <div className="count">
+                <h3 className="text-warning">
+                  2{" "}
+                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                </h3>
+              </div>
+            </div>
+            <div className="barCount">
+              <div className="bar">
+                <ProgressBar
+                  variant="warning"
+                  now={(cantidad1e / cantidadCalificaciones) * 100}
+                  label={`${(
+                    (cantidad1e / cantidadCalificaciones) *
+                    100
+                  ).toFixed(1)}%`}
+                />
+              </div>
+              <h3 className="ms-4 text-secondary"> ({cantidad1e})</h3>
+              <div className="count">
+                <h3 className="text-warning">
+                  1{" "}
+                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                </h3>
+              </div>
+            </div>
+          </article>
         </article>
         <Button
           className="my-3 mb-4 px-5 btn btnContacto"
@@ -159,26 +368,44 @@ const ProfessionalDetail = () => {
           AGREGAR RESEÑA
         </Button>
         <article className="pCard">
-          <Card className="cardOpinion mb-3">
-            <Card.Header className="text-warning d-flex justify-content-center">
-              <i className="bi bi-star-fill me-1"></i>
-              <i className="bi bi-star-fill me-1"></i>
-              <i className="bi bi-star-fill me-1"></i>
-              <i className="bi bi-star-fill me-1"></i>
-              <i className="bi bi-star-fill"></i>
-            </Card.Header>
-            <Card.Body>
-              <Card.Title>Luis Figal</Card.Title>
-              <Card.Text className="texto">
-                Trabajo realizado, todo ha quedado muy bien, profesional de
-                confianza.
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <i className="bi bi-hand-thumbs-up-fill color h2 me-2"></i>{" "}
-              <i className="bi bi-hand-thumbs-down-fill h2 color"></i>
-            </Card.Footer>
-          </Card>
+          <h3>{cantidadCalificaciones} comentarios en total</h3>
+          {profesional.comentarios && profesional.comentarios.length > 0 ? (
+            profesional.comentarios.map((comentario, index) => (
+              <Card className="cardOpinion mb-3" key={index}>
+                <Card.Header className="text-warning d-flex justify-content-center">
+                  {[...Array(comentario.calificacion)].map((_, i) => (
+                    <i
+                      key={i}
+                      className="bi bi-star-fill me-1 estrella estrella-amarilla"
+                    ></i>
+                  ))}
+                  {[...Array(5 - comentario.calificacion)].map((_, i) => (
+                    <i
+                      key={i + comentario.calificacion}
+                      className="bi bi-star-fill me-1 estrella estrella-gris"
+                    ></i>
+                  ))}
+                </Card.Header>
+                <Card.Body>
+                  <Card.Title className="tituloComentario">
+                    {comentario.tituloComentario}
+                  </Card.Title>
+                  <Card.Text className="texto">
+                    {comentario.descripcion}
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <Card.Title>
+                    {" "}
+                    <i className="bi bi-person-circle mt-2 me-1"></i>{" "}
+                    {comentario.autor}
+                  </Card.Title>
+                </Card.Footer>
+              </Card>
+            ))
+          ) : (
+            <p>No hay comentarios disponibles</p>
+          )}
         </article>
       </section>
       {/* Modal - Contacto */}
@@ -219,6 +446,7 @@ const ProfessionalDetail = () => {
           </div>
         </Modal.Body>
       </Modal>
+
       {/* Modal - Reseña */}
       <Modal show={evento} onHide={handleResenaClose}>
         <Modal.Header
@@ -228,32 +456,83 @@ const ProfessionalDetail = () => {
           OPINA SOBRE EL PROFESIONAL
         </Modal.Header>
         <Modal.Body className="textoForm">
-          <Form>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group className="mb-3" controlId="inputEstrellas">
               <Form.Label>Tu Puntuación</Form.Label>
               <div></div>
-              <EstrellasCalificaciones></EstrellasCalificaciones>
+              <Form.Check
+                inline
+                label="1 ⭐"
+                name="calificacion"
+                type="radio"
+                value="1"
+                id="1"
+                {...register("calificacion", { required: "Ingrese una calificación" })}
+              />
+              <Form.Check
+                inline
+                label="2 ⭐"
+                name="calificacion"
+                type="radio"
+                value="2"
+                id="2"
+                {...register("calificacion", { required: "Ingrese una calificación" })}
+              />
+              <Form.Check
+                inline
+                label="3 ⭐"
+                name="calificacion"
+                type="radio"
+                value="3"
+                id="3"
+                {...register("calificacion", { required: "Ingrese una calificación" })}
+              />
+              <Form.Check
+                inline
+                label="4 ⭐"
+                name="calificacion"
+                type="radio"
+                value="4"
+                id="4"
+                {...register("calificacion", { required: "Ingrese una calificación" })}
+              />
+              <Form.Check
+                inline
+                label="5 ⭐"
+                name="calificacion"
+                type="radio"
+                value="5"
+                id="5"
+                {...register("calificacion", { required: "Ingrese una calificación" })}
+              />
+              <Form.Text className="text-danger">
+                {errors.calificacion?.message}
+              </Form.Text>
             </Form.Group>
+
             <Form.Group className="mb-3" controlId="inputDisponibilidad">
-              <Form.Label>
-                ¿Haz Realizado Algún Trabajo con el Profesional?
-              </Form.Label>
+              <Form.Label>Dinos tu opinión general</Form.Label>
               <div></div>
-              <Form.Check
-                inline
-                label="Si"
-                name="colaboracion"
-                type="radio"
-                id="si"
+              <Form.Control
+                type="text"
+                placeholder="Ej: Profesional Recomendable"
+                {...register("tituloComentario", {
+                  required: "Ingrese un titulo para su comentario",
+                  minLength: {
+                    value: 5,
+                    message: "Ingrese una opinión con mínimo 5 caracteres",
+                  },
+                  maxLength: {
+                    value: 25,
+                    message: "Ingrese una opinión con máximo 30 caracteres",
+                  },
+                })}
               />
-              <Form.Check
-                inline
-                label="No"
-                name="colaboracion"
-                type="radio"
-                id="no"
-              />
+              <Form.Text className="text-danger">
+                {errors.tituloComentario?.message}
+              </Form.Text>
             </Form.Group>
+
             <Form.Group className="mb-3" controlId="inputDescripcionOpinion">
               <Form.Label>Escribe Tu Opinión</Form.Label>
               <Form.Control
@@ -261,31 +540,64 @@ const ProfessionalDetail = () => {
                 rows={3}
                 type="text"
                 placeholder="Ej: Es una persona confiable y realiza su trabajo a tiempo."
-                required
-                minLength={10}
-                maxLength={150}
+                {...register("descripcion", {
+                  required: "Ingrese una descripcion",
+                  minLength: {
+                    value: 10,
+                    message: "Ingrese una descripcion con mínimo 10 caracteres",
+                  },
+                  maxLength: {
+                    value: 150,
+                    message:
+                      "Ingrese una descripcion con máximo 200 caracteres",
+                  },
+                })}
               />
+              <Form.Text className="text-danger">
+                {errors.descripcion?.message}
+              </Form.Text>
             </Form.Group>
+
             <Form.Group className="mb-3" controlId="inputNombre">
               <Form.Label>Tu Nombre</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ej: Facundo Herrera"
-                required
-                minLength={3}
-                maxLength={20}
+                placeholder="Ingrese su nombre"
+                {...register("autor", {
+                  required: "Ingrese su nombre",
+                  minLength: {
+                    value: 3,
+                    message: "Ingrese un nombre con mínimo 2 caracteres",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "Ingrese un nombre con máximo 50 caracteres",
+                  },
+                })}
               />
+              <Form.Text className="text-danger">
+                {errors.autor?.message}
+              </Form.Text>
             </Form.Group>
+
             <Form.Group className="mb-3" controlId="inputEmail">
               <Form.Label>Tu Dirección de Email</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="roberto@gmail.com"
-                required
-                minLength={5}
-                maxLength={150}
+                placeholder="Ingrese su email"
+                {...register("emailAutor", {
+                  required: "Ingrese su email",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Ingrese un email valido",
+                  },
+                })}
               />
+              <Form.Text className="text-danger">
+                {errors.emailAutor?.message}
+              </Form.Text>
             </Form.Group>
+
             <div className="text-center my-2">
               <Button type="submit" className="btnContacto">
                 ENVIAR

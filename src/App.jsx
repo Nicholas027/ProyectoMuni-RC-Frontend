@@ -19,11 +19,13 @@ import ChangeCV from "./components/pages/administrador/ChangeCV.jsx";
 import ChangePhoto from "./components/pages/administrador/ChangePhoto.jsx";
 import Nosotros from "./components/pages/Nosotros.jsx";
 import UserSingUp from "./components/pages/UserSingUp.jsx";
+import TermsConditions from "./components/TermsConditions.jsx";
 
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <TermsConditions/>
       <MenuNav></MenuNav>
       <Routes>
         <Route
