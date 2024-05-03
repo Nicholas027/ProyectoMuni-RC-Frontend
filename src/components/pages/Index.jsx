@@ -18,14 +18,21 @@ const Index = () => {
             width={300}
           />
           <div className="mx-2">
-            <h2 className="display-6">¿Qué es Red de Trabajo?</h2>
+            <h2 className="display-6 text-center mt-5 mb-3">
+              ¡Bienvenidos al Portal de Oficios de la Municipalidad de
+              Concepción!
+            </h2>
             <p>
-              Red de Trabajo Concepción promueve la interacción fluida entre profesionales de diversas
-              disciplinas y usuarios interesados en sus servicios. El objetivo
-              primordial es crear un entorno digital que simplifique la
-              búsqueda, presentación y contacto entre ambas partes, fomentando
-              así la creación de conexiones valiosas y beneficiosas para ambas
-              partes
+              Iniciativa del Gobierno Municipal que permite conectar a
+              profesionales de una variedad de rubros con ciudadanos en búsqueda
+              de servicios.
+            </p>
+            <p>
+              El Portal de Oficios Concepción facilita la interacción fluida
+              entre profesionales de diversas disciplinas y usuarios interesados
+              en sus servicios. El objetivo principal es crear un entorno
+              digital que simplifique la búsqueda, presentación y contacto entre
+              ambas partes, promoviendo las oportunidades del sector trabajador.
             </p>
           </div>
         </div>
