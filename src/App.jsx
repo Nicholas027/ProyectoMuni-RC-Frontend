@@ -16,8 +16,9 @@ import DarAltaProfesional from "./components/pages/administrador/DarAltaProfesio
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
 import SelectLoginMethod from "./components/pages/SelectLoginMethod.jsx";
 import ChangeCV from "./components/pages/administrador/ChangeCV.jsx";
-import ChangePhoto  from "./components/pages/administrador/ChangePhoto.jsx";
+import ChangePhoto from "./components/pages/administrador/ChangePhoto.jsx";
 import Nosotros from "./components/pages/Nosotros.jsx";
+import UserSingUp from "./components/pages/UserSingUp.jsx";
 
 function App() {
   return (
@@ -25,17 +26,16 @@ function App() {
       <ScrollToTop />
       <MenuNav></MenuNav>
       <Routes>
-        <Route exact path="/selectSigninMethod" element={<SelectLoginMethod></SelectLoginMethod>}></Route>
+        <Route
+          exact
+          path="/selectSigninMethod"
+          element={<SelectLoginMethod></SelectLoginMethod>}
+        ></Route>
         <Route exact path="/signin" element={<Login></Login>}></Route>
         <Route
           exact
           path="/signup"
-          element={
-            <SignUp
-              titulo="REGISTRARSE"
-              boton="Registrarse"
-            ></SignUp>
-          }
+          element={<SignUp titulo="REGISTRARSE" boton="Registrarse"></SignUp>}
         ></Route>
         <Route exact path="/" element={<Index></Index>}></Route>
         <Route
@@ -51,11 +51,13 @@ function App() {
         <Route
           exact
           path="/profesional/crear"
-          element={<DarAltaProfesional 
-            editar={false}
-            titulo="REGISTRAR UN NUEVO PROFESIONAL"
-            boton="REGISTRAR"
-          ></DarAltaProfesional>}
+          element={
+            <DarAltaProfesional
+              editar={false}
+              titulo="REGISTRAR UN NUEVO PROFESIONAL"
+              boton="REGISTRAR"
+            ></DarAltaProfesional>
+          }
         ></Route>
         <Route
           exact
@@ -73,24 +75,21 @@ function App() {
             ></DarAltaProfesional>
           }
         ></Route>
-         <Route
+        <Route
           exact
           path="/administrador/editar/:id/cambiarCV"
-          element={
-            <ChangeCV></ChangeCV>
-          }
+          element={<ChangeCV></ChangeCV>}
         ></Route>
-         <Route
+        <Route
           exact
           path="/administrador/editar/:id/cambiarFoto"
-          element={
-            <ChangePhoto></ChangePhoto>
-          }
-          ></Route>
-       <Route 
+          element={<ChangePhoto></ChangePhoto>}
+        ></Route>
+        <Route exact path="/about" element={<Nosotros></Nosotros>}></Route>
+        <Route
           exact
-          path="/about"
-          element={<Nosotros></Nosotros>}
+          path="/signupUser"
+          element={<UserSingUp></UserSingUp>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>
