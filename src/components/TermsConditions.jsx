@@ -20,7 +20,7 @@ const TermsConditions = () => {
   return (
     <>
       <Modal show={mostrar} onHide={handleCerrar}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>
             <span className="text-center tituloModal">
               TÉRMINOS Y CONDICIONES
@@ -34,7 +34,7 @@ const TermsConditions = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleCerrar}>
-            Cerrar
+            Aceptar
           </Button>
         </Modal.Footer>
       </Modal>
