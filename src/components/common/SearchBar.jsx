@@ -14,9 +14,6 @@ const SearchBar = () => {
   const buscarProfesionales = async (searchTerm) => {
     try {
       const respuesta = await buscarProfesionalesIndexAPI(searchTerm);
-      console.log("Resultados de la búsqueda:", respuesta);
-      console.log(searchTerm);
-      //Verificar si la respuesta es un arreglo antes de aplicar filter
       if (Array.isArray(respuesta)) {
         const resultadosFiltrados = respuesta.filter((result) =>
           normalizarString(result.nombreCompleto)
@@ -25,7 +22,7 @@ const SearchBar = () => {
         );
         setResultados(resultadosFiltrados);
       } else {
-        setResultados([]); // Limpiar resultados si la respuesta no es un arreglo
+        setResultados([]);
       }
     } catch (error) {
       console.error(error);
@@ -34,7 +31,6 @@ const SearchBar = () => {
 
   const handleBusquedaChange = (e) => {
     const searchTerm = e.target.value;
-    // Si el término de búsqueda está vacío, limpiar los resultados
     if (searchTerm.trim() === "") {
       setResultados([]);
     } else {
@@ -43,8 +39,8 @@ const SearchBar = () => {
   };
 
   const handleSeleccionarProfesional = () => {
-    inputRef.current.value = ""; // Limpiar el input
-    setResultados([]); // Limpiar la lista de resultados
+    inputRef.current.value = "";
+    setResultados([]);
   };
 
   return (
