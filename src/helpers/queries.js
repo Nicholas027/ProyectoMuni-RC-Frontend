@@ -1,4 +1,5 @@
 const URI_Profesionales = import.meta.env.VITE_API_PROFESIONALES;
+const URI_Usuarios = import.meta.env.VITE_API_USUARIOS;
 
 export const obtenerProfesionalesAPI = async () => {
   try {
@@ -150,5 +151,51 @@ export const professionalAdminEditAPI = async (profesional, id) => {
     return respuesta;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export const sendCV = async (formData, id) => {
+  try {
+    const respuesta = await fetch(`${URI_Profesionales}/${id}/cv`,{
+      method: "POST",
+      body: formData,
+    })
+    console.log(respuesta);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const uploadProfilePhoto = async (formData, id) => {
+  try {
+    const respuesta = await fetch(`${URI_Profesionales}/${id}/photo`,{
+      method: "POST",
+      body: formData,
+    })
+    console.log(respuesta);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const userRegisterAPI = async (datos) => {
+  try {
+    const response = await fetch(`${URI_Usuarios}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datos)
+    });
+
+    if (!response.ok) {
+      throw new Error('Error al registrar el usuario');
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw new Error(`Error en la petición para registrar el usuario: ${error.message}`);
   }
 }

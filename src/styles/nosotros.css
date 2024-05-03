@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+.tituloPrincipal {
+  font-family: "Rubik", sans-serif;
+  color: #004b81;
+}
+
+.titulosSecundarios {
+  font-family: "Rubik", sans-serif;
+  color: #004b81;
+}
+
+.subtitulos {
+  font-family: "Rubik", sans-serif;
+  color: #004b81;
+}
+
+.textoResaltado {
+  font-family: "Rubik", sans-serif;
+  color: #004b81;
+}
+
+.iconoEjes {
+  color: #41bcc5;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.iconoApoyoEmpleo {
+  color: #41bcc5;
+}
+
+.iconoActividades {
+  font-size: 20px;
+  color: #41bcc5;
+}
+
+@media screen and (max-width: 767px) {
+  .listas {
+    margin-right: 50px;
+  }
+}

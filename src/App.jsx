@@ -14,6 +14,11 @@ import Administrador from "./components/pages/Administrador.jsx";
 import SignUp from "./components/pages/SignUp.jsx";
 import DarAltaProfesional from "./components/pages/administrador/DarAltaProfesional.jsx";
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
+import SelectLoginMethod from "./components/pages/SelectLoginMethod.jsx";
+import ChangeCV from "./components/pages/administrador/ChangeCV.jsx";
+import ChangePhoto from "./components/pages/administrador/ChangePhoto.jsx";
+import Nosotros from "./components/pages/Nosotros.jsx";
+import UserSingUp from "./components/pages/UserSingUp.jsx";
 
 function App() {
   return (
@@ -21,17 +26,16 @@ function App() {
       <ScrollToTop />
       <MenuNav></MenuNav>
       <Routes>
+        <Route
+          exact
+          path="/selectSigninMethod"
+          element={<SelectLoginMethod></SelectLoginMethod>}
+        ></Route>
         <Route exact path="/signin" element={<Login></Login>}></Route>
         <Route
           exact
           path="/signup"
-          element={
-            <SignUp
-              editar={false}
-              titulo="REGISTRARSE"
-              boton="Registrarse"
-            ></SignUp>
-          }
+          element={<SignUp titulo="REGISTRARSE" boton="Registrarse"></SignUp>}
         ></Route>
         <Route exact path="/" element={<Index></Index>}></Route>
         <Route
@@ -47,7 +51,13 @@ function App() {
         <Route
           exact
           path="/profesional/crear"
-          element={<DarAltaProfesional></DarAltaProfesional>}
+          element={
+            <DarAltaProfesional
+              editar={false}
+              titulo="REGISTRAR UN NUEVO PROFESIONAL"
+              boton="REGISTRAR"
+            ></DarAltaProfesional>
+          }
         ></Route>
         <Route
           exact
@@ -58,12 +68,28 @@ function App() {
           exact
           path="/administrador/editar/:id"
           element={
-            <SignUp
+            <DarAltaProfesional
               editar={true}
-              titulo="EDITAR PROFESIONAL"
+              titulo="EDITAR INFORMACIÓN"
               boton="Editar"
-            ></SignUp>
+            ></DarAltaProfesional>
           }
+        ></Route>
+        <Route
+          exact
+          path="/administrador/editar/:id/cambiarCV"
+          element={<ChangeCV></ChangeCV>}
+        ></Route>
+        <Route
+          exact
+          path="/administrador/editar/:id/cambiarFoto"
+          element={<ChangePhoto></ChangePhoto>}
+        ></Route>
+        <Route exact path="/about" element={<Nosotros></Nosotros>}></Route>
+        <Route
+          exact
+          path="/signupUser"
+          element={<UserSingUp></UserSingUp>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>

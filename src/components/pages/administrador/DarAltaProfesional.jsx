@@ -5,50 +5,115 @@ import logoMuni from "../../../assets/logo_muni_vertical_AZUL.png";
 import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
 import useTitle from "../../../hooks/useTitle";
-import Swal from 'sweetalert2';
-import { professionalAdminRegisterAPI } from "../../../helpers/queries.js";
-import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
+import {
+  professionalAdminRegisterAPI,
+  obtenerProfesionalAPI,
+  professionalAdminEditAPI,
+} from "../../../helpers/queries.js";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-const SignUp = () => {
+const SignUp = ({ editar, titulo, boton }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
 
-  useTitle("Añadir nuevo profesional")
+  useTitle(editar ? "Editar profesional" : "Añadir nuevo profesional");
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (editar) {
+      cargarDatosProfesional();
+    }
+  }, []);
+
+  const cargarDatosProfesional = async () => {
+    const respuesta = await obtenerProfesionalAPI(id);
+    if (respuesta.status === 200) {
+      const profesionalBuscado = await respuesta.json();
+      setValue("nombreCompleto", profesionalBuscado.nombreCompleto);
+      setValue("foto", profesionalBuscado.foto);
+      setValue("dni", profesionalBuscado.dni);
+      setValue("password", profesionalBuscado.password);
+      setValue("cv", profesionalBuscado.cv);
+      setValue("categoria", profesionalBuscado.categoria);
+      setValue("descripcion", profesionalBuscado.descripcion);
+      setValue("telefono", profesionalBuscado.telefono);
+      setValue("email", profesionalBuscado.email);
+    }
+  };
 
   const onSubmit = async (formData) => {
-    try {
-      formData.pendiente = false;
-      const response = await professionalAdminRegisterAPI(formData);
-      if (response.profesional) {
-        Swal.fire({
-          title: '¡Hecho!',
-          text: `${response.mensaje}`,
-          icon: 'success'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/administrador");
-          }
-        });
-      } else {
+    if (editar) {
+      try {
+        if (!formData.telefono.includes("+549")) {
+          let telefono = "+549" + formData.telefono;
+          formData.telefono = telefono;
+        }
+        formData.calificacion = 1;
+        const respuesta = await professionalAdminEditAPI(formData, id);
+        if (respuesta.status === 200) {
+          Swal.fire({
+            title: "Profesional modificado",
+            text: `El profesional "${formData.nombreCompleto}" fue modificado correctamente`,
+            icon: "success",
+            confirmButtonColor: "#004b81",
+            confirmButtonText: "Aceptar",
+          });
+          navigate("/administrador");
+        }
+      } catch (error) {
+        console.error("Error al editar el profesional:", error);
         Swal.fire({
           title: "Ocurrió un error",
           text: `Intenta esta operación en unos minutos.`,
           icon: "error",
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
         });
       }
-    } catch (error) {
-      console.error("Error al registrar el profesional:", error);
-      Swal.fire({
-        title: "Ocurrió un error",
-        text: `Intenta esta operación en unos minutos.`,
-        icon: "error",
-      });
+    } else {
+      try {
+        formData.pendiente = false;
+        const response = await professionalAdminRegisterAPI(formData);
+        if (response.profesional) {
+          Swal.fire({
+            title: "¡Hecho!",
+            text: `${response.mensaje}`,
+            icon: "success",
+            confirmButtonColor: "#004b81",
+            confirmButtonText: "Aceptar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate("/administrador");
+            }
+          });
+        } else {
+          Swal.fire({
+            title: "Ocurrió un error",
+            text: `Intenta esta operación en unos minutos.`,
+            icon: "error",
+            confirmButtonColor: "#004b81",
+            confirmButtonText: "Aceptar",
+          });
+        }
+      } catch (error) {
+        console.error("Error al registrar el profesional:", error);
+        Swal.fire({
+          title: "Ocurrió un error",
+          text: `Intenta esta operación en unos minutos.`,
+          icon: "error",
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
+        });
+      }
     }
-  };;
+  };
 
   return (
     <>
@@ -69,7 +134,7 @@ const SignUp = () => {
               width={140}
               height={155}
             />
-            <h1>REGISTRAR NUEVO PROFESIONAL</h1>
+            <h1>{titulo}</h1>
           </div>
 
           <div className="formContent">
@@ -99,18 +164,18 @@ const SignUp = () => {
               <Form.Group className="mb-3" controlId="formBasicDni">
                 <Form.Label>DNI (sin puntos)</Form.Label>
                 <Form.Control
-                  type="number" 
+                  type="number"
                   placeholder="10000000"
                   {...register("dni", {
                     required: "Ingrese el DNI",
                     min: {
-                        value: 10000000,
-                        message: "Ingrese un dni valido",
-                      },
-                      max: {
-                        value: 99999999,
-                        message: "Ingrese un dni valido",
-                      },
+                      value: 10000000,
+                      message: "Ingrese un dni valido",
+                    },
+                    max: {
+                      value: 99999999,
+                      message: "Ingrese un dni valido",
+                    },
                   })}
                 />
                 <Form.Text className="text-danger">
@@ -118,25 +183,6 @@ const SignUp = () => {
                 </Form.Text>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Foto</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese una dirección de foto"
-                  {...register("foto", {
-                    required: "Ingrese la foto de perfil del profesional",
-                    pattern: {
-                      value:
-                        /(http)=?s?:?(\/\/[^"'"]*\.(?:png|jpg|jpeg|gif|svg))/i,
-                      message:
-                        "Ingrese una url de una imagen png, jpg, gif, svg",
-                    },
-                  })}
-                />
-                <Form.Text className="text-danger">
-                  {errors.foto?.message}
-                </Form.Text>
-              </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
@@ -164,26 +210,13 @@ const SignUp = () => {
                     required: "Ingrese la contraseña",
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*\d).{6,20}$/,
-                      message: "La contraseña debe minimo 6 caracteres, Una mayuscula y un numero",
+                      message:
+                        "La contraseña debe minimo 6 caracteres, Una mayuscula y un numero",
                     },
                   })}
                 />
                 <Form.Text className="text-danger">
                   {errors.password?.message}
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>CV</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese su CV"
-                  {...register("cv", {
-                    required: "Ingrese su cv",
-                  })}
-                />
-                <Form.Text className="text-danger">
-                  {errors.cv?.message}
                 </Form.Text>
               </Form.Group>
 
@@ -213,7 +246,9 @@ const SignUp = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Número de Teléfono de contacto (sin 15 ni 0 ni -)</Form.Label>
+                <Form.Label>
+                  Número de Teléfono de contacto (sin 15 ni 0 ni -)
+                </Form.Label>
                 <Form.Control
                   type="tel"
                   placeholder="3865505050"
@@ -227,7 +262,31 @@ const SignUp = () => {
               </Form.Group>
 
               <div className="btnConteiner">
-                <Button className="btnPrincipal" type="submit">Registrar nuevo profesional</Button>
+                <Button className="btnPrincipal" type="submit">
+                  {boton}
+                </Button>
+                {editar && (
+                  <>
+                  <Button
+                    className="btnPrincipal"
+                    type="button"
+                    onClick={() => {
+                      navigate(`/administrador/editar/${id}/cambiarCV`);
+                    }}
+                  >
+                    <i className="bi bi-plus-circle"></i> Agregar o Cambiar CV
+                  </Button>
+                   <Button
+                   className="btnPrincipal"
+                   type="button"
+                   onClick={() => {
+                     navigate(`/administrador/editar/${id}/cambiarFoto`);
+                   }}
+                 >
+                   <i className="bi bi-camera"></i> Agregar o Cambiar foto de perfil
+                 </Button>
+                 </>
+                )}
               </div>
             </Form>
           </div>
