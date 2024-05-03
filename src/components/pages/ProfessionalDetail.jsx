@@ -14,10 +14,10 @@ import { useForm } from "react-hook-form";
 import "../../styles/ProfessionalDetail.css";
 import { useEffect, useState } from "react";
 import { obtenerProfesionalAPI } from "../../helpers/queries";
-
+import { professionalAddComment } from "../../helpers/queries";
 import { useParams } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
-
+import Swal from "sweetalert2";
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -41,8 +41,39 @@ const ProfessionalDetail = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data)
+  const onSubmit = async (formData) => {
+    try{
+
+      const response = await professionalAddComment(id ,formData)
+
+      if (response.mensaje === "Comentario agregado exitosamente") {
+
+        handleResenaClose();
+        Swal.fire({
+          title: `Comentario Agregado`,
+          text: "El comentario se agregó exitosamente",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: `Aceptar`,
+        })
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "El comentario no fue agregado, intentelo nuevamente más tarde",
+        });
+      }
+      
+    }catch (error) {
+      console.error("Error al agregar comentario", error);
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+        confirmButtonColor: "#004b81",
+        confirmButtonText: "Aceptar",
+      });
+    }
   };
 
   const { id } = useParams();
@@ -125,7 +156,7 @@ const ProfessionalDetail = () => {
   // Mostrar la cantidad de estrellas real del Profesional
   const estrellasLlenas = Math.floor(profesional.calificacion);
   const estrellaMedia = profesional.calificacion - estrellasLlenas;
-  const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.5 ? 1 : 0);
+  const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.4 ? 1 : 0);
 
   const renderEstrellas = () => {
     const estrellas = [];
@@ -135,7 +166,7 @@ const ProfessionalDetail = () => {
       );
     }
 
-    if (estrellaMedia >= 0.5) {
+    if (estrellaMedia >= 0.4) {
       estrellas.push(
         <i
           key={estrellas.length}
@@ -415,6 +446,7 @@ const ProfessionalDetail = () => {
           </div>
         </Modal.Body>
       </Modal>
+
       {/* Modal - Reseña */}
       <Modal show={evento} onHide={handleResenaClose}>
         <Modal.Header
@@ -491,7 +523,7 @@ const ProfessionalDetail = () => {
                     message: "Ingrese una opinión con mínimo 5 caracteres",
                   },
                   maxLength: {
-                    value: 30,
+                    value: 25,
                     message: "Ingrese una opinión con máximo 30 caracteres",
                   },
                 })}
@@ -515,7 +547,7 @@ const ProfessionalDetail = () => {
                     message: "Ingrese una descripcion con mínimo 10 caracteres",
                   },
                   maxLength: {
-                    value: 200,
+                    value: 150,
                     message:
                       "Ingrese una descripcion con máximo 200 caracteres",
                   },
@@ -534,11 +566,11 @@ const ProfessionalDetail = () => {
                 {...register("autor", {
                   required: "Ingrese su nombre",
                   minLength: {
-                    value: 2,
+                    value: 3,
                     message: "Ingrese un nombre con mínimo 2 caracteres",
                   },
                   maxLength: {
-                    value: 50,
+                    value: 30,
                     message: "Ingrese un nombre con máximo 50 caracteres",
                   },
                 })}
