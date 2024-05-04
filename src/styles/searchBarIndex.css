@@ -1,0 +1,45 @@
+.listaDeResultados {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    max-width: 300px;
+  }
+  
+  .contenedorBuscador {
+    position: "relative";
+  }
+  
+  .linkProfesionales {
+    text-decoration: none;
+    color: black;
+    font-family: "Rubik", sans-serif;
+  }
+  
+  .inputBusqueda {
+    font-family: "Rubik", sans-serif;
+  }
+  
+  @media (max-width: 991.98px) {
+    .contenedorBuscador {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 991.98px) {
+    .listaDeResultados {
+      position: absolute;
+      top: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 50px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  }
+  
