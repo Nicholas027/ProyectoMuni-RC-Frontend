@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import logoMuni from "../../assets/logo_muni_vectorized.png";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { userSignIn } from "../../helpers/queries";
 
 const UserSignIn = () => {
   const {
@@ -14,6 +15,25 @@ const UserSignIn = () => {
 
   const onSubmit = async (usuario) => {
     try {
+      const response = await userSignIn(usuario);
+      console.log("aqui viene el response")
+      console.log(response)
+      console.log("aqui termina el response")
+      if (response.status) {
+        Swal.fire({
+          icon: "success",
+          title: "Inicio de Sesión Exitoso",
+        //   text: `Bienvenido ${response.nombre}`,
+        });
+      } else {
+        Swal.fire({
+            title: "Ocurrió un error",
+            text: `Intenta esta operación en unos minutos.`,
+            icon: "error",
+            confirmButtonColor: '#004b81',
+            confirmButtonText: 'Aceptar',
+          });
+      }
     } catch (error) {
       console.error("Error al iniciar sesion como usuario:", error);
       Swal.fire({
@@ -56,7 +76,7 @@ const UserSignIn = () => {
           <Form.Control
             type="password"
             placeholder="Ingrese su contraseña"
-            {...register("pass", {
+            {...register("password", {
               required: "Ingrese su contraseña",
               pattern: {
                 value: /^(?=.*[A-Z])(?=.*\d).{6,}$/,

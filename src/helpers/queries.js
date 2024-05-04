@@ -249,8 +249,9 @@ export const userSignIn = async (usuario) => {
       },
       body: JSON.stringify(usuario)
     });
+
+    return await respuesta.json();
   } catch (error) {
     console.log("Errores en el login.");
-    return;
   }
 }
