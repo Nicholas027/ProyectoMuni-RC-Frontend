@@ -1,40 +1,44 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, ListGroup } from "react-bootstrap";
-import { buscarProfesionalesIndexAPI } from "../../helpers/queries";
+import { obtenerProfesionalesParaBuscador } from "../../helpers/queries";
 import "../../styles/searchBarIndex.css";
 
 const SearchBar = () => {
+  const [profesionales, setProfesionales] = useState([]);
   const [resultados, setResultados] = useState([]);
   const inputRef = useRef(null);
 
-  const normalizarString = (string) => {
-    return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  };
-
-  const buscarProfesionales = async (searchTerm) => {
-    try {
-      const respuesta = await buscarProfesionalesIndexAPI(searchTerm);
-      if (Array.isArray(respuesta)) {
-        const resultadosFiltrados = respuesta.filter((result) =>
-          normalizarString(result.nombreCompleto)
-            .toLowerCase()
-            .includes(normalizarString(searchTerm).toLowerCase())
-        );
-        setResultados(resultadosFiltrados);
-      } else {
-        setResultados([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await obtenerProfesionalesParaBuscador();
+        if (Array.isArray(data)) {
+          setProfesionales(data);
+        } else {
+          console.error("La API no devolvió datos en formato de matriz:", data);
+        }
+      } catch (error) {
+        console.error("Error al obtener profesionales:", error);
       }
-    } catch (error) {
-      console.error(error);
-    }
+    };
+
+    fetchData();
+  }, []);
+
+  const normalizarString = (string) => {
+    return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   };
 
   const handleBusquedaChange = (e) => {
-    const searchTerm = e.target.value;
-    if (searchTerm.trim() === "") {
+    const searchTerm = e.target.value.trim();
+
+    if (searchTerm === "") {
       setResultados([]);
     } else {
-      buscarProfesionales(searchTerm);
+      const resultadosFiltrados = profesionales.filter((profesional) =>
+        normalizarString(profesional.nombreCompleto).includes(normalizarString(searchTerm))
+      );
+      setResultados(resultadosFiltrados);
     }
   };
 
