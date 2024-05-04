@@ -219,3 +219,22 @@ export const professionalAddComment = async (profesionalId, formData) => {
     throw new Error(`Error en la petición para agregar comentario: ${error.message}`);
   }
 };
+
+export const obtenerProfesionalesParaBuscador = async () => {
+  try {
+    const respuesta = await fetch(URI_Profesionales, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error al obtener los profesionales: ${respuesta.statusText}`
+      );
+    }
+   return respuesta.json();
+  } catch (error) {
+    throw new Error(`Error al obtener los profesionales: ${error.message}`);
+  }
+};

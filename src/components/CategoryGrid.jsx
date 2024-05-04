@@ -24,55 +24,60 @@ const CategoryGrid = () => {
     <Link
       to="/categorias/carpintero"
       className="text-decoration-none text-dark"
+      categoria={"Carpinteros"}
     >
       <CardCategory
         imagen={carpinteriaLogo}
         nombre={"Carpinteros"}
       ></CardCategory>
     </Link>,
-    <Link to="/categorias/gasista" className="text-decoration-none text-dark">
+    <Link to="/categorias/gasista" className="text-decoration-none text-dark" categoria={"Gasistas"}>
       <CardCategory imagen={gasistaLogo} nombre={"Gasistas"}></CardCategory>
     </Link>,
-    <Link to="/categorias/cerrajero" className="text-decoration-none text-dark">
+    <Link to="/categorias/cerrajero" className="text-decoration-none text-dark" categoria={"Cerrajeros"}>
       <CardCategory imagen={cerrajeroLogo} nombre={"Cerrajeros"}></CardCategory>
     </Link>,
-    <Link to="/categorias/mecanico" className="text-decoration-none text-dark">
+    <Link to="/categorias/mecanico" className="text-decoration-none text-dark" categoria={"Mecanicos"}>
       <CardCategory imagen={mecanicoLogo} nombre={"Mecánicos"}></CardCategory>
     </Link>,
     <Link
       to="/categorias/electricista"
       className="text-decoration-none text-dark"
+      categoria={"Electricistas"}
     >
       <CardCategory
         imagen={electricistaLogo}
         nombre={"Electricistas"}
       ></CardCategory>
     </Link>,
-    <Link to="/categorias/albañil" className="text-decoration-none text-dark">
+    <Link to="/categorias/albañil" className="text-decoration-none text-dark" categoria={"Albañiles"}>
       <CardCategory imagen={albanilLogo} nombre={"Albañiles"}></CardCategory>
     </Link>,
-    <Link to="/categorias/plomero" className="text-decoration-none text-dark">
+    <Link to="/categorias/plomero" className="text-decoration-none text-dark" categoria={"Plomeros"}>
       <CardCategory imagen={plomeriaLogo} nombre={"Plomeros"}></CardCategory>
     </Link>,
-    <Link to="/categorias/pintor" className="text-decoration-none text-dark">
+    <Link to="/categorias/pintor" className="text-decoration-none text-dark" categoria={"Pintores"}>
       <CardCategory imagen={pintorLogo} nombre={"Pintores"}></CardCategory>
     </Link>,
-    <Link to="/categorias/herrero" className="text-decoration-none text-dark">
+    <Link to="/categorias/herrero" className="text-decoration-none text-dark" categoria={"Herreros"}>
       <CardCategory imagen={herreroLogo} nombre={"Herreros"}></CardCategory>
     </Link>,
-    <Link to="/categorias/jardinero" className="text-decoration-none text-dark">
+    <Link to="/categorias/jardinero" className="text-decoration-none text-dark" categoria={"Jardineros"}>
       <CardCategory imagen={jardineroLogo} nombre={"Jardineros"}></CardCategory>
     </Link>,
-    <Link to="/categorias/otros" className="text-decoration-none text-dark">
+    <Link to="/categorias/otros" className="text-decoration-none text-dark" categoria={"Otros"}>
       <CardCategory imagen={otrosLogo} nombre={"Otros"}></CardCategory>
     </Link>,
   ];
 
   const filteredCards = busqueda
-    ? cards.filter((card) =>
-        card.props.nombre.toLowerCase().startsWith(busqueda.toLowerCase())
-      )
-    : cards;
+  ? cards.filter(
+      (card) =>
+        card.props &&
+        card.props.categoria &&
+        card.props.categoria.toLowerCase().includes(busqueda.toLowerCase())
+    )
+  : cards;
 
   return (
     <div className="d-flex flex-column">
