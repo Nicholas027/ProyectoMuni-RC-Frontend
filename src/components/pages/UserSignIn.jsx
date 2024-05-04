@@ -13,7 +13,15 @@ const UserSignIn = () => {
   } = useForm();
 
   const onSubmit = async (usuario) => {
-    
+    try {
+    } catch (error) {
+      console.error("Error al iniciar sesion como usuario:", error);
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+      });
+    }
   };
 
   return (
