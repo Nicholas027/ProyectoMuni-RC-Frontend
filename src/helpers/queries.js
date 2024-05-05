@@ -268,3 +268,18 @@ export const userSignIn = async (usuario) => {
     console.log("Errores en el login.");
   }
 }
+
+export const professionalLogin = async (profesional) => {
+  try {
+    const respuesta = await fetch(`${URI_Profesionales}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(profesional)
+    })
+    return await respuesta.json();
+  } catch (error) {
+    console.error("Error al intentar acceder a esta cuenta.")
+  }
+}
