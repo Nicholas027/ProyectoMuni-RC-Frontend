@@ -10,10 +10,12 @@ import {
 } from "../../helpers/queries";
 import Swal from "sweetalert2";
 import { useParams, useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const Categoria = () => {
   const { categoria } = useParams();
   const navigate = useNavigate();
+  useTitle(`${categoria.toUpperCase()}`)
 
   const [profesionales, setProfesionales] = useState([]);
   const [categorias, setCategorias] = useState([]);

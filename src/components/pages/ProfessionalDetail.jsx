@@ -19,7 +19,7 @@ import { useParams} from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
 import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
-
+import useTitle from "../../hooks/useTitle";
 
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
@@ -37,6 +37,7 @@ const ProfessionalDetail = () => {
   const [cantidad3e, setCantidad3e] = useState(0);
   const [cantidad2e, setCantidad2e] = useState(0);
   const [cantidad1e, setCantidad1e] = useState(0);
+  useTitle(`${profesional.nombreCompleto ? profesional.nombreCompleto : "Perfil del profesional"}`)
 
   const {
     register,
@@ -195,7 +196,7 @@ const ProfessionalDetail = () => {
             <img
               src={profesional.foto}
               alt="Foto de perfil del profesional."
-              className="estiloFotoPerfil"
+              className="estiloFotoPerfil img-thumbnail"
             />
           </div>
         </div>
