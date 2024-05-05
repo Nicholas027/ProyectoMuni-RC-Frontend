@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { Container } from "react-bootstrap";
 import { professionalRegisterAPI } from "../../helpers/queries";
 import Swal from "sweetalert2";
+import useTitle from "../../hooks/useTitle";
 
 const SignUpProfessional = () => {
   const {
@@ -14,6 +15,8 @@ const SignUpProfessional = () => {
     formState: { errors },
     reset,
   } = useForm();
+
+  useTitle("Registro Profesional")
 
   const onSubmit = async (usuario) => {
       try {

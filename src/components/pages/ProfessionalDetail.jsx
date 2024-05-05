@@ -18,6 +18,7 @@ import { professionalAddComment } from "../../helpers/queries";
 import { useParams } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
+import useTitle from "../../hooks/useTitle";
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -34,6 +35,7 @@ const ProfessionalDetail = () => {
   const [cantidad3e, setCantidad3e] = useState(0);
   const [cantidad2e, setCantidad2e] = useState(0);
   const [cantidad1e, setCantidad1e] = useState(0);
+  useTitle(`${profesional.nombreCompleto ? profesional.nombreCompleto : "Perfil del profesional"}`)
 
   const {
     register,
@@ -220,7 +222,7 @@ const ProfessionalDetail = () => {
             <img
               src={profesional.foto}
               alt="Foto de perfil del profesional."
-              className="estiloFotoPerfil"
+              className="estiloFotoPerfil img-thumbnail"
             />
           </div>
         </div>
@@ -246,8 +248,7 @@ const ProfessionalDetail = () => {
       <section className="m-4 pt-3 p-4 fondoTextos text-center">
         <h3 className="mb-4 titulo">CURRICULUM VITAE</h3>
         <img
-          src="https://cdn-v1.udocz-assets.com/uploads/book/cover/447297/447297.jpg"
-          // alt="Curriculum Vitae del profesional."
+          src={profesional.cv}
           alt={profesional.cv}
           className="img-fluid"
         />

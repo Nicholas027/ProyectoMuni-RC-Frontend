@@ -147,7 +147,21 @@ export const professionalAdminEditAPI = async (profesional, id) => {
       },
       body: JSON.stringify(profesional)
     })
-    console.log(respuesta);
+    return respuesta;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const professionalEditProfile = async (profesional, id) => {
+  try {
+    const respuesta = await fetch(`${URI_Profesionales}/${id}/profile`,{
+      method: "PUT",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(profesional)
+    })
     return respuesta;
   } catch (error) {
     console.log(error);
