@@ -1,10 +1,12 @@
-import "../../styles/login.css"
+import "../../styles/login.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import logoMuni from "../../assets/logo_muni_vectorized.png"
+import logoMuni from "../../assets/logo_muni_vectorized.png";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useTitle from "../../hooks/useTitle";
+import { useNavigate } from "react-router-dom";
+import { professionalLogin } from "../../helpers/queries";
 
 const Login = () => {
   const {
@@ -13,18 +15,39 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  useTitle("Iniciar Sesion Profesional")
+  const navigate = useNavigate();
 
-  const onSubmit = async (usuario) => {
-    
+  useTitle("Iniciar Sesion Profesional");
+
+  const onSubmit = async (profesional) => {
+    try {
+      const response = await professionalLogin(profesional);
+
+      if (response.status) {
         Swal.fire({
           icon: "success",
           title: "Inicio de Sesión Exitoso",
-          text: `Bienvenido ${usuario.email}`,
+          text: `Bienvenido ${response.nombre}`,
         });
-
+        navigate("/");
+      } else {
+        Swal.fire({
+          title: "Ocurrió un error",
+          text: `Contraseña o password incorrectos`,
+          icon: "error",
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
+        });
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión como profesional:", error);
+      Swal.fire({
+        title: "Ocurrió un error",
+        text: `Intenta esta operación en unos minutos.`,
+        icon: "error",
+      });
+    }
   };
-
 
   return (
     <>
@@ -35,10 +58,10 @@ const Login = () => {
           className="imgFondo"
         />
         <Form className="w-25 cardLogin" onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <img src={logoMuni} alt="" width={200}/>
-                <h2 className="mt-3">Iniciar Sesión</h2>
-            </div>
+          <div>
+            <img src={logoMuni} alt="" width={200} />
+            <h2 className="mt-3">Iniciar Sesión Profesional</h2>
+          </div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -59,7 +82,7 @@ const Login = () => {
             <Form.Control
               type="password"
               placeholder="Ingrese su contraseña"
-              {...register("pass", {
+              {...register("password", {
                 required: "Ingrese su contraseña",
                 pattern: {
                   value: /^(?=.*[A-Z])(?=.*\d).{6,}$/,
@@ -72,7 +95,7 @@ const Login = () => {
             <Form.Check type="checkbox" label="Recordarme" />
           </Form.Group>
           <Form.Text className="text-danger">
-            {errors.pass?.message || errors.email?.message}
+            {errors.password?.message || errors.email?.message}
           </Form.Text>
           <Button type="submit" className="btnPrincipal">
             Ingresar
