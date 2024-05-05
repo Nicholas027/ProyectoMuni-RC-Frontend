@@ -5,6 +5,7 @@ import logoMuni from "../../assets/logo_muni_vectorized.png";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { userSignIn } from "../../helpers/queries";
+import { useNavigate } from "react-router-dom";
 
 const UserSignIn = () => {
   const {
@@ -13,16 +14,19 @@ const UserSignIn = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (usuario) => {
     try {
       const response = await userSignIn(usuario);
-      
-      if (response.status) {
+
+      if (response.status) {        
         Swal.fire({
           icon: "success",
           title: "Inicio de Sesión Exitoso",
           text: `Bienvenido ${response.nombre}`,
         });
+        navigate("/");
       } else {
         Swal.fire({
             title: "Ocurrió un error",
