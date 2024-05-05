@@ -64,7 +64,7 @@ const SearchBar = () => {
       </Form>
 
       {resultados.length > 0 && (
-        <ListGroup className="w-25 me-3 listaDeResultados">
+        <ListGroup className="listaDeResultados">
           {resultados.map((resultado) => (
             <ListGroup.Item
               action
