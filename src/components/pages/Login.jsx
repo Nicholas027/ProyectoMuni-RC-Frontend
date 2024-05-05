@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import logoMuni from "../../assets/logo_muni_vectorized.png"
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import useTitle from "../../hooks/useTitle";
 
 const Login = () => {
   const {
@@ -11,6 +12,8 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  useTitle("Iniciar Sesion Profesional")
 
   const onSubmit = async (usuario) => {
     

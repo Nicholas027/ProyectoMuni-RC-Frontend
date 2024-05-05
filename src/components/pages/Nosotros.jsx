@@ -1,7 +1,9 @@
 import { Container } from "react-bootstrap";
 import "../../styles/nosotros.css";
+import useTitle from "../../hooks/useTitle";
 
 const Nosotros = () => {
+  useTitle("Nosotros")
   return (
     <Container>
       <h1 className="text-center my-5 tituloPrincipal display-4 fw-normal">

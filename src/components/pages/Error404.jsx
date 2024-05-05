@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import "../../styles/error404.css";
 import { Container } from "react-bootstrap";
+import useTitle from "../../hooks/useTitle";
 
 const Error404 = () => {
+  useTitle("Error 404");
   return (
     <Container className="text-center my-5">
       <h1 className="display-1 tituloError my-4">Error 404</h1>
