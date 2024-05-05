@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../../assets/logo_muni_vertical_AZUL.png";
 import { Col, Row } from "react-bootstrap";
+import SearchBar from "./SearchBar";
 
 const MenuNav = () => {
   return (
@@ -34,6 +35,7 @@ const MenuNav = () => {
             <Nav.Link href="/selectSigninMethod">
               <i className="bi bi-box-arrow-in-right"></i> INGRESAR
             </Nav.Link>
+            <SearchBar/>
           </Nav>
         </Navbar.Collapse>
       </Container>

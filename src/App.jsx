@@ -21,6 +21,7 @@ import Nosotros from "./components/pages/Nosotros.jsx";
 import UserSingUp from "./components/pages/UserSingUp.jsx";
 import TermsConditions from "./components/TermsConditions.jsx";
 import ProfessionalProfile from "./components/pages/ProfessionalProfile.jsx";
+import UserSignIn from "./components/pages/UserSignIn.jsx";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           element={<SelectLoginMethod></SelectLoginMethod>}
         ></Route>
         <Route exact path="/signin" element={<Login></Login>}></Route>
+        <Route exact path="/user/signin" element={<UserSignIn></UserSignIn>}></Route>        
         <Route
           exact
           path="/signup"

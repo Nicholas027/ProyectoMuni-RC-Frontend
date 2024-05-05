@@ -233,3 +233,38 @@ export const professionalAddComment = async (profesionalId, formData) => {
     throw new Error(`Error en la petición para agregar comentario: ${error.message}`);
   }
 };
+
+export const obtenerProfesionalesParaBuscador = async () => {
+  try {
+    const respuesta = await fetch(URI_Profesionales, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!respuesta.ok) {
+      throw new Error(
+        `Error al obtener los profesionales: ${respuesta.statusText}`
+      );
+    }
+   return respuesta.json();
+  } catch (error) {
+    throw new Error(`Error al obtener los profesionales: ${error.message}`);
+  }
+};
+
+export const userSignIn = async (usuario) => {
+  try {
+    const respuesta = await fetch(`${URI_Usuarios}/signIn`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(usuario)
+    });
+
+    return await respuesta.json();
+  } catch (error) {
+    console.log("Errores en el login.");
+  }
+}
