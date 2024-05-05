@@ -1,5 +1,6 @@
 .imgCarousel {
-  height: 710px;
+  height: 685px;
+  filter: brightness(0.3);
 }
 
 .categorySelect h2 {

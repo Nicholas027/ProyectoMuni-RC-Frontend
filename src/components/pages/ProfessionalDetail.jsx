@@ -54,7 +54,7 @@ const ProfessionalDetail = () => {
           title: `Comentario Agregado`,
           text: "El comentario se agregó exitosamente",
           icon: "success",
-          confirmButtonColor: "#3085d6",
+          confirmButtonColor: "#004b81",
           confirmButtonText: `Aceptar`,
         })
       } else {
