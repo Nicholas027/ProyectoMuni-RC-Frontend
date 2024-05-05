@@ -241,7 +241,6 @@ export const obtenerProfesionalesParaBuscador = async () => {
 
 export const userSignIn = async (usuario) => {
   try {
-    console.log(usuario);
     const respuesta = await fetch(`${URI_Usuarios}/signIn`, {
       method: 'POST',
       headers: {

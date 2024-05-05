@@ -16,14 +16,12 @@ const UserSignIn = () => {
   const onSubmit = async (usuario) => {
     try {
       const response = await userSignIn(usuario);
-      console.log("aqui viene el response")
-      console.log(response)
-      console.log("aqui termina el response")
+      
       if (response.status) {
         Swal.fire({
           icon: "success",
           title: "Inicio de Sesión Exitoso",
-        //   text: `Bienvenido ${response.nombre}`,
+          text: `Bienvenido ${response.nombre}`,
         });
       } else {
         Swal.fire({
