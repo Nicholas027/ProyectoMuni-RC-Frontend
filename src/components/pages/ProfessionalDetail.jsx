@@ -221,14 +221,14 @@ const ProfessionalDetail = () => {
       </section>
       <section className="m-4 p-2 pt-3 fondoTextos text-center px-5">
         <h3 className="titulo">OPINIONES</h3>
-        <article className="p-3 px-5 bg-light mb-3 mt-3">
+        <article className="py-3 bg-light mb-3 mt-3">
           <h3 className="text-warning h1 d-flex justify-content-center ">
             <span className="display-5">
               {profesional.calificacion !== undefined
                 ? profesional.calificacion.toFixed(1)
                 : ""}
             </span>
-            <div className="ms-3 mt-2">
+            <div className="estrellasPromedio">
               <EstrellasCalificaciones  calificacion={profesional.calificacion}/>
             </div>  
           </h3>
@@ -244,10 +244,10 @@ const ProfessionalDetail = () => {
                   ).toFixed(1)}%`}
                 />
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad5e})</h3>
               <div className="count">
+                <h3 className="text-secondary"> ({cantidad5e})</h3>
                 <h3 className="text-warning ">
-                  5{" "}
+                  5
                   <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
                 </h3>
               </div>
@@ -263,10 +263,10 @@ const ProfessionalDetail = () => {
                   ).toFixed(1)}%`}
                 />
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad4e})</h3>
               <div className="count">
+                <h3 className="text-secondary"> ({cantidad4e})</h3>
                 <h3 className="text-warning ">
-                  4{" "}
+                  4
                   <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
                 </h3>
               </div>
@@ -282,10 +282,10 @@ const ProfessionalDetail = () => {
                   ).toFixed(1)}%`}
                 />
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad3e})</h3>
               <div className="count">
+                <h3 className="text-secondary"> ({cantidad3e})</h3>
                 <h3 className="text-warning ">
-                  3{" "}
+                  3
                   <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
                 </h3>
               </div>
@@ -301,10 +301,10 @@ const ProfessionalDetail = () => {
                   ).toFixed(1)}%`}
                 />
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad2e})</h3>
               <div className="count">
+                <h3 className="text-secondary"> ({cantidad2e})</h3>
                 <h3 className="text-warning">
-                  2{" "}
+                  2
                   <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
                 </h3>
               </div>
@@ -320,10 +320,10 @@ const ProfessionalDetail = () => {
                   ).toFixed(1)}%`}
                 />
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad1e})</h3>
               <div className="count">
+                <h3 className="text-secondary"> ({cantidad1e})</h3>
                 <h3 className="text-warning">
-                  1{" "}
+                  1
                   <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
                 </h3>
               </div>
