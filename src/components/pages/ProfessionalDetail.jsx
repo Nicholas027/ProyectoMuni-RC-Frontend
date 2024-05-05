@@ -18,6 +18,7 @@ import { professionalAddComment } from "../../helpers/queries";
 import { useParams } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
+import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -153,40 +154,6 @@ const ProfessionalDetail = () => {
   // WhatsApp del profesional
   const telefono = `https://api.whatsapp.com/send/?phone=%2B${telefonoSinMas}&text&type=phone_number&app_absent=0`;
 
-  // Mostrar la cantidad de estrellas real del Profesional
-  const estrellasLlenas = Math.floor(profesional.calificacion);
-  const estrellaMedia = profesional.calificacion - estrellasLlenas;
-  const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.4 ? 1 : 0);
-
-  const renderEstrellas = () => {
-    const estrellas = [];
-    for (let i = 0; i < estrellasLlenas; i++) {
-      estrellas.push(
-        <i key={i} className="bi bi-star-fill me-1 estrella-amarilla"></i>
-      );
-    }
-
-    if (estrellaMedia >= 0.4) {
-      estrellas.push(
-        <i
-          key={estrellas.length}
-          className="bi bi-star-half me-1 estrella-amarilla"
-        ></i>
-      );
-    }
-
-    for (let i = 0; i < estrellasVacias; i++) {
-      estrellas.push(
-        <i
-          key={estrellas.length + i}
-          className="bi bi-star-fill me-1 estrella-gris"
-        ></i>
-      );
-    }
-
-    return estrellas;
-  };
-
   // Logica para seleccionar la foto de portada por la categoria.
   let categoria;
   const fotosPortada = [
@@ -231,7 +198,7 @@ const ProfessionalDetail = () => {
           <span className="categoria px-1 text-light">
             {profesional.categoria}
           </span>
-          <div className="mt-2 text-warning h4">{renderEstrellas()}</div>
+          <EstrellasCalificaciones calificacion={profesional.calificacion}/>
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
             onClick={handleShow}
@@ -261,7 +228,9 @@ const ProfessionalDetail = () => {
                 ? profesional.calificacion.toFixed(1)
                 : ""}
             </span>
-            <span className="ms-3 mt-1">{renderEstrellas()}</span>
+            <div className="ms-3 mt-2">
+              <EstrellasCalificaciones  calificacion={profesional.calificacion}/>
+            </div>  
           </h3>
           <article className="mx-auto mt-3">
             <div className="barCount">

@@ -33,7 +33,7 @@ const CardProfesional = ({ profesional }) => {
             </span>
           </Card.Subtitle>
           <Card.Text>
-            <EstrellasCalificaciones />
+            <EstrellasCalificaciones calificacion={profesional.calificacion}/>
           </Card.Text>
         </Card.Body>
         <Card.Footer>
