@@ -13,6 +13,7 @@ const SignUpProfessional = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    watch
   } = useForm();
 
   const onSubmit = async (usuario) => {
@@ -48,6 +49,8 @@ const SignUpProfessional = () => {
         });
       }
   };
+
+  const password = watch("password");
 
   return (
     <>
@@ -151,6 +154,22 @@ const SignUpProfessional = () => {
                 />
                 <Form.Text className="text-danger">
                   {errors.password?.message}
+                </Form.Text>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formBasicPasswordConfirm">
+                <Form.Label>Confirmar Contraseña</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Confirme su contraseña"
+                  {...register("confirmPassword", {
+                    required: "Confirme su contraseña",
+                    validate: (value) =>
+                      value === password || "Las contraseñas no coinciden",
+                  })}
+                />
+                <Form.Text className="text-danger">
+                  {errors.confirmPassword?.message}
                 </Form.Text>
               </Form.Group>
 
