@@ -1,45 +1,58 @@
 .listaDeResultados {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 1000;
-    max-width: 300px;
-  }
-  
+  position: absolute;
+  z-index: 1000;
+  max-width: 200px;
+  max-height: 500px;
+  overflow-y: auto;
+  text-overflow: ellipsis;
+  font-size: small;
+}
+
+.contenedorBuscador {
+  position: "relative";
+}
+
+.itemLista {
+  height: auto;
+  width: auto;
+}
+
+.linkProfesionales {
+  text-decoration: none;
+  color: black;
+  font-family: "Rubik", sans-serif;
+}
+
+.inputBusqueda {
+  font-family: "Rubik", sans-serif;
+}
+
+@media (max-width: 991.98px) {
   .contenedorBuscador {
-    position: "relative";
+    display: flex;
+    justify-content: center;
   }
-  
-  .linkProfesionales {
-    text-decoration: none;
-    color: black;
-    font-family: "Rubik", sans-serif;
+  .listaDeResultados {
+    position: absolute;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 30px;
+    max-height: 300px;
+    overflow-y: auto;
   }
-  
-  .inputBusqueda {
-    font-family: "Rubik", sans-serif;
+  .itemLista {
+    height: auto;
   }
-  
-  @media (max-width: 991.98px) {
-    .contenedorBuscador {
-      display: flex;
-      justify-content: center;
-    }
+}
+
+@media (min-width: 992px) and (max-width: 1118px) {
+  .listaDeResultados {
+    left: 80%;
+    margin-top: 5px;
   }
-  
-  @media (max-width: 991.98px) {
-    .listaDeResultados {
-      position: absolute;
-      top: auto;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-      max-width: 300px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-top: 50px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-  }
-  
+}

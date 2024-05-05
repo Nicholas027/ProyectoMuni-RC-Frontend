@@ -71,6 +71,7 @@ const SearchBar = () => {
               variant="light"
               key={resultado._id}
               onClick={handleSeleccionarProfesional}
+              className="itemLista text-center"
             >
               <a
                 className="linkProfesionales"
