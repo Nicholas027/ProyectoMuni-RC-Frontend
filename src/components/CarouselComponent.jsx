@@ -17,19 +17,19 @@ const CarouselComponent = () => {
             className="w-100 imgCarousel"
           />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <h3 className='display-3'>Servicios de Primera Calidad</h3>
+            <p>Red de trabajo permite elegir a los profesionales más destacados de una amplia variedad de rubros</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
             src="https://www.prosegsa.com.mx/wp-content/uploads/2020/09/seguridad_ok15a7d8e156fa97-min-1030x515.jpg"
             alt=""
-            className="w-100 imgCarousel"
+            className="w-100 imgCarousel"  
           />
           <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3 className='display-3'>Incentivando el trabajo entre la comunidad</h3>
+            <p>Red de trabajo es una herramienta que puede impulsar el trabajo de todos los vecinos</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -39,9 +39,9 @@ const CarouselComponent = () => {
             className="w-100 imgCarousel"
           />
           <Carousel.Caption>
-            <h3>Third slide label</h3>
+            <h3 className='display-3'>Vecinos ayudando a Vecinos</h3>
             <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              Conectamos a cada vecino con cada profesional que requiera
             </p>
           </Carousel.Caption>
         </Carousel.Item>

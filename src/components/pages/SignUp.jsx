@@ -14,6 +14,7 @@ const SignUpProfessional = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    watch
   } = useForm();
 
   useTitle("Registro Profesional")
@@ -52,12 +53,14 @@ const SignUpProfessional = () => {
       }
   };
 
+  const password = watch("password");
+
   return (
     <>
       <div className="position-relative">
         <div className="backgroundSignUp">
           <img
-            src="https://scontent.faep6-1.fna.fbcdn.net/v/t39.30808-6/251378801_4826907517342542_8931559505337231654_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeF9SiF35dffz4DalMzMoWP6vB_XlfWWEg68H9eV9ZYSDopXGgUimN4ZFjsGdm4-PIotal7hjaSqn4EPn_4SBKe5&_nc_ohc=UD3s6L6s1iEAb440Che&_nc_ht=scontent.faep6-1.fna&oh=00_AfCg2zMSinVwYbu6ijCcbD1DaelARCh9XEkBEcyhvtsYow&oe=6625F8BC"
+            src="https://cofatuc.org.ar/wordpress/wp-content/uploads/2017/11/concepcion2.jpg"
             alt="Backgound"
           />
         </div>
@@ -154,6 +157,22 @@ const SignUpProfessional = () => {
                 />
                 <Form.Text className="text-danger">
                   {errors.password?.message}
+                </Form.Text>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="formBasicPasswordConfirm">
+                <Form.Label>Confirmar Contraseña</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Confirme su contraseña"
+                  {...register("confirmPassword", {
+                    required: "Confirme su contraseña",
+                    validate: (value) =>
+                      value === password || "Las contraseñas no coinciden",
+                  })}
+                />
+                <Form.Text className="text-danger">
+                  {errors.confirmPassword?.message}
                 </Form.Text>
               </Form.Group>
 

@@ -36,10 +36,11 @@ const SearchBar = () => {
       setResultados([]);
     } else {
       const resultadosFiltrados = profesionales.filter((profesional) =>
-        normalizarString(profesional.nombreCompleto).includes(normalizarString(searchTerm))
+        normalizarString(profesional.nombreCompleto).includes(normalizarString(searchTerm)) && (!profesional.pendiente)
       );
       setResultados(resultadosFiltrados);
     }
+    console.log(resultados)
   };
 
   const handleSeleccionarProfesional = () => {
