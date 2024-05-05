@@ -238,3 +238,19 @@ export const obtenerProfesionalesParaBuscador = async () => {
     throw new Error(`Error al obtener los profesionales: ${error.message}`);
   }
 };
+
+export const userSignIn = async (usuario) => {
+  try {
+    const respuesta = await fetch(`${URI_Usuarios}/signIn`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(usuario)
+    });
+
+    return await respuesta.json();
+  } catch (error) {
+    console.log("Errores en el login.");
+  }
+}
