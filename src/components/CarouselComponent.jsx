@@ -18,7 +18,7 @@ const CarouselComponent = () => {
           />
           <Carousel.Caption>
             <h3 className='display-3'>Servicios de Primera Calidad</h3>
-            <p>Red de trabajo permite elegir a los profesionales más destacados de una amplia variedad de rubros</p>
+            <p>Portal de Oficios Concepción permite elegir a los profesionales más destacados de una amplia variedad de rubros.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -29,7 +29,7 @@ const CarouselComponent = () => {
           />
           <Carousel.Caption>
             <h3 className='display-3'>Incentivando el trabajo entre la comunidad</h3>
-            <p>Red de trabajo es una herramienta que puede impulsar el trabajo de todos los vecinos</p>
+            <p>Portal de Oficios Concepción es una herramienta que puede impulsar el trabajo de todos los vecinos.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -41,7 +41,7 @@ const CarouselComponent = () => {
           <Carousel.Caption>
             <h3 className='display-3'>Vecinos ayudando a Vecinos</h3>
             <p>
-              Conectamos a cada vecino con cada profesional que requiera
+              Conectamos a cada vecino con cada profesional que requiera.
             </p>
           </Carousel.Caption>
         </Carousel.Item>
