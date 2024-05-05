@@ -15,7 +15,7 @@ import "../../styles/ProfessionalDetail.css";
 import { useEffect, useState } from "react";
 import { obtenerProfesionalAPI } from "../../helpers/queries";
 import { professionalAddComment } from "../../helpers/queries";
-import { useParams} from "react-router-dom";
+import { Link, useParams} from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
 import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
@@ -205,7 +205,10 @@ const ProfessionalDetail = () => {
             {profesional.nombreCompleto}
           </h1>
           <span className="categoria px-1 text-light">
+            <Link className="text-decoration-none text-light" to={`/categorias/${profesional.categoria}`}>
             {profesional.categoria}
+            </Link>
+           
           </span>
 
           {cantidadCalificaciones ? (
