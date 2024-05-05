@@ -32,9 +32,13 @@ const CardProfesional = ({ profesional }) => {
               {profesional.categoria}
             </span>
           </Card.Subtitle>
-          <Card.Text>
-            <EstrellasCalificaciones />
-          </Card.Text>
+          {profesional.comentarios.length > 0 ? (
+              <Card.Subtitle>
+                <EstrellasCalificaciones calificacion={profesional.calificacion}/>
+              </Card.Subtitle>     
+            ) : (
+              <div></div>
+            )}
         </Card.Body>
         <Card.Footer>
           <Link

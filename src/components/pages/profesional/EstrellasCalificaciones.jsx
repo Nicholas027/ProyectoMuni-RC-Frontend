@@ -1,33 +1,41 @@
-import { useState } from "react";
+const EstrellasCalificaciones = ({calificacion}) => {
 
-const EstrellasCalificaciones = () => {
-  const [calificacion, setCalificacion] = useState(null);
-  const [hover, setHover] = useState(null);
+  const estrellasLlenas = Math.floor(calificacion);
+  const estrellaMedia = calificacion - estrellasLlenas;
+  const estrellasVacias = 5 - estrellasLlenas - (estrellaMedia >= 0.4 ? 1 : 0);
+
+  const renderEstrellas = () => {
+    const estrellas = [];
+    for (let i = 0; i < estrellasLlenas; i++) {
+      estrellas.push(
+        <i key={i} className="bi bi-star-fill me-1 estrella-amarilla"></i>
+      );
+    }
+
+    if (estrellaMedia >= 0.4) {
+      estrellas.push(
+        <i
+          key={estrellas.length}
+          className="bi bi-star-half me-1 estrella-amarilla"
+        ></i>
+      );
+    }
+
+    for (let i = 0; i < estrellasVacias; i++) {
+      estrellas.push(
+        <i
+          key={estrellas.length + i}
+          className="bi bi-star-fill me-1 estrella-gris"
+        ></i>
+      );
+    }
+
+    return estrellas;
+  };
+
   return (
     <>
-      {[...Array(5)].map((estrella, index) => {
-        const calificacionActual = index + 1;
-        return (
-          <label key={index}>
-            <input
-              type="radio"
-              name="rating"
-              className="inputEstrella"
-              value={calificacionActual}
-              onClick={() => setCalificacion(calificacionActual)}
-            />
-            <span
-              className={`bi bi-star-fill estrella ${
-                calificacionActual <= (hover || calificacion)
-                  ? "estrella-amarilla"
-                  : "estrella-gris"
-              }`}
-              onMouseEnter={() => setHover(calificacionActual)}
-              onMouseLeave={() => setHover(null)}
-            />
-          </label>
-        );
-      })}
+      <div className="mt-2 text-warning h4">{renderEstrellas()}</div>
     </>
   );
 };

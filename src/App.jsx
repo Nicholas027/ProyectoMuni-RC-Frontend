@@ -20,7 +20,9 @@ import ChangePhoto from "./components/pages/administrador/ChangePhoto.jsx";
 import Nosotros from "./components/pages/Nosotros.jsx";
 import UserSingUp from "./components/pages/UserSingUp.jsx";
 import TermsConditions from "./components/TermsConditions.jsx";
+import ProfessionalProfile from "./components/pages/ProfessionalProfile.jsx";
 import UserSignIn from "./components/pages/UserSignIn.jsx";
+import SelectRegisterMethod from './components/pages/SelectRegisterMethod.jsx'
 
 function App() {
   return (
@@ -90,10 +92,16 @@ function App() {
           element={<ChangePhoto></ChangePhoto>}
         ></Route>
         <Route exact path="/about" element={<Nosotros></Nosotros>}></Route>
+        <Route exact path="/selectRegisterMethod" element={<SelectRegisterMethod></SelectRegisterMethod>}></Route>
         <Route
           exact
           path="/signupUser"
           element={<UserSingUp></UserSingUp>}
+        ></Route>
+          <Route
+          exact
+          path="/professionalProfile"
+          element={<ProfessionalProfile></ProfessionalProfile>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>
