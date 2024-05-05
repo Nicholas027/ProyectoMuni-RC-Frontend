@@ -15,10 +15,12 @@ import "../../styles/ProfessionalDetail.css";
 import { useEffect, useState } from "react";
 import { obtenerProfesionalAPI } from "../../helpers/queries";
 import { professionalAddComment } from "../../helpers/queries";
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
 import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
+
+
 const ProfessionalDetail = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -56,7 +58,13 @@ const ProfessionalDetail = () => {
           icon: "success",
           confirmButtonColor: "#004b81",
           confirmButtonText: `Aceptar`,
-        })
+        }).then((result) => {
+          // Verifica si el usuario hizo clic en el botón de aceptar
+          if (result.isConfirmed) {
+            // Redirige para recargar la página
+            window.location.reload();
+          }
+        });
       } else {
         Swal.fire({
           icon: "error",
@@ -198,7 +206,14 @@ const ProfessionalDetail = () => {
           <span className="categoria px-1 text-light">
             {profesional.categoria}
           </span>
-          <EstrellasCalificaciones calificacion={profesional.calificacion}/>
+
+          {cantidadCalificaciones ? (
+            <EstrellasCalificaciones calificacion={profesional.calificacion}/>
+          ) : (
+            <div></div>
+          )}
+
+          
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
             onClick={handleShow}
@@ -221,115 +236,127 @@ const ProfessionalDetail = () => {
       </section>
       <section className="m-4 p-2 pt-3 fondoTextos text-center px-5">
         <h3 className="titulo">OPINIONES</h3>
-        <article className="py-3 bg-light mb-3 mt-3">
-          <h3 className="text-warning h1 d-flex justify-content-center ">
-            <span className="display-5">
-              {profesional.calificacion !== undefined
-                ? profesional.calificacion.toFixed(1)
-                : ""}
-            </span>
-            <div className="estrellasPromedio">
-              <EstrellasCalificaciones  calificacion={profesional.calificacion}/>
-            </div>  
-          </h3>
-          <article className="mx-auto mt-3">
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad5e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad5e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+
+        {cantidadCalificaciones ? (
+          <article className="py-3 bg-light mb-3 mt-3">
+            <h3 className="text-warning h1 d-flex justify-content-center ">
+              <span className="display-5">
+                {profesional.calificacion !== undefined
+                  ? profesional.calificacion.toFixed(1)
+                  : ""}
+              </span>
+              <div className="estrellasPromedio">
+                <EstrellasCalificaciones  calificacion={profesional.calificacion}/>
+              </div>  
+            </h3>
+            <article className="mx-auto mt-3">
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad5e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad5e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad5e})</h3>
+                  <h3 className="text-warning ">
+                    5
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <div className="count">
-                <h3 className="text-secondary"> ({cantidad5e})</h3>
-                <h3 className="text-warning ">
-                  5
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad4e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad4e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad4e})</h3>
+                  <h3 className="text-warning ">
+                    4
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad4e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad4e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad3e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad3e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad3e})</h3>
+                  <h3 className="text-warning ">
+                    3
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <div className="count">
-                <h3 className="text-secondary"> ({cantidad4e})</h3>
-                <h3 className="text-warning ">
-                  4
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad2e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad2e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad2e})</h3>
+                  <h3 className="text-warning">
+                    2
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad3e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad3e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad1e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad1e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad1e})</h3>
+                  <h3 className="text-warning">
+                    1
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <div className="count">
-                <h3 className="text-secondary"> ({cantidad3e})</h3>
-                <h3 className="text-warning ">
-                  3
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad2e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad2e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <div className="count">
-                <h3 className="text-secondary"> ({cantidad2e})</h3>
-                <h3 className="text-warning">
-                  2
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad1e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad1e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <div className="count">
-                <h3 className="text-secondary"> ({cantidad1e})</h3>
-                <h3 className="text-warning">
-                  1
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
+            </article>
           </article>
+        ) : (
+          <article className="py-3 bg-light mb-3 mt-3">
+          <h3 className="display-6 mb-4">
+            Este Profesional aún no tiene reseñas 
+          </h3>
+          <h4>¡Contrata a {profesional.nombreCompleto} y dinos tu opinión!</h4>
         </article>
+        )}
+
+
         <Button
           className="my-3 mb-4 px-5 btn btnContacto"
           onClick={handleResenaShow}
