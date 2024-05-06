@@ -33,29 +33,9 @@ const UserSignIn = ({ setUsuarioLogueado, setUsuarioTipo }) => {
           "usuario",
           JSON.stringify({
             email: response.email,
-            tipo: response.admin ? "admin" : "usuario"
+            tipo: response.admin ? "admin" : "usuario",
           })
         );
-        // if (response.admin) {
-        //   sessionStorage.setItem(
-        //     "usuario",
-        //     JSON.stringify({ email: response.email, tipo: "admin" })
-        //   );
-        // } else {
-        //   sessionStorage.setItem(
-        //     "usuario",
-        //     JSON.stringify({ email: response.email, tipo: "usuario" })
-        //   );
-        // }
-        // sessionStorage.setItem(
-        //   "usuario",
-        //   JSON.stringify({ email: response.email, tipo: "usuario" })
-        // );
-        // if (response.admin) {
-        //   setUsuarioTipo("admin");
-        // } else {
-        //   setUsuarioTipo("usuario");
-        // }
       } else {
         Swal.fire({
           title: "Ocurrió un error",

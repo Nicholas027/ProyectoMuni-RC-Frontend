@@ -5,28 +5,13 @@ import logo from "../../assets/logo_muni_vertical_AZUL.png";
 import { Col, Row, Button } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
-const MenuNav = ({ usuarioLogueado, setUsuarioLogueado, usuarioTipo,  }) => {
-  // const [usuarioTipo, setUsuarioTipo] = useState("");
-
-  // useEffect(() => {
-  //   // Obtener información de inicio de sesión del localStorage al cargar el componente
-  //   const usuario = JSON.parse(sessionStorage.getItem("usuario")) || null;
-  //   if (usuario) {
-  //     setUsuarioLogueado(usuario.email);
-  //     setUsuarioTipo(usuario.tipo);
-  //   }
-  // }, []);
-
+const MenuNav = ({ usuarioLogueado, setUsuarioLogueado, usuarioTipo }) => {
   const navegacion = useNavigate();
-  console.log(usuarioLogueado);
 
   const logout = () => {
-    //modificar 'usuario' segun como lo vaya a llamar en el session storage
     sessionStorage.removeItem("usuario");
     setUsuarioLogueado("");
-    // setUsuarioTipo("");
     console.log("ejecutando logout");
     navegacion("/");
   };
@@ -59,7 +44,7 @@ const MenuNav = ({ usuarioLogueado, setUsuarioLogueado, usuarioTipo,  }) => {
                 {usuarioTipo === "profesional" && (
                   <Nav.Link href="/professionalProfile">MI PERFIL</Nav.Link>
                 )}
-                 {usuarioTipo === "usuario" && (
+                {usuarioTipo === "usuario" && (
                   <Nav.Link href="/userProfile">MI PERFIL</Nav.Link>
                 )}
                 {usuarioTipo === "admin" && (

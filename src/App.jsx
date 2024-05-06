@@ -27,17 +27,25 @@ import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
 import AdminRoutes from "./routes/AdminRoutes.jsx";
 
 function App() {
-  const usuario = JSON.parse(sessionStorage.getItem("usuario")) || '';
-  //si guardo el mail nomas, uso '' porque es un string, ahora necesito el mail y el rol
-  const [usuarioLogueado, setUsuarioLogueado] = useState('');
-  const [usuarioTipo, setUsuarioTipo] = useState('');
+
+/*
+  A las pruebas las he hecho con:
+  Profesional -> email: pruebalogin3@example.com ||| password: Pruebalogin3
+  Usuario -> email: facu@facu.com ||| password: Contraseña1
+  Administrador -> inician sesion como usuario normal con :
+    email: administrador@gmail.com ||| password: Administrador1
+*/
+
+
+  const [usuarioLogueado, setUsuarioLogueado] = useState("");
+  const [usuarioTipo, setUsuarioTipo] = useState("");
   useEffect(() => {
     const usuario = JSON.parse(sessionStorage.getItem("usuario")) || null;
     if (usuario) {
       setUsuarioLogueado(usuario.email);
       setUsuarioTipo(usuario.tipo);
     }
-  }, []); // Solo se ejecuta una vez al montar el componente
+  }, []);
 
   return (
     <BrowserRouter>
@@ -58,13 +66,21 @@ function App() {
         <Route
           exact
           path="/signin"
-          element={<Login setUsuarioLogueado={setUsuarioLogueado} setUsuarioTipo={setUsuarioTipo}></Login>}
+          element={
+            <Login
+              setUsuarioLogueado={setUsuarioLogueado}
+              setUsuarioTipo={setUsuarioTipo}
+            ></Login>
+          }
         ></Route>
         <Route
           exact
           path="/user/signin"
           element={
-            <UserSignIn setUsuarioLogueado={setUsuarioLogueado} setUsuarioTipo={setUsuarioTipo}></UserSignIn>
+            <UserSignIn
+              setUsuarioLogueado={setUsuarioLogueado}
+              setUsuarioTipo={setUsuarioTipo}
+            ></UserSignIn>
           }
         ></Route>
         <Route
@@ -102,29 +118,7 @@ function App() {
               <AdminRoutes></AdminRoutes>
             </ProtectedRoutes>
           }
-          // element={<Administrador></Administrador>}
         ></Route>
-        {/* <Route
-          exact
-          path="/administrador/editar/:id"
-          element={
-            <DarAltaProfesional
-              editar={true}
-              titulo="EDITAR INFORMACIÓN"
-              boton="Editar"
-            ></DarAltaProfesional>
-          }
-        ></Route>
-        <Route
-          exact
-          path="/administrador/editar/:id/cambiarCV"
-          element={<ChangeCV></ChangeCV>}
-        ></Route>
-        <Route
-          exact
-          path="/administrador/editar/:id/cambiarFoto"
-          element={<ChangePhoto></ChangePhoto>}
-        ></Route> */}
         <Route exact path="/about" element={<Nosotros></Nosotros>}></Route>
         <Route
           exact
@@ -138,7 +132,7 @@ function App() {
         ></Route>
         <Route
           exact
-          path="/professionalProfile"
+          path="/professionalProfile/"
           element={<ProfessionalProfile></ProfessionalProfile>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
