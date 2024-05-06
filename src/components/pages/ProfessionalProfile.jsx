@@ -38,7 +38,9 @@ const ProfessionalProfile = ({usuarioId}) => {
   const [photoLoading, setPhotoLoading] = useState(false);
 
   useEffect(() => {
-    console.log("ID del usuario en el perfil:", usuarioId);
+    if (usuarioId) {
+      obtenerProfesional(usuarioId);
+    }
   }, [usuarioId]);
 
   useTitle("Tu perfil");
@@ -60,14 +62,6 @@ const ProfessionalProfile = ({usuarioId}) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
-  //Cambiar por el id de la autenticacion
-  // let id = "66368ee391a5624428833a95";
-  let id = usuarioId;
-
-  useEffect(() => {
-    obtenerProfesional();
-  }, [modoEdicion, showModal]);
 
   useEffect(() => {
     if (profesional.comentarios) {
@@ -109,7 +103,7 @@ const ProfessionalProfile = ({usuarioId}) => {
 
   const obtenerProfesional = async () => {
     try {
-      const respuesta = await obtenerProfesionalAPI(id);
+      const respuesta = await obtenerProfesionalAPI(usuarioId);
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
@@ -179,7 +173,7 @@ const ProfessionalProfile = ({usuarioId}) => {
 
   const handleGuardarCambios = async (formData) => {
     try {
-      const respuesta = await professionalEditProfile(formData, id);
+      const respuesta = await professionalEditProfile(formData, usuarioId);
       if (respuesta.status === 200) {
         Swal.fire({
           title: "Cambios guardados",
@@ -223,7 +217,7 @@ const ProfessionalProfile = ({usuarioId}) => {
         const formData = new FormData();
         formData.append("foto", photo);
 
-        const response = await uploadProfilePhoto(formData, id);
+        const response = await uploadProfilePhoto(formData, usuarioId);
 
         if (response.status === 200) {
           Swal.fire({
