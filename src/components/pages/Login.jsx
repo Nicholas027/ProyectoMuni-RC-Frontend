@@ -8,7 +8,7 @@ import useTitle from "../../hooks/useTitle";
 import { useNavigate } from "react-router-dom";
 import { professionalLogin } from "../../helpers/queries";
 
-const Login = () => {
+const Login = ({setUsuarioLogueado}) => {
   const {
     register,
     handleSubmit,
@@ -30,6 +30,7 @@ const Login = () => {
           text: `Bienvenido ${response.nombre}`,
         });
         navigate("/");
+        setUsuarioLogueado(response.email)
       } else {
         Swal.fire({
           title: "Ocurrió un error",

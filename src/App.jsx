@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,6 +25,12 @@ import UserSignIn from "./components/pages/UserSignIn.jsx";
 import SelectRegisterMethod from './components/pages/SelectRegisterMethod.jsx'
 
 function App() {
+
+  const usuario = JSON.parse(sessionStorage.getItem('usuario')) || '';
+  //si guardo el mail nomas, uso '' porque es un string, ahora necesito el mail y el rol
+  const [usuarioLogueado, setUsuarioLogueado] = useState({})
+
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -36,8 +42,8 @@ function App() {
           path="/selectSigninMethod"
           element={<SelectLoginMethod></SelectLoginMethod>}
         ></Route>
-        <Route exact path="/signin" element={<Login></Login>}></Route>
-        <Route exact path="/user/signin" element={<UserSignIn></UserSignIn>}></Route>        
+        <Route exact path="/signin" element={<Login setUsuarioLogueado={setUsuarioLogueado}></Login>}></Route>
+        <Route exact path="/user/signin" element={<UserSignIn setUsuarioLogueado={setUsuarioLogueado}></UserSignIn>}></Route>        
         <Route
           exact
           path="/signup"

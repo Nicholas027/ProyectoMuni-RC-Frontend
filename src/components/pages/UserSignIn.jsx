@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { userSignIn } from "../../helpers/queries";
 import { useNavigate } from "react-router-dom";
 
-const UserSignIn = () => {
+const UserSignIn = ({setUsuarioLogueado}) => {
   const {
     register,
     handleSubmit,
@@ -27,6 +27,7 @@ const UserSignIn = () => {
           text: `Bienvenido ${response.nombre}`,
         });
         navigate("/");
+        setUsuarioLogueado(response.email)
       } else {
         Swal.fire({
             title: "Ocurrió un error",

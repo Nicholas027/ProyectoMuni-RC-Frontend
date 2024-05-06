@@ -283,3 +283,8 @@ export const professionalLogin = async (profesional) => {
     console.error("Error al intentar acceder a esta cuenta.")
   }
 }
+
+const userAdmin = {
+  email:"administrador@gmail.com",
+  password:"Administrador1"
+} 
