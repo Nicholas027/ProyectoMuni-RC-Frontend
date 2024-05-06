@@ -8,7 +8,7 @@ import useTitle from "../../hooks/useTitle";
 import { useNavigate } from "react-router-dom";
 import { professionalLogin } from "../../helpers/queries";
 
-const Login = ({setUsuarioLogueado}) => {
+const Login = ({setUsuarioLogueado, setUsuarioTipo}) => {
   const {
     register,
     handleSubmit,
@@ -31,6 +31,8 @@ const Login = ({setUsuarioLogueado}) => {
         });
         navigate("/");
         setUsuarioLogueado(response.email)
+        setUsuarioTipo('profesional')
+        sessionStorage.setItem('usuario', JSON.stringify({email: response.email, tipo: 'profesional'}))
       } else {
         Swal.fire({
           title: "Ocurrió un error",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,28 +22,51 @@ import UserSingUp from "./components/pages/UserSingUp.jsx";
 import TermsConditions from "./components/TermsConditions.jsx";
 import ProfessionalProfile from "./components/pages/ProfessionalProfile.jsx";
 import UserSignIn from "./components/pages/UserSignIn.jsx";
-import SelectRegisterMethod from './components/pages/SelectRegisterMethod.jsx'
+import SelectRegisterMethod from "./components/pages/SelectRegisterMethod.jsx";
+import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
+import AdminRoutes from "./routes/AdminRoutes.jsx";
 
 function App() {
-
-  const usuario = JSON.parse(sessionStorage.getItem('usuario')) || '';
+  const usuario = JSON.parse(sessionStorage.getItem("usuario")) || '';
   //si guardo el mail nomas, uso '' porque es un string, ahora necesito el mail y el rol
-  const [usuarioLogueado, setUsuarioLogueado] = useState({})
-
+  const [usuarioLogueado, setUsuarioLogueado] = useState('');
+  const [usuarioTipo, setUsuarioTipo] = useState('');
+  useEffect(() => {
+    const usuario = JSON.parse(sessionStorage.getItem("usuario")) || null;
+    if (usuario) {
+      setUsuarioLogueado(usuario.email);
+      setUsuarioTipo(usuario.tipo);
+    }
+  }, []); // Solo se ejecuta una vez al montar el componente
 
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <TermsConditions/>
-      <MenuNav usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado}></MenuNav>
+      <TermsConditions />
+      <MenuNav
+        usuarioLogueado={usuarioLogueado}
+        setUsuarioLogueado={setUsuarioLogueado}
+        usuarioTipo={usuarioTipo}
+        setUsuarioTipo={setUsuarioTipo}
+      ></MenuNav>
       <Routes>
         <Route
           exact
           path="/selectSigninMethod"
           element={<SelectLoginMethod></SelectLoginMethod>}
         ></Route>
-        <Route exact path="/signin" element={<Login setUsuarioLogueado={setUsuarioLogueado}></Login>}></Route>
-        <Route exact path="/user/signin" element={<UserSignIn setUsuarioLogueado={setUsuarioLogueado}></UserSignIn>}></Route>        
+        <Route
+          exact
+          path="/signin"
+          element={<Login setUsuarioLogueado={setUsuarioLogueado} setUsuarioTipo={setUsuarioTipo}></Login>}
+        ></Route>
+        <Route
+          exact
+          path="/user/signin"
+          element={
+            <UserSignIn setUsuarioLogueado={setUsuarioLogueado} setUsuarioTipo={setUsuarioTipo}></UserSignIn>
+          }
+        ></Route>
         <Route
           exact
           path="/signup"
@@ -73,10 +96,15 @@ function App() {
         ></Route>
         <Route
           exact
-          path="/administrador"
-          element={<Administrador></Administrador>}
+          path="/administrador/*"
+          element={
+            <ProtectedRoutes>
+              <AdminRoutes></AdminRoutes>
+            </ProtectedRoutes>
+          }
+          // element={<Administrador></Administrador>}
         ></Route>
-        <Route
+        {/* <Route
           exact
           path="/administrador/editar/:id"
           element={
@@ -96,15 +124,19 @@ function App() {
           exact
           path="/administrador/editar/:id/cambiarFoto"
           element={<ChangePhoto></ChangePhoto>}
-        ></Route>
+        ></Route> */}
         <Route exact path="/about" element={<Nosotros></Nosotros>}></Route>
-        <Route exact path="/selectRegisterMethod" element={<SelectRegisterMethod></SelectRegisterMethod>}></Route>
+        <Route
+          exact
+          path="/selectRegisterMethod"
+          element={<SelectRegisterMethod></SelectRegisterMethod>}
+        ></Route>
         <Route
           exact
           path="/signupUser"
           element={<UserSingUp></UserSingUp>}
         ></Route>
-          <Route
+        <Route
           exact
           path="/professionalProfile"
           element={<ProfessionalProfile></ProfessionalProfile>}

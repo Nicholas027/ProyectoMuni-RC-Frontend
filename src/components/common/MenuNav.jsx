@@ -5,17 +5,31 @@ import logo from "../../assets/logo_muni_vertical_AZUL.png";
 import { Col, Row, Button } from "react-bootstrap";
 import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const MenuNav = ({ usuarioLogueado, setUsuarioLogueado }) => {
+const MenuNav = ({ usuarioLogueado, setUsuarioLogueado, usuarioTipo,  }) => {
+  // const [usuarioTipo, setUsuarioTipo] = useState("");
+
+  // useEffect(() => {
+  //   // Obtener información de inicio de sesión del localStorage al cargar el componente
+  //   const usuario = JSON.parse(sessionStorage.getItem("usuario")) || null;
+  //   if (usuario) {
+  //     setUsuarioLogueado(usuario.email);
+  //     setUsuarioTipo(usuario.tipo);
+  //   }
+  // }, []);
 
   const navegacion = useNavigate();
+  console.log(usuarioLogueado);
 
-  const logout= ()=>{
+  const logout = () => {
     //modificar 'usuario' segun como lo vaya a llamar en el session storage
-    sessionStorage.removeItem('usuario')
-    setUsuarioLogueado('')
-    navegacion('/')
-  }
+    sessionStorage.removeItem("usuario");
+    setUsuarioLogueado("");
+    // setUsuarioTipo("");
+    console.log("ejecutando logout");
+    navegacion("/");
+  };
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary navbar">
@@ -42,11 +56,21 @@ const MenuNav = ({ usuarioLogueado, setUsuarioLogueado }) => {
             <Nav.Link href="/about">NOSOTROS</Nav.Link>
             {usuarioLogueado !== "" ? (
               <>
-                <Nav.Link href="/administrador">
-                  PANEL DE ADMINISTRADOR
-                </Nav.Link>
-                <Nav.Link href="/professionalProfile">MI PERFIL</Nav.Link>
-                <Button className="nav-link" variant="link"><i className="bi bi-box-arrow-left" onClick={logout}></i> SALIR</Button>
+                {usuarioTipo === "profesional" && (
+                  <Nav.Link href="/professionalProfile">MI PERFIL</Nav.Link>
+                )}
+                 {usuarioTipo === "usuario" && (
+                  <Nav.Link href="/userProfile">MI PERFIL</Nav.Link>
+                )}
+                {usuarioTipo === "admin" && (
+                  <Nav.Link href="/administrador">
+                    PANEL DE ADMINISTRADOR
+                  </Nav.Link>
+                )}
+
+                <Button className="nav-link" variant="link" onClick={logout}>
+                  <i className="bi bi-box-arrow-left"></i> SALIR
+                </Button>
               </>
             ) : (
               <>

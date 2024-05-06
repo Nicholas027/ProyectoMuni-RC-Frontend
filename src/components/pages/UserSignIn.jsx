@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { userSignIn } from "../../helpers/queries";
 import { useNavigate } from "react-router-dom";
 
-const UserSignIn = ({setUsuarioLogueado}) => {
+const UserSignIn = ({ setUsuarioLogueado, setUsuarioTipo }) => {
   const {
     register,
     handleSubmit,
@@ -20,22 +20,50 @@ const UserSignIn = ({setUsuarioLogueado}) => {
     try {
       const response = await userSignIn(usuario);
 
-      if (response.status) {        
+      if (response.status) {
         Swal.fire({
           icon: "success",
           title: "Inicio de Sesión Exitoso",
           text: `Bienvenido ${response.nombre}`,
         });
         navigate("/");
-        setUsuarioLogueado(response.email)
+        setUsuarioLogueado(response.email);
+        setUsuarioTipo(response.admin ? "admin" : "usuario");
+        sessionStorage.setItem(
+          "usuario",
+          JSON.stringify({
+            email: response.email,
+            tipo: response.admin ? "admin" : "usuario"
+          })
+        );
+        // if (response.admin) {
+        //   sessionStorage.setItem(
+        //     "usuario",
+        //     JSON.stringify({ email: response.email, tipo: "admin" })
+        //   );
+        // } else {
+        //   sessionStorage.setItem(
+        //     "usuario",
+        //     JSON.stringify({ email: response.email, tipo: "usuario" })
+        //   );
+        // }
+        // sessionStorage.setItem(
+        //   "usuario",
+        //   JSON.stringify({ email: response.email, tipo: "usuario" })
+        // );
+        // if (response.admin) {
+        //   setUsuarioTipo("admin");
+        // } else {
+        //   setUsuarioTipo("usuario");
+        // }
       } else {
         Swal.fire({
-            title: "Ocurrió un error",
-            text: `Intenta esta operación en unos minutos.`,
-            icon: "error",
-            confirmButtonColor: '#004b81',
-            confirmButtonText: 'Aceptar',
-          });
+          title: "Ocurrió un error",
+          text: `Intenta esta operación en unos minutos.`,
+          icon: "error",
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
+        });
       }
     } catch (error) {
       console.error("Error al iniciar sesion como usuario:", error);
