@@ -35,7 +35,7 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <TermsConditions/>
-      <MenuNav></MenuNav>
+      <MenuNav usuarioLogueado={usuarioLogueado} setUsuarioLogueado={setUsuarioLogueado}></MenuNav>
       <Routes>
         <Route
           exact
