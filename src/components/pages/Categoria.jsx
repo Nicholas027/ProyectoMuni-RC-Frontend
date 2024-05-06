@@ -66,7 +66,10 @@ const Categoria = () => {
     try {
       setMostrarLoader(true);
       const respuesta = await buscarProfesionalesAPI(categoria, searchTerm);
-      setProfesionales(respuesta);
+      const profesionalesFiltrados = respuesta.filter(
+        (profesional) => !profesional.pendiente
+      );
+      setProfesionales(profesionalesFiltrados);
       setMostrarLoader(false);
     } catch (error) {
       console.error(error);
