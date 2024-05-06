@@ -8,7 +8,7 @@ import useTitle from "../../hooks/useTitle";
 import { useNavigate } from "react-router-dom";
 import { professionalLogin } from "../../helpers/queries";
 
-const Login = ({setUsuarioLogueado, setUsuarioTipo}) => {
+const Login = ({setUsuarioLogueado, setUsuarioTipo, setUsuarioId}) => {
   const {
     register,
     handleSubmit,
@@ -32,7 +32,9 @@ const Login = ({setUsuarioLogueado, setUsuarioTipo}) => {
         navigate("/");
         setUsuarioLogueado(response.email)
         setUsuarioTipo('profesional')
-        sessionStorage.setItem('usuario', JSON.stringify({email: response.email, tipo: 'profesional'}))
+        console.log(response.id)
+        setUsuarioId(response.id)
+        sessionStorage.setItem('usuario', JSON.stringify({email: response.email, tipo: 'profesional', id: response.id}))
       } else {
         Swal.fire({
           title: "Ocurrió un error",

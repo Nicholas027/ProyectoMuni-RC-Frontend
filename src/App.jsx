@@ -27,7 +27,6 @@ import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
 import AdminRoutes from "./routes/AdminRoutes.jsx";
 import ProfessionalRoutes from "./routes/ProfessionalRoutes.jsx";
 
-function App() {
   /*
   A las pruebas las he hecho con:
   Profesional -> email: pruebalogin3@example.com ||| password: Pruebalogin3
@@ -36,13 +35,19 @@ function App() {
     email: administrador@gmail.com ||| password: Administrador1
 */
 
+function App() {
+
   const [usuarioLogueado, setUsuarioLogueado] = useState("");
   const [usuarioTipo, setUsuarioTipo] = useState("");
+  const [usuarioId, setUsuarioId] = useState("");
   useEffect(() => {
     const usuario = JSON.parse(sessionStorage.getItem("usuario")) || null;
+    console.log("Usuario en sessionStorage:", usuario);
     if (usuario) {
       setUsuarioLogueado(usuario.email);
       setUsuarioTipo(usuario.tipo);
+      setUsuarioId(usuario.id)
+      console.log("ID del usuario en App:", usuario.id);
     }
   }, []);
 
@@ -69,6 +74,7 @@ function App() {
             <Login
               setUsuarioLogueado={setUsuarioLogueado}
               setUsuarioTipo={setUsuarioTipo}
+              setUsuarioId={setUsuarioId}
             ></Login>
           }
         ></Route>
@@ -134,7 +140,7 @@ function App() {
           path="/professionalProfile/*"
           element={
             <ProtectedRoutes>
-              <ProfessionalRoutes></ProfessionalRoutes>
+              <ProfessionalRoutes usuarioId={usuarioId}></ProfessionalRoutes>
             </ProtectedRoutes>
           }
         ></Route>

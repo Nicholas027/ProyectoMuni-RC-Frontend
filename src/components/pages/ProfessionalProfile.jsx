@@ -22,7 +22,7 @@ import {
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
 import useTitle from "../../hooks/useTitle";
-const ProfessionalProfile = () => {
+const ProfessionalProfile = ({usuarioId}) => {
   const [profesional, setProfesional] = useState({});
   const [cantidadCalificaciones, setcantidadCalificaciones] = useState(0);
   const [cantidad5e, setCantidad5e] = useState(0);
@@ -36,6 +36,10 @@ const ProfessionalProfile = () => {
   const [photo, setPhoto] = useState(null);
   const [cv, setCv] = useState(null);
   const [photoLoading, setPhotoLoading] = useState(false);
+
+  useEffect(() => {
+    console.log("ID del usuario en el perfil:", usuarioId);
+  }, [usuarioId]);
 
   useTitle("Tu perfil");
 
@@ -58,7 +62,8 @@ const ProfessionalProfile = () => {
   };
 
   //Cambiar por el id de la autenticacion
-  let id = "66368ee391a5624428833a95";
+  // let id = "66368ee391a5624428833a95";
+  let id = usuarioId;
 
   useEffect(() => {
     obtenerProfesional();
@@ -108,6 +113,7 @@ const ProfessionalProfile = () => {
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
+        console.log(dato);
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
       }
