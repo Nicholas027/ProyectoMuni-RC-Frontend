@@ -25,17 +25,16 @@ import UserSignIn from "./components/pages/UserSignIn.jsx";
 import SelectRegisterMethod from "./components/pages/SelectRegisterMethod.jsx";
 import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
 import AdminRoutes from "./routes/AdminRoutes.jsx";
+import ProfessionalRoutes from "./routes/ProfessionalRoutes.jsx";
 
 function App() {
-
-/*
+  /*
   A las pruebas las he hecho con:
   Profesional -> email: pruebalogin3@example.com ||| password: Pruebalogin3
   Usuario -> email: facu@facu.com ||| password: Contraseña1
   Administrador -> inician sesion como usuario normal con :
     email: administrador@gmail.com ||| password: Administrador1
 */
-
 
   const [usuarioLogueado, setUsuarioLogueado] = useState("");
   const [usuarioTipo, setUsuarioTipo] = useState("");
@@ -132,8 +131,12 @@ function App() {
         ></Route>
         <Route
           exact
-          path="/professionalProfile/"
-          element={<ProfessionalProfile></ProfessionalProfile>}
+          path="/professionalProfile/*"
+          element={
+            <ProtectedRoutes>
+              <ProfessionalRoutes></ProfessionalRoutes>
+            </ProtectedRoutes>
+          }
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>
