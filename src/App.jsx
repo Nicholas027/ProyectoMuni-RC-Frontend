@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -40,6 +40,14 @@ function App() {
   const [usuarioLogueado, setUsuarioLogueado] = useState("");
   const [usuarioTipo, setUsuarioTipo] = useState("");
   const [usuarioId, setUsuarioId] = useState("");
+
+  const userLogueado = () => {
+    return usuarioLogueado !== "";
+  };
+  const esAdmin = () => {
+    return usuarioTipo === "admin";
+  };
+
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem("usuario")) || null;
     console.log("Usuario en localStorage:", usuario);
@@ -65,33 +73,53 @@ function App() {
         <Route
           exact
           path="/selectSigninMethod"
-          element={<SelectLoginMethod></SelectLoginMethod>}
+          element={
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <SelectLoginMethod></SelectLoginMethod>
+            )
+          }
         ></Route>
         <Route
           exact
           path="/signin"
           element={
-            <Login
-              setUsuarioLogueado={setUsuarioLogueado}
-              setUsuarioTipo={setUsuarioTipo}
-              setUsuarioId={setUsuarioId}
-            ></Login>
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <Login
+                setUsuarioLogueado={setUsuarioLogueado}
+                setUsuarioTipo={setUsuarioTipo}
+                setUsuarioId={setUsuarioId}
+              ></Login>
+            )
           }
         ></Route>
         <Route
           exact
           path="/user/signin"
           element={
-            <UserSignIn
-              setUsuarioLogueado={setUsuarioLogueado}
-              setUsuarioTipo={setUsuarioTipo}
-            ></UserSignIn>
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <UserSignIn
+                setUsuarioLogueado={setUsuarioLogueado}
+                setUsuarioTipo={setUsuarioTipo}
+              ></UserSignIn>
+            )
           }
         ></Route>
         <Route
           exact
           path="/signup"
-          element={<SignUp titulo="REGISTRARSE" boton="Registrarse"></SignUp>}
+          element={
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <SignUp titulo="REGISTRARSE" boton="Registrarse"></SignUp>
+            )
+          }
         ></Route>
         <Route exact path="/" element={<Index></Index>}></Route>
         <Route
@@ -108,11 +136,15 @@ function App() {
           exact
           path="/profesional/crear"
           element={
-            <DarAltaProfesional
-              editar={false}
-              titulo="REGISTRAR UN NUEVO PROFESIONAL"
-              boton="REGISTRAR"
-            ></DarAltaProfesional>
+            esAdmin() ? (
+              <DarAltaProfesional
+                editar={false}
+                titulo="REGISTRAR UN NUEVO PROFESIONAL"
+                boton="REGISTRAR"
+              ></DarAltaProfesional>
+            ) : (
+              <Navigate to={"/"} />
+            )
           }
         ></Route>
         <Route
@@ -128,12 +160,20 @@ function App() {
         <Route
           exact
           path="/selectRegisterMethod"
-          element={<SelectRegisterMethod></SelectRegisterMethod>}
+          element={
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <SelectRegisterMethod></SelectRegisterMethod>
+            )
+          }
         ></Route>
         <Route
           exact
           path="/signupUser"
-          element={<UserSingUp></UserSingUp>}
+          element={
+            userLogueado() ? <Navigate to={"/"} /> : <UserSingUp></UserSingUp>
+          }
         ></Route>
         <Route
           exact
