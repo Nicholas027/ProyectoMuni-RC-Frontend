@@ -13,6 +13,7 @@ import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
 import { useForm } from "react-hook-form";
 import "../../styles/ProfessionalDetail.css";
 import "../../styles/professionalProfile.css";
+import "../../styles/loaderProfile.css"
 import { useEffect, useState } from "react";
 import {
   obtenerProfesionalAPI,
@@ -36,6 +37,7 @@ const ProfessionalProfile = ({usuarioId}) => {
   const [photo, setPhoto] = useState(null);
   const [cv, setCv] = useState(null);
   const [photoLoading, setPhotoLoading] = useState(false);
+  const [mostrarLoader, setMostrarLoader] = useState(true);
 
   useEffect(() => {
     if (usuarioId) {
@@ -103,10 +105,12 @@ const ProfessionalProfile = ({usuarioId}) => {
 
   const obtenerProfesional = async () => {
     try {
+      setMostrarLoader(true);
       const respuesta = await obtenerProfesionalAPI(usuarioId);
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
+        setMostrarLoader(false);
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
       }
@@ -246,281 +250,287 @@ const ProfessionalProfile = ({usuarioId}) => {
     setCv(file);
   };
 
-  return (
+  const mostrarComponente = mostrarLoader ? (
+    <span className="loader d-flex justify-content-center"><p className="text-dark fs-2">Cargando...</p></span>
+  ):(
     <Container>
-      <section className="m-4 p-2 fondoFotos contenedorPadre">
-        <img
-          src={categoria}
-          alt="Foto de portada con la categoria del profesional."
-          height={200}
-          className="cajaPortada"
-        />
-        <div className="d-flex justify-content-center cajaPerfil margin-photo">
-          <div className="estiloFotoPerfil">
-            <img
-              src={profesional.foto}
-              alt="Foto de perfil del profesional."
-              className="estiloFotoPerfil img-thumbnail"
-            />
-          </div>
+    <section className="m-4 p-2 fondoFotos contenedorPadre">
+      <img
+        src={categoria}
+        alt="Foto de portada con la categoria del profesional."
+        height={200}
+        className="cajaPortada"
+      />
+      <div className="d-flex justify-content-center cajaPerfil margin-photo">
+        <div className="estiloFotoPerfil">
+          <img
+            src={profesional.foto}
+            alt="Foto de perfil del profesional."
+            className="estiloFotoPerfil img-thumbnail"
+          />
         </div>
-        <Container className="text-center mt-5">
-          {modoEdicion ? (
-            <>
-              <div className="d-flex justify-content-center">
-                <Form.Control
-                  type="text"
-                  className="w-50 my-3"
-                  defaultValue={profesional.nombreCompleto}
-                  {...register("nombreCompleto")}
-                />
-              </div>
-            </>
-          ) : (
-            <h1>{profesional.nombreCompleto}</h1>
-          )}
-          <span className="categoria px-1 text-light">
-            {profesional.categoria}
-          </span>
-          <div className="mt-2 text-warning h4">{renderEstrellas()}</div>
-          {modoEdicion ? (
-            <>
-              <div className="d-flex justify-content-center">
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  defaultValue={profesional.descripcion}
-                  className="my-3 w-50"
-                  {...register("descripcion")}
-                />
-              </div>
-            </>
-          ) : (
-            <p className="h4 my-3 container texto d-flex justify-content-center">
-              {profesional.descripcion}
-            </p>
-          )}
-        </Container>
-        <div className="text-center">
-          {modoEdicion && (
-            <Button
-              onClick={handleSubmit(handleGuardarCambios)}
-              className="btn-prof"
-            >
-              Guardar Cambios <i className="bi bi-floppy2"></i>
-            </Button>
-          )}
-          {!modoEdicion && (
-            <Button onClick={handleEditar} className="btn-prof">
-              Editar Perfil
-            </Button>
-          )}
-          <Button
-            onClick={handleShowModal}
-            className="btn-prof btn-change-photo"
-          >
-            Cambiar Foto
-          </Button>
-        </div>
-      </section>
-      <section className="m-4 pt-3 p-4 fondoTextos text-center">
-        <h3 className="mb-4 titulo">CURRICULUM VITAE</h3>
-        {modoEdicionCV ? (
+      </div>
+      <Container className="text-center mt-5">
+        {modoEdicion ? (
           <>
             <div className="d-flex justify-content-center">
               <Form.Control
-                type="file"
-                accept="image/*"
-                name="cv"
-                id="cv-input"
-                onChange={handleCVChange}
-                className="my-4 w-50"
+                type="text"
+                className="w-50 my-3"
+                defaultValue={profesional.nombreCompleto}
+                {...register("nombreCompleto")}
               />
             </div>
           </>
         ) : (
-          <img
-            src={profesional.cv}
-            alt={profesional.cv}
-            className="img-fluid"
-          />
+          <h1>{profesional.nombreCompleto}</h1>
         )}
-        <div className="container mt-3">
-          {modoEdicionCV && (
-            <Button
-              onClick={() => {
-                Swal.fire({
-                  title: "Solicitud Enviada",
-                  text: "Se ha enviado una petición de cambio de Curriculum para administración, por favor, esté atento a su correo por cualquier notificación",
-                  icon: "success",
-                  confirmButtonColor: "#004b81",
-                  confirmButtonText: "Aceptar",
-                });
-                setModoEdicionCV(false);
-              }}
-              className="btn-prof"
-            >
-              Guardar Cambios <i className="bi bi-floppy2"></i>
-            </Button>
-          )}
-          {!modoEdicionCV && (
-            <Button onClick={handleEditarCV} className="btn-prof">
-              Editar Curriculum Vitae
-            </Button>
-          )}
-        </div>
-        <div className="container mt-3"></div>
-      </section>
-      <section className="m-4 p-2 pt-3 fondoTextos text-center px-5">
-        <h3 className="titulo">OPINIONES</h3>
-        <article className="p-3 px-5 bg-light mb-3 mt-3">
-          <h3 className="text-warning h1 d-flex justify-content-center ">
-            <span className="display-5">
-              {profesional.calificacion !== undefined
-                ? profesional.calificacion.toFixed(1)
-                : ""}
-            </span>
-            <span className="ms-3 mt-1">{renderEstrellas()}</span>
-          </h3>
-          <article className="mx-auto mt-3">
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad5e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad5e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad5e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  5{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad4e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad4e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad4e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  4{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad3e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad3e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad3e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  3{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad2e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad2e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad2e})</h3>
-              <div className="count">
-                <h3 className="text-warning">
-                  2{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad1e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad1e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad1e})</h3>
-              <div className="count">
-                <h3 className="text-warning">
-                  1{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-          </article>
-        </article>
-      </section>
-      <Modal
-        show={showModal}
-        onHide={handleCloseModal}
-        className="modal-contain"
-      >
-        <Modal.Header>
-          <Modal.Title>Cambiar Foto de Perfil</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleSubmitPhoto} encType="multipart/form-data">
-            <Form.Group controlId="formFile" className="mb-3">
-              <Form.Label>Seleccionar nueva foto de perfil:</Form.Label>
+        <span className="categoria px-1 text-light">
+          {profesional.categoria}
+        </span>
+        <div className="mt-2 text-warning h4">{renderEstrellas()}</div>
+        {modoEdicion ? (
+          <>
+            <div className="d-flex justify-content-center">
               <Form.Control
-                type="file"
-                accept="image/*"
-                onChange={handlePhotoChange}
-                required
+                as="textarea"
+                rows={3}
+                defaultValue={profesional.descripcion}
+                className="my-3 w-50"
+                {...register("descripcion")}
               />
-            </Form.Group>
+            </div>
+          </>
+        ) : (
+          <p className="h4 my-3 container texto d-flex justify-content-center">
+            {profesional.descripcion}
+          </p>
+        )}
+      </Container>
+      <div className="text-center">
+        {modoEdicion && (
+          <Button
+            onClick={handleSubmit(handleGuardarCambios)}
+            className="btn-prof"
+          >
+            Guardar Cambios <i className="bi bi-floppy2"></i>
+          </Button>
+        )}
+        {!modoEdicion && (
+          <Button onClick={handleEditar} className="btn-prof">
+            Editar Perfil
+          </Button>
+        )}
+        <Button
+          onClick={handleShowModal}
+          className="btn-prof btn-change-photo"
+        >
+          Cambiar Foto
+        </Button>
+      </div>
+    </section>
+    <section className="m-4 pt-3 p-4 fondoTextos text-center">
+      <h3 className="mb-4 titulo">CURRICULUM VITAE</h3>
+      {modoEdicionCV ? (
+        <>
+          <div className="d-flex justify-content-center">
+            <Form.Control
+              type="file"
+              accept="image/*"
+              name="cv"
+              id="cv-input"
+              onChange={handleCVChange}
+              className="my-4 w-50"
+            />
+          </div>
+        </>
+      ) : (
+        <img
+          src={profesional.cv}
+          alt={profesional.cv}
+          className="img-fluid"
+        />
+      )}
+      <div className="container mt-3">
+        {modoEdicionCV && (
+          <Button
+            onClick={() => {
+              Swal.fire({
+                title: "Solicitud Enviada",
+                text: "Se ha enviado una petición de cambio de Curriculum para administración, por favor, esté atento a su correo por cualquier notificación",
+                icon: "success",
+                confirmButtonColor: "#004b81",
+                confirmButtonText: "Aceptar",
+              });
+              setModoEdicionCV(false);
+            }}
+            className="btn-prof"
+          >
+            Guardar Cambios <i className="bi bi-floppy2"></i>
+          </Button>
+        )}
+        {!modoEdicionCV && (
+          <Button onClick={handleEditarCV} className="btn-prof">
+            Editar Curriculum Vitae
+          </Button>
+        )}
+      </div>
+      <div className="container mt-3"></div>
+    </section>
+    <section className="m-4 p-2 pt-3 fondoTextos text-center px-5">
+      <h3 className="titulo">OPINIONES</h3>
+      <article className="p-3 px-5 bg-light mb-3 mt-3">
+        <h3 className="text-warning h1 d-flex justify-content-center ">
+          <span className="display-5">
+            {profesional.calificacion !== undefined
+              ? profesional.calificacion.toFixed(1)
+              : ""}
+          </span>
+          <span className="ms-3 mt-1">{renderEstrellas()}</span>
+        </h3>
+        <article className="mx-auto mt-3">
+          <div className="barCount">
+            <div className="bar">
+              <ProgressBar
+                variant="warning"
+                now={(cantidad5e / cantidadCalificaciones) * 100}
+                label={`${(
+                  (cantidad5e / cantidadCalificaciones) *
+                  100
+                ).toFixed(1)}%`}
+              />
+            </div>
+            <h3 className="ms-4 text-secondary"> ({cantidad5e})</h3>
+            <div className="count">
+              <h3 className="text-warning ">
+                5{" "}
+                <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+              </h3>
+            </div>
+          </div>
+          <div className="barCount">
+            <div className="bar">
+              <ProgressBar
+                variant="warning"
+                now={(cantidad4e / cantidadCalificaciones) * 100}
+                label={`${(
+                  (cantidad4e / cantidadCalificaciones) *
+                  100
+                ).toFixed(1)}%`}
+              />
+            </div>
+            <h3 className="ms-4 text-secondary"> ({cantidad4e})</h3>
+            <div className="count">
+              <h3 className="text-warning ">
+                4{" "}
+                <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+              </h3>
+            </div>
+          </div>
+          <div className="barCount">
+            <div className="bar">
+              <ProgressBar
+                variant="warning"
+                now={(cantidad3e / cantidadCalificaciones) * 100}
+                label={`${(
+                  (cantidad3e / cantidadCalificaciones) *
+                  100
+                ).toFixed(1)}%`}
+              />
+            </div>
+            <h3 className="ms-4 text-secondary"> ({cantidad3e})</h3>
+            <div className="count">
+              <h3 className="text-warning ">
+                3{" "}
+                <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+              </h3>
+            </div>
+          </div>
+          <div className="barCount">
+            <div className="bar">
+              <ProgressBar
+                variant="warning"
+                now={(cantidad2e / cantidadCalificaciones) * 100}
+                label={`${(
+                  (cantidad2e / cantidadCalificaciones) *
+                  100
+                ).toFixed(1)}%`}
+              />
+            </div>
+            <h3 className="ms-4 text-secondary"> ({cantidad2e})</h3>
+            <div className="count">
+              <h3 className="text-warning">
+                2{" "}
+                <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+              </h3>
+            </div>
+          </div>
+          <div className="barCount">
+            <div className="bar">
+              <ProgressBar
+                variant="warning"
+                now={(cantidad1e / cantidadCalificaciones) * 100}
+                label={`${(
+                  (cantidad1e / cantidadCalificaciones) *
+                  100
+                ).toFixed(1)}%`}
+              />
+            </div>
+            <h3 className="ms-4 text-secondary"> ({cantidad1e})</h3>
+            <div className="count">
+              <h3 className="text-warning">
+                1{" "}
+                <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+              </h3>
+            </div>
+          </div>
+        </article>
+      </article>
+    </section>
+    <Modal
+      show={showModal}
+      onHide={handleCloseModal}
+      className="modal-contain"
+    >
+      <Modal.Header>
+        <Modal.Title>Cambiar Foto de Perfil</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleSubmitPhoto} encType="multipart/form-data">
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Label>Seleccionar nueva foto de perfil:</Form.Label>
+            <Form.Control
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              required
+            />
+          </Form.Group>
 
-            <Button onClick={handleCloseModal} className="btn-prof-cancel">
-              Cancelar
-            </Button>
-            {photoLoading ? (
-              <>
-                <Button className="btn-prof btn-change-photo" type="submit" disabled>
-                  Guardando... <i className="bi bi-floppy2"></i>
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button className="btn-prof btn-change-photo" type="submit">
-                  Guardar <i className="bi bi-floppy2"></i>
-                </Button>
-              </>
-            )}
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </Container>
+          <Button onClick={handleCloseModal} className="btn-prof-cancel">
+            Cancelar
+          </Button>
+          {photoLoading ? (
+            <>
+              <Button className="btn-prof btn-change-photo" type="submit" disabled>
+                Guardando... <i className="bi bi-floppy2"></i>
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button className="btn-prof btn-change-photo" type="submit">
+                Guardar <i className="bi bi-floppy2"></i>
+              </Button>
+            </>
+          )}
+        </Form>
+      </Modal.Body>
+    </Modal>
+  </Container>
+  )
+
+  return (
+   mostrarComponente
   );
 };
 
