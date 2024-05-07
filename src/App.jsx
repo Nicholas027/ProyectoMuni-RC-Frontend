@@ -169,7 +169,11 @@ function App() {
           <Route
           exact
           path="/administrador/editar/:id/cambiarContraseña"
-          element={<ChangePassword></ChangePassword>}
+          element={esAdmin() ? (
+            <ChangePassword/>
+          ) : (
+            <Navigate to={"/"} />
+          )}
         ></Route>
         <Route
           exact
