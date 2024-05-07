@@ -25,6 +25,8 @@ const UserSignIn = ({ setUsuarioLogueado, setUsuarioTipo }) => {
           icon: "success",
           title: "Inicio de Sesión Exitoso",
           text: `Bienvenido ${response.nombre}`,
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
         });
         navigate("/");
         setUsuarioLogueado(response.email);

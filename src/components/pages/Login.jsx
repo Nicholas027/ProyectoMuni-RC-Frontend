@@ -8,7 +8,7 @@ import useTitle from "../../hooks/useTitle";
 import { useNavigate } from "react-router-dom";
 import { professionalLogin } from "../../helpers/queries";
 
-const Login = ({setUsuarioLogueado, setUsuarioTipo, setUsuarioId}) => {
+const Login = ({ setUsuarioLogueado, setUsuarioTipo, setUsuarioId }) => {
   const {
     register,
     handleSubmit,
@@ -28,13 +28,22 @@ const Login = ({setUsuarioLogueado, setUsuarioTipo, setUsuarioId}) => {
           icon: "success",
           title: "Inicio de Sesión Exitoso",
           text: `Bienvenido ${response.nombre}`,
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
         });
         navigate("/");
-        setUsuarioLogueado(response.email)
-        setUsuarioTipo('profesional')
-        console.log(response.id)
-        setUsuarioId(response.id)
-        localStorage.setItem('usuario', JSON.stringify({email: response.email, tipo: 'profesional', id: response.id}))
+        setUsuarioLogueado(response.email);
+        setUsuarioTipo("profesional");
+        console.log(response.id);
+        setUsuarioId(response.id);
+        localStorage.setItem(
+          "usuario",
+          JSON.stringify({
+            email: response.email,
+            tipo: "profesional",
+            id: response.id,
+          })
+        );
       } else {
         Swal.fire({
           title: "Ocurrió un error",
