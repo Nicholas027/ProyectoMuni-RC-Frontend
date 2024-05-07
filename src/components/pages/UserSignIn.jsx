@@ -29,7 +29,7 @@ const UserSignIn = ({ setUsuarioLogueado, setUsuarioTipo }) => {
         navigate("/");
         setUsuarioLogueado(response.email);
         setUsuarioTipo(response.admin ? "admin" : "usuario");
-        sessionStorage.setItem(
+        localStorage.setItem(
           "usuario",
           JSON.stringify({
             email: response.email,

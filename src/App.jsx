@@ -41,8 +41,8 @@ function App() {
   const [usuarioTipo, setUsuarioTipo] = useState("");
   const [usuarioId, setUsuarioId] = useState("");
   useEffect(() => {
-    const usuario = JSON.parse(sessionStorage.getItem("usuario")) || null;
-    console.log("Usuario en sessionStorage:", usuario);
+    const usuario = JSON.parse(localStorage.getItem("usuario")) || null;
+    console.log("Usuario en localStorage:", usuario);
     if (usuario) {
       setUsuarioLogueado(usuario.email);
       setUsuarioTipo(usuario.tipo);

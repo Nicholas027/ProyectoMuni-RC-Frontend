@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoutes = ({ children }) => {
-  const usuario = JSON.parse(sessionStorage.getItem("usuario")) || null;
+  const usuario = JSON.parse(localStorage.getItem("usuario")) || null;
 
   if (!usuario) {
     return <Navigate to={"/selectSigninMethod"} />;

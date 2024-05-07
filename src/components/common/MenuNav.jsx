@@ -10,7 +10,7 @@ const MenuNav = ({ usuarioLogueado, setUsuarioLogueado, usuarioTipo }) => {
   const navegacion = useNavigate();
 
   const logout = () => {
-    sessionStorage.removeItem("usuario");
+    localStorage.removeItem("usuario");
     setUsuarioLogueado("");
     console.log("ejecutando logout");
     navegacion("/");

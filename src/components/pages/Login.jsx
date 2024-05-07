@@ -34,7 +34,7 @@ const Login = ({setUsuarioLogueado, setUsuarioTipo, setUsuarioId}) => {
         setUsuarioTipo('profesional')
         console.log(response.id)
         setUsuarioId(response.id)
-        sessionStorage.setItem('usuario', JSON.stringify({email: response.email, tipo: 'profesional', id: response.id}))
+        localStorage.setItem('usuario', JSON.stringify({email: response.email, tipo: 'profesional', id: response.id}))
       } else {
         Swal.fire({
           title: "Ocurrió un error",
