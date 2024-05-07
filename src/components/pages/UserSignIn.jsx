@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { userSignIn } from "../../helpers/queries";
 import { useNavigate } from "react-router-dom";
 
-const UserSignIn = () => {
+const UserSignIn = ({ setUsuarioLogueado, setUsuarioTipo }) => {
   const {
     register,
     handleSubmit,
@@ -20,21 +20,32 @@ const UserSignIn = () => {
     try {
       const response = await userSignIn(usuario);
 
-      if (response.status) {        
+      if (response.status) {
         Swal.fire({
           icon: "success",
           title: "Inicio de Sesión Exitoso",
           text: `Bienvenido ${response.nombre}`,
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
         });
         navigate("/");
+        setUsuarioLogueado(response.email);
+        setUsuarioTipo(response.admin ? "admin" : "usuario");
+        localStorage.setItem(
+          "usuario",
+          JSON.stringify({
+            email: response.email,
+            tipo: response.admin ? "admin" : "usuario",
+          })
+        );
       } else {
         Swal.fire({
-            title: "Ocurrió un error",
-            text: `Intenta esta operación en unos minutos.`,
-            icon: "error",
-            confirmButtonColor: '#004b81',
-            confirmButtonText: 'Aceptar',
-          });
+          title: "Ocurrió un error",
+          text: `Intenta esta operación en unos minutos.`,
+          icon: "error",
+          confirmButtonColor: "#004b81",
+          confirmButtonText: "Aceptar",
+        });
       }
     } catch (error) {
       console.error("Error al iniciar sesion como usuario:", error);
