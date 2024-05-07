@@ -12,7 +12,6 @@ const MenuNav = ({ usuarioLogueado, setUsuarioLogueado, usuarioTipo }) => {
   const logout = () => {
     localStorage.removeItem("usuario");
     setUsuarioLogueado("");
-    console.log("ejecutando logout");
     navegacion("/");
   };
 

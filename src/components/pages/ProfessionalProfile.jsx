@@ -107,7 +107,6 @@ const ProfessionalProfile = ({usuarioId}) => {
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
-        console.log(dato);
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
       }

@@ -34,7 +34,6 @@ const Login = ({ setUsuarioLogueado, setUsuarioTipo, setUsuarioId }) => {
         navigate("/");
         setUsuarioLogueado(response.email);
         setUsuarioTipo("profesional");
-        console.log(response.id);
         setUsuarioId(response.id);
         localStorage.setItem(
           "usuario",

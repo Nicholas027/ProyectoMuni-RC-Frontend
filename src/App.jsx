@@ -28,14 +28,6 @@ import AdminRoutes from "./routes/AdminRoutes.jsx";
 import ProfessionalRoutes from "./routes/ProfessionalRoutes.jsx";
 import Unauthorized from "./components/pages/Unauthorized.jsx";
 
-/*
-  A las pruebas las he hecho con:
-  Profesional -> email: pruebalogin3@example.com ||| password: Pruebalogin3
-  Usuario -> email: facu@facu.com ||| password: Contraseña1
-  Administrador -> inician sesion como usuario normal con :
-    email: administrador@gmail.com ||| password: Administrador1
-*/
-
 function App() {
   const [usuarioLogueado, setUsuarioLogueado] = useState("");
   const [usuarioTipo, setUsuarioTipo] = useState("");
@@ -50,12 +42,10 @@ function App() {
 
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem("usuario")) || null;
-    console.log("Usuario en localStorage:", usuario);
     if (usuario) {
       setUsuarioLogueado(usuario.email);
       setUsuarioTipo(usuario.tipo);
       setUsuarioId(usuario.id);
-      console.log("ID del usuario en App:", usuario.id);
     }
   }, []);
 
