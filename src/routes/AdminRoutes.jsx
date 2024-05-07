@@ -3,6 +3,7 @@ import Administrador from "../components/pages/Administrador";
 import DarAltaProfesional from "../components/pages/administrador/DarAltaProfesional";
 import ChangeCV from "../components/pages/administrador/ChangeCV";
 import ChangePhoto from "../components/pages/administrador/ChangePhoto";
+import ChangePassword from "../components/pages/administrador/ChangePassword";
 
 const AdminRoutes = () => {
   return (
@@ -29,6 +30,11 @@ const AdminRoutes = () => {
           exact
           path="/editar/:id/cambiarFoto"
           element={<ChangePhoto></ChangePhoto>}
+        ></Route>
+           <Route
+          exact
+          path="/editar/:id/cambiarContraseña"
+          element={<ChangePassword></ChangePassword>}
         ></Route>
       </Routes>
     </>

@@ -266,6 +266,15 @@ const SignUp = ({ editar, titulo, boton }) => {
                  >
                    <i className="bi bi-camera"></i> Agregar o Cambiar foto de perfil
                  </Button>
+                 <Button
+                   className="btnPrincipal"
+                   type="button"
+                   onClick={() => {
+                     navigate(`/administrador/editar/${id}/cambiarContraseña`);
+                   }}
+                 >
+                   <i className="bi bi-lock-fill"></i> Cambiar contraseña
+                 </Button>
                  </>
                 )}
               </div>
