@@ -283,3 +283,18 @@ export const professionalLogin = async (profesional) => {
     console.error("Error al intentar acceder a esta cuenta.")
   }
 }
+
+export const changePassword = async (data, id) => {
+  try {
+    const respuesta = await fetch(`${URI_Profesionales}/changePasswordAdmin/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    return await respuesta.json();
+  } catch (error) {
+    console.error("Error al intentar acceder a esta cuenta.")
+  }
+}

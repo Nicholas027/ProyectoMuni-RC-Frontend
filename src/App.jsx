@@ -16,6 +16,7 @@ import DarAltaProfesional from "./components/pages/administrador/DarAltaProfesio
 import ScrollToTop from "./components/common/ScrollToTop.jsx";
 import SelectLoginMethod from "./components/pages/SelectLoginMethod.jsx";
 import ChangeCV from "./components/pages/administrador/ChangeCV.jsx";
+import ChangePassword from "./components/pages/administrador/ChangePassword.jsx";
 import ChangePhoto from "./components/pages/administrador/ChangePhoto.jsx";
 import Nosotros from "./components/pages/Nosotros.jsx";
 import UserSingUp from "./components/pages/UserSingUp.jsx";
@@ -85,6 +86,11 @@ function App() {
           exact
           path="/administrador/editar/:id/cambiarCV"
           element={<ChangeCV></ChangeCV>}
+        ></Route>
+          <Route
+          exact
+          path="/administrador/editar/:id/cambiarContraseña"
+          element={<ChangePassword></ChangePassword>}
         ></Route>
         <Route
           exact
