@@ -22,7 +22,7 @@ import {
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
 import useTitle from "../../hooks/useTitle";
-const ProfessionalProfile = () => {
+const ProfessionalProfile = ({usuarioId}) => {
   const [profesional, setProfesional] = useState({});
   const [cantidadCalificaciones, setcantidadCalificaciones] = useState(0);
   const [cantidad5e, setCantidad5e] = useState(0);
@@ -36,6 +36,12 @@ const ProfessionalProfile = () => {
   const [photo, setPhoto] = useState(null);
   const [cv, setCv] = useState(null);
   const [photoLoading, setPhotoLoading] = useState(false);
+
+  useEffect(() => {
+    if (usuarioId) {
+      obtenerProfesional(usuarioId);
+    }
+  }, [usuarioId]);
 
   useTitle("Tu perfil");
 
@@ -56,13 +62,6 @@ const ProfessionalProfile = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-
-  //Cambiar por el id de la autenticacion
-  let id = "66368ee391a5624428833a95";
-
-  useEffect(() => {
-    obtenerProfesional();
-  }, [modoEdicion, showModal]);
 
   useEffect(() => {
     if (profesional.comentarios) {
@@ -104,7 +103,7 @@ const ProfessionalProfile = () => {
 
   const obtenerProfesional = async () => {
     try {
-      const respuesta = await obtenerProfesionalAPI(id);
+      const respuesta = await obtenerProfesionalAPI(usuarioId);
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
@@ -173,7 +172,7 @@ const ProfessionalProfile = () => {
 
   const handleGuardarCambios = async (formData) => {
     try {
-      const respuesta = await professionalEditProfile(formData, id);
+      const respuesta = await professionalEditProfile(formData, usuarioId);
       if (respuesta.status === 200) {
         Swal.fire({
           title: "Cambios guardados",
@@ -217,7 +216,7 @@ const ProfessionalProfile = () => {
         const formData = new FormData();
         formData.append("foto", photo);
 
-        const response = await uploadProfilePhoto(formData, id);
+        const response = await uploadProfilePhoto(formData, usuarioId);
 
         if (response.status === 200) {
           Swal.fire({

@@ -201,25 +201,6 @@ const SignUp = ({ editar, titulo, boton }) => {
                 </Form.Text>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Contraseña</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Ingrese la contraseña"
-                  {...register("password", {
-                    required: "Ingrese la contraseña",
-                    pattern: {
-                      value: /^(?=.*[A-Z])(?=.*\d).{6,20}$/,
-                      message:
-                        "La contraseña debe minimo 6 caracteres, Una mayuscula y un numero",
-                    },
-                  })}
-                />
-                <Form.Text className="text-danger">
-                  {errors.password?.message}
-                </Form.Text>
-              </Form.Group>
-
               <Form.Group className="mb-3" controlId="formCategoria">
                 <Form.Label>Categoría (Profesión ejercida por él):</Form.Label>
                 <Form.Select
