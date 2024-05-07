@@ -77,7 +77,7 @@ const SearchBar = () => {
                 className="linkProfesionales"
                 href={`/categorias/${resultado.categoria}/profesional/${resultado._id}`}
               >
-                {resultado.nombreCompleto}
+                {resultado.nombreCompleto} - {resultado.categoria}
               </a>
             </ListGroup.Item>
           ))}
