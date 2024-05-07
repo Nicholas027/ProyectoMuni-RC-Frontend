@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -22,26 +22,94 @@ import UserSingUp from "./components/pages/UserSingUp.jsx";
 import TermsConditions from "./components/TermsConditions.jsx";
 import ProfessionalProfile from "./components/pages/ProfessionalProfile.jsx";
 import UserSignIn from "./components/pages/UserSignIn.jsx";
-import SelectRegisterMethod from './components/pages/SelectRegisterMethod.jsx'
+import SelectRegisterMethod from "./components/pages/SelectRegisterMethod.jsx";
+import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
+import AdminRoutes from "./routes/AdminRoutes.jsx";
+import ProfessionalRoutes from "./routes/ProfessionalRoutes.jsx";
+import Unauthorized from "./components/pages/Unauthorized.jsx";
 
 function App() {
+  const [usuarioLogueado, setUsuarioLogueado] = useState("");
+  const [usuarioTipo, setUsuarioTipo] = useState("");
+  const [usuarioId, setUsuarioId] = useState("");
+
+  const userLogueado = () => {
+    return usuarioLogueado !== "";
+  };
+  const esAdmin = () => {
+    return usuarioTipo === "admin";
+  };
+
+  useEffect(() => {
+    const usuario = JSON.parse(localStorage.getItem("usuario")) || null;
+    if (usuario) {
+      setUsuarioLogueado(usuario.email);
+      setUsuarioTipo(usuario.tipo);
+      setUsuarioId(usuario.id);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <TermsConditions/>
-      <MenuNav></MenuNav>
+      <TermsConditions />
+      <MenuNav
+        usuarioLogueado={usuarioLogueado}
+        setUsuarioLogueado={setUsuarioLogueado}
+        usuarioTipo={usuarioTipo}
+        setUsuarioTipo={setUsuarioTipo}
+      ></MenuNav>
       <Routes>
         <Route
           exact
           path="/selectSigninMethod"
-          element={<SelectLoginMethod></SelectLoginMethod>}
+          element={
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <SelectLoginMethod></SelectLoginMethod>
+            )
+          }
         ></Route>
-        <Route exact path="/signin" element={<Login></Login>}></Route>
-        <Route exact path="/user/signin" element={<UserSignIn></UserSignIn>}></Route>        
+        <Route
+          exact
+          path="/signin"
+          element={
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <Login
+                setUsuarioLogueado={setUsuarioLogueado}
+                setUsuarioTipo={setUsuarioTipo}
+                setUsuarioId={setUsuarioId}
+              ></Login>
+            )
+          }
+        ></Route>
+        <Route
+          exact
+          path="/user/signin"
+          element={
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <UserSignIn
+                setUsuarioLogueado={setUsuarioLogueado}
+                setUsuarioTipo={setUsuarioTipo}
+              ></UserSignIn>
+            )
+          }
+        ></Route>
         <Route
           exact
           path="/signup"
-          element={<SignUp titulo="REGISTRARSE" boton="Registrarse"></SignUp>}
+          element={
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <SignUp titulo="REGISTRARSE" boton="Registrarse"></SignUp>
+            )
+          }
         ></Route>
         <Route exact path="/" element={<Index></Index>}></Route>
         <Route
@@ -58,50 +126,58 @@ function App() {
           exact
           path="/profesional/crear"
           element={
-            <DarAltaProfesional
-              editar={false}
-              titulo="REGISTRAR UN NUEVO PROFESIONAL"
-              boton="REGISTRAR"
-            ></DarAltaProfesional>
+            esAdmin() ? (
+              <DarAltaProfesional
+                editar={false}
+                titulo="REGISTRAR UN NUEVO PROFESIONAL"
+                boton="REGISTRAR"
+              ></DarAltaProfesional>
+            ) : (
+              <Navigate to={"/"} />
+            )
           }
         ></Route>
         <Route
           exact
-          path="/administrador"
-          element={<Administrador></Administrador>}
-        ></Route>
-        <Route
-          exact
-          path="/administrador/editar/:id"
+          path="/administrador/*"
           element={
-            <DarAltaProfesional
-              editar={true}
-              titulo="EDITAR INFORMACIÓN"
-              boton="Editar"
-            ></DarAltaProfesional>
+            <ProtectedRoutes>
+              <AdminRoutes></AdminRoutes>
+            </ProtectedRoutes>
           }
-        ></Route>
-        <Route
-          exact
-          path="/administrador/editar/:id/cambiarCV"
-          element={<ChangeCV></ChangeCV>}
-        ></Route>
-        <Route
-          exact
-          path="/administrador/editar/:id/cambiarFoto"
-          element={<ChangePhoto></ChangePhoto>}
         ></Route>
         <Route exact path="/about" element={<Nosotros></Nosotros>}></Route>
-        <Route exact path="/selectRegisterMethod" element={<SelectRegisterMethod></SelectRegisterMethod>}></Route>
+        <Route
+          exact
+          path="/selectRegisterMethod"
+          element={
+            userLogueado() ? (
+              <Navigate to={"/"} />
+            ) : (
+              <SelectRegisterMethod></SelectRegisterMethod>
+            )
+          }
+        ></Route>
         <Route
           exact
           path="/signupUser"
-          element={<UserSingUp></UserSingUp>}
+          element={
+            userLogueado() ? <Navigate to={"/"} /> : <UserSingUp></UserSingUp>
+          }
         ></Route>
-          <Route
+        <Route
           exact
-          path="/professionalProfile"
-          element={<ProfessionalProfile></ProfessionalProfile>}
+          path="/professionalProfile/*"
+          element={
+            <ProtectedRoutes>
+              <ProfessionalRoutes usuarioId={usuarioId}></ProfessionalRoutes>
+            </ProtectedRoutes>
+          }
+        ></Route>
+        <Route
+          exact
+          path="/unauthorized"
+          element={<Unauthorized></Unauthorized>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>
