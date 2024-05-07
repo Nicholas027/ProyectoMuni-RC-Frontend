@@ -26,8 +26,9 @@ import SelectRegisterMethod from "./components/pages/SelectRegisterMethod.jsx";
 import ProtectedRoutes from "./routes/ProtectedRoutes.jsx";
 import AdminRoutes from "./routes/AdminRoutes.jsx";
 import ProfessionalRoutes from "./routes/ProfessionalRoutes.jsx";
+import Unauthorized from "./components/pages/Unauthorized.jsx";
 
-  /*
+/*
   A las pruebas las he hecho con:
   Profesional -> email: pruebalogin3@example.com ||| password: Pruebalogin3
   Usuario -> email: facu@facu.com ||| password: Contraseña1
@@ -36,7 +37,6 @@ import ProfessionalRoutes from "./routes/ProfessionalRoutes.jsx";
 */
 
 function App() {
-
   const [usuarioLogueado, setUsuarioLogueado] = useState("");
   const [usuarioTipo, setUsuarioTipo] = useState("");
   const [usuarioId, setUsuarioId] = useState("");
@@ -46,7 +46,7 @@ function App() {
     if (usuario) {
       setUsuarioLogueado(usuario.email);
       setUsuarioTipo(usuario.tipo);
-      setUsuarioId(usuario.id)
+      setUsuarioId(usuario.id);
       console.log("ID del usuario en App:", usuario.id);
     }
   }, []);
@@ -143,6 +143,11 @@ function App() {
               <ProfessionalRoutes usuarioId={usuarioId}></ProfessionalRoutes>
             </ProtectedRoutes>
           }
+        ></Route>
+        <Route
+          exact
+          path="/unauthorized"
+          element={<Unauthorized></Unauthorized>}
         ></Route>
         <Route exact path="*" element={<Error404></Error404>}></Route>
       </Routes>

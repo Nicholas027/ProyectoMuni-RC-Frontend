@@ -9,7 +9,11 @@ const ProtectedRoutes = ({ children }) => {
 
   switch (usuario.tipo) {
     case "admin":
-      return children;
+      if (window.location.pathname.startsWith("/administrador")) {
+        return children;
+      } else {
+        return <Navigate to={"/unauthorized"}></Navigate>;
+      }
     case "profesional":
       if (window.location.pathname.startsWith("/professionalProfile")) {
         return children;
