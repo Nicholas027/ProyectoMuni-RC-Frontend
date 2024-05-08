@@ -29,7 +29,10 @@ const SignUpProfessional = () => {
         if (response.profesional) {
           Swal.fire({
             title: "¡Hecho!",
-            text: `Tu registro ha sido exitoso, queremos informarte que tu cuenta está actualmente pendiente de alta. Una vez que hayamos completado la verificación de tus datos, recibirás un mensaje a tu celular desde administracion y podrás acceder a todas las funcionalidades de nuestra plataforma.`,
+            html: `<p>Tu registro ha sido exitoso, queremos informarte que tu cuenta está actualmente pendiente de alta. Una vez que hayas presentado tu documentación en <b>Dirección de Servicios de Empleo</b>, procederemos con la verificación de tus datos y el alta de tu cuenta.</p>
+            <small>UBICACIÓN: OFICINA 13, TERMINAL DE ÓMNIBUS.</small>
+            <small>HORARIO: 08.00 A 13.00 HS</small>
+            <small>TELÉFONO: 3865-228147</small>`,
             icon: "success",
             confirmButtonColor: '#004b81',
             confirmButtonText: 'Aceptar',
