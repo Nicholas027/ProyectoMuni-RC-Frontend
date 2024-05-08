@@ -13,6 +13,7 @@ import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
 import { useForm } from "react-hook-form";
 import "../../styles/ProfessionalDetail.css";
 import "../../styles/professionalProfile.css";
+import "../../styles/loaderProfile.css";
 import { useEffect, useState } from "react";
 import {
   obtenerProfesionalAPI,
@@ -22,7 +23,9 @@ import {
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
 import useTitle from "../../hooks/useTitle";
-const ProfessionalProfile = ({usuarioId}) => {
+import { Link } from "react-router-dom";
+
+const ProfessionalProfile = ({ usuarioId }) => {
   const [profesional, setProfesional] = useState({});
   const [cantidadCalificaciones, setcantidadCalificaciones] = useState(0);
   const [cantidad5e, setCantidad5e] = useState(0);
@@ -36,6 +39,7 @@ const ProfessionalProfile = ({usuarioId}) => {
   const [photo, setPhoto] = useState(null);
   const [cv, setCv] = useState(null);
   const [photoLoading, setPhotoLoading] = useState(false);
+  const [mostrarLoader, setMostrarLoader] = useState(true);
 
   useEffect(() => {
     if (usuarioId) {
@@ -103,10 +107,12 @@ const ProfessionalProfile = ({usuarioId}) => {
 
   const obtenerProfesional = async () => {
     try {
+      setMostrarLoader(true);
       const respuesta = await obtenerProfesionalAPI(usuarioId);
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
+        setMostrarLoader(false);
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
       }
@@ -246,7 +252,11 @@ const ProfessionalProfile = ({usuarioId}) => {
     setCv(file);
   };
 
-  return (
+  const mostrarComponente = mostrarLoader ? (
+    <span className="loader d-flex justify-content-center">
+      <p className="text-dark fs-2">Cargando...</p>
+    </span>
+  ) : (
     <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
@@ -280,7 +290,12 @@ const ProfessionalProfile = ({usuarioId}) => {
             <h1>{profesional.nombreCompleto}</h1>
           )}
           <span className="categoria px-1 text-light">
-            {profesional.categoria}
+            <Link
+              className="text-decoration-none text-light"
+              to={`/categorias/${profesional.categoria}`}
+            >
+              {profesional.categoria}
+            </Link>
           </span>
           <div className="mt-2 text-warning h4">{renderEstrellas()}</div>
           {modoEdicion ? (
@@ -382,103 +397,124 @@ const ProfessionalProfile = ({usuarioId}) => {
             </span>
             <span className="ms-3 mt-1">{renderEstrellas()}</span>
           </h3>
-          <article className="mx-auto mt-3">
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad5e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad5e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+          {cantidadCalificaciones ? (
+          <article className="py-3 bg-light mb-3 mt-3">
+            <h3 className="text-warning h1 d-flex justify-content-center ">
+              <span className="display-5">
+                {profesional.calificacion !== undefined
+                  ? profesional.calificacion.toFixed(1)
+                  : ""}
+              </span>
+              <div className="estrellasPromedio">
+                <EstrellasCalificaciones  calificacion={profesional.calificacion}/>
+              </div>  
+            </h3>
+            <article className="mx-auto mt-3">
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad5e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad5e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad5e})</h3>
+                  <h3 className="text-warning ">
+                    5
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad5e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  5{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad4e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad4e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad4e})</h3>
+                  <h3 className="text-warning ">
+                    4
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad4e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad4e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad3e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad3e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad3e})</h3>
+                  <h3 className="text-warning ">
+                    3
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad4e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  4{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad2e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad2e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad2e})</h3>
+                  <h3 className="text-warning">
+                    2
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad3e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad3e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad1e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad1e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad1e})</h3>
+                  <h3 className="text-warning">
+                    1
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad3e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  3{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad2e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad2e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad2e})</h3>
-              <div className="count">
-                <h3 className="text-warning">
-                  2{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad1e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad1e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad1e})</h3>
-              <div className="count">
-                <h3 className="text-warning">
-                  1{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
+            </article>
           </article>
+        ) : (
+          <article className="py-3 bg-light mb-3 mt-3">
+          <h3 className="display-6 mb-4">
+            Tu perfil aún no posee reseñas!
+          </h3>
+          <h4>¡Obtén calificaciones y reseñas acumulando clientes satisfechos!</h4>
+        </article>
+        )}
         </article>
       </section>
       <Modal
@@ -506,7 +542,11 @@ const ProfessionalProfile = ({usuarioId}) => {
             </Button>
             {photoLoading ? (
               <>
-                <Button className="btn-prof btn-change-photo" type="submit" disabled>
+                <Button
+                  className="btn-prof btn-change-photo"
+                  type="submit"
+                  disabled
+                >
                   Guardando... <i className="bi bi-floppy2"></i>
                 </Button>
               </>
@@ -522,6 +562,8 @@ const ProfessionalProfile = ({usuarioId}) => {
       </Modal>
     </Container>
   );
+
+  return mostrarComponente;
 };
 
 export default ProfessionalProfile;

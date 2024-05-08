@@ -12,10 +12,11 @@ import portadaPintor from "../../assets/categoryLogos/pintorLogo.jpeg";
 import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
 import { useForm } from "react-hook-form";
 import "../../styles/ProfessionalDetail.css";
+import "../../styles/loaderProfile.css";
 import { useEffect, useState } from "react";
 import { obtenerProfesionalAPI } from "../../helpers/queries";
 import { professionalAddComment } from "../../helpers/queries";
-import { Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
 import EstrellasCalificaciones from "./profesional/EstrellasCalificaciones";
@@ -37,7 +38,14 @@ const ProfessionalDetail = () => {
   const [cantidad3e, setCantidad3e] = useState(0);
   const [cantidad2e, setCantidad2e] = useState(0);
   const [cantidad1e, setCantidad1e] = useState(0);
-  useTitle(`${profesional.nombreCompleto ? profesional.nombreCompleto : "Perfil del profesional"}`)
+  const [mostrarLoader, setMostrarLoader] = useState(true);
+  useTitle(
+    `${
+      profesional.nombreCompleto
+        ? profesional.nombreCompleto
+        : "Perfil del profesional"
+    }`
+  );
 
   const {
     register,
@@ -46,12 +54,10 @@ const ProfessionalDetail = () => {
   } = useForm();
 
   const onSubmit = async (formData) => {
-    try{
-
-      const response = await professionalAddComment(id ,formData)
+    try {
+      const response = await professionalAddComment(id, formData);
 
       if (response.mensaje === "Comentario agregado exitosamente") {
-
         handleResenaClose();
         Swal.fire({
           title: `Comentario Agregado`,
@@ -73,8 +79,7 @@ const ProfessionalDetail = () => {
           text: "El comentario no fue agregado, intentelo nuevamente más tarde",
         });
       }
-      
-    }catch (error) {
+    } catch (error) {
       console.error("Error al agregar comentario", error);
       Swal.fire({
         title: "Ocurrió un error",
@@ -139,10 +144,12 @@ const ProfessionalDetail = () => {
 
   const obtenerProfesional = async () => {
     try {
+      setMostrarLoader(true);
       const respuesta = await obtenerProfesionalAPI(id);
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
+        setMostrarLoader(false);
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
       }
@@ -182,7 +189,11 @@ const ProfessionalDetail = () => {
     if (profesional.categoria === item.nombre) categoria = item.direccion;
   });
 
-  return (
+  const mostrarComponente = mostrarLoader ? (
+    <span className="loader d-flex justify-content-center">
+      <p className="text-dark fs-2">Cargando...</p>
+    </span>
+  ) : (
     <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
@@ -205,19 +216,20 @@ const ProfessionalDetail = () => {
             {profesional.nombreCompleto}
           </h1>
           <span className="categoria px-1 text-light">
-            <Link className="text-decoration-none text-light" to={`/categorias/${profesional.categoria}`}>
-            {profesional.categoria}
+            <Link
+              className="text-decoration-none text-light"
+              to={`/categorias/${profesional.categoria}`}
+            >
+              {profesional.categoria}
             </Link>
-           
           </span>
 
           {cantidadCalificaciones ? (
-            <EstrellasCalificaciones calificacion={profesional.calificacion}/>
+            <EstrellasCalificaciones calificacion={profesional.calificacion} />
           ) : (
             <div></div>
           )}
 
-          
           <Button
             className="mt-3 pb-1 mb-2 px-5 btn btnContacto"
             onClick={handleShow}
@@ -249,8 +261,10 @@ const ProfessionalDetail = () => {
                   : ""}
               </span>
               <div className="estrellasPromedio">
-                <EstrellasCalificaciones  calificacion={profesional.calificacion}/>
-              </div>  
+                <EstrellasCalificaciones
+                  calificacion={profesional.calificacion}
+                />
+              </div>
             </h3>
             <article className="mx-auto mt-3">
               <div className="barCount">
@@ -352,13 +366,14 @@ const ProfessionalDetail = () => {
           </article>
         ) : (
           <article className="py-3 bg-light mb-3 mt-3">
-          <h3 className="display-6 mb-4">
-            Este Profesional aún no tiene reseñas 
-          </h3>
-          <h4>¡Contrata a {profesional.nombreCompleto} y dinos tu opinión!</h4>
-        </article>
+            <h3 className="display-6 mb-4">
+              Este Profesional aún no tiene reseñas
+            </h3>
+            <h4>
+              ¡Contrata a {profesional.nombreCompleto} y dinos tu opinión!
+            </h4>
+          </article>
         )}
-
 
         <Button
           className="my-3 mb-4 px-5 btn btnContacto"
@@ -466,7 +481,9 @@ const ProfessionalDetail = () => {
                 type="radio"
                 value="1"
                 id="1"
-                {...register("calificacion", { required: "Ingrese una calificación" })}
+                {...register("calificacion", {
+                  required: "Ingrese una calificación",
+                })}
               />
               <Form.Check
                 inline
@@ -475,7 +492,9 @@ const ProfessionalDetail = () => {
                 type="radio"
                 value="2"
                 id="2"
-                {...register("calificacion", { required: "Ingrese una calificación" })}
+                {...register("calificacion", {
+                  required: "Ingrese una calificación",
+                })}
               />
               <Form.Check
                 inline
@@ -484,7 +503,9 @@ const ProfessionalDetail = () => {
                 type="radio"
                 value="3"
                 id="3"
-                {...register("calificacion", { required: "Ingrese una calificación" })}
+                {...register("calificacion", {
+                  required: "Ingrese una calificación",
+                })}
               />
               <Form.Check
                 inline
@@ -493,7 +514,9 @@ const ProfessionalDetail = () => {
                 type="radio"
                 value="4"
                 id="4"
-                {...register("calificacion", { required: "Ingrese una calificación" })}
+                {...register("calificacion", {
+                  required: "Ingrese una calificación",
+                })}
               />
               <Form.Check
                 inline
@@ -502,7 +525,9 @@ const ProfessionalDetail = () => {
                 type="radio"
                 value="5"
                 id="5"
-                {...register("calificacion", { required: "Ingrese una calificación" })}
+                {...register("calificacion", {
+                  required: "Ingrese una calificación",
+                })}
               />
               <Form.Text className="text-danger">
                 {errors.calificacion?.message}
@@ -607,6 +632,8 @@ const ProfessionalDetail = () => {
       </Modal>
     </Container>
   );
+
+  return mostrarComponente;
 };
 
 export default ProfessionalDetail;
