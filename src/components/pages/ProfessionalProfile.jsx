@@ -382,103 +382,124 @@ const ProfessionalProfile = ({usuarioId}) => {
             </span>
             <span className="ms-3 mt-1">{renderEstrellas()}</span>
           </h3>
-          <article className="mx-auto mt-3">
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad5e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad5e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+          {cantidadCalificaciones ? (
+          <article className="py-3 bg-light mb-3 mt-3">
+            <h3 className="text-warning h1 d-flex justify-content-center ">
+              <span className="display-5">
+                {profesional.calificacion !== undefined
+                  ? profesional.calificacion.toFixed(1)
+                  : ""}
+              </span>
+              <div className="estrellasPromedio">
+                <EstrellasCalificaciones  calificacion={profesional.calificacion}/>
+              </div>  
+            </h3>
+            <article className="mx-auto mt-3">
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad5e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad5e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad5e})</h3>
+                  <h3 className="text-warning ">
+                    5
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad5e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  5{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad4e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad4e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad4e})</h3>
+                  <h3 className="text-warning ">
+                    4
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad4e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad4e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad3e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad3e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad3e})</h3>
+                  <h3 className="text-warning ">
+                    3
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad4e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  4{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad2e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad2e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad2e})</h3>
+                  <h3 className="text-warning">
+                    2
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad3e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad3e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
+              <div className="barCount">
+                <div className="bar">
+                  <ProgressBar
+                    variant="warning"
+                    now={(cantidad1e / cantidadCalificaciones) * 100}
+                    label={`${(
+                      (cantidad1e / cantidadCalificaciones) *
+                      100
+                    ).toFixed(1)}%`}
+                  />
+                </div>
+                <div className="count">
+                  <h3 className="text-secondary"> ({cantidad1e})</h3>
+                  <h3 className="text-warning">
+                    1
+                    <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
+                  </h3>
+                </div>
               </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad3e})</h3>
-              <div className="count">
-                <h3 className="text-warning ">
-                  3{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad2e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad2e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad2e})</h3>
-              <div className="count">
-                <h3 className="text-warning">
-                  2{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
-            <div className="barCount">
-              <div className="bar">
-                <ProgressBar
-                  variant="warning"
-                  now={(cantidad1e / cantidadCalificaciones) * 100}
-                  label={`${(
-                    (cantidad1e / cantidadCalificaciones) *
-                    100
-                  ).toFixed(1)}%`}
-                />
-              </div>
-              <h3 className="ms-4 text-secondary"> ({cantidad1e})</h3>
-              <div className="count">
-                <h3 className="text-warning">
-                  1{" "}
-                  <i className=" ms-1 bi bi-star-fill me-1 estrella-amarilla"></i>
-                </h3>
-              </div>
-            </div>
+            </article>
           </article>
+        ) : (
+          <article className="py-3 bg-light mb-3 mt-3">
+          <h3 className="display-6 mb-4">
+            Tu perfil aún no posee reseñas!
+          </h3>
+          <h4>¡Obtén calificaciones y reseñas acumulando clientes satisfechos!</h4>
+        </article>
+        )}
         </article>
       </section>
       <Modal
