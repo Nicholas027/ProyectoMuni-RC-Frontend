@@ -29,7 +29,7 @@ const SignUpProfessional = () => {
         if (response.profesional) {
           Swal.fire({
             title: "¡Hecho!",
-            text: `${response.mensaje}`,
+            text: `Tu registro ha sido exitoso, queremos informarte que tu cuenta está actualmente pendiente de alta. Una vez que hayamos completado la verificación de tus datos, recibirás un mensaje a tu celular desde administracion y podrás acceder a todas las funcionalidades de nuestra plataforma.`,
             icon: "success",
             confirmButtonColor: '#004b81',
             confirmButtonText: 'Aceptar',
