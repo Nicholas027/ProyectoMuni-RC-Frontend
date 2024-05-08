@@ -13,6 +13,7 @@ import portadaPlomero from "../../assets/categoryLogos/plomeriaLogo.jpg";
 import { useForm } from "react-hook-form";
 import "../../styles/ProfessionalDetail.css";
 import "../../styles/professionalProfile.css";
+import "../../styles/loaderProfile.css";
 import { useEffect, useState } from "react";
 import {
   obtenerProfesionalAPI,
@@ -22,7 +23,9 @@ import {
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
 import useTitle from "../../hooks/useTitle";
-const ProfessionalProfile = ({usuarioId}) => {
+import { Link } from "react-router-dom";
+
+const ProfessionalProfile = ({ usuarioId }) => {
   const [profesional, setProfesional] = useState({});
   const [cantidadCalificaciones, setcantidadCalificaciones] = useState(0);
   const [cantidad5e, setCantidad5e] = useState(0);
@@ -36,6 +39,7 @@ const ProfessionalProfile = ({usuarioId}) => {
   const [photo, setPhoto] = useState(null);
   const [cv, setCv] = useState(null);
   const [photoLoading, setPhotoLoading] = useState(false);
+  const [mostrarLoader, setMostrarLoader] = useState(true);
 
   useEffect(() => {
     if (usuarioId) {
@@ -103,10 +107,12 @@ const ProfessionalProfile = ({usuarioId}) => {
 
   const obtenerProfesional = async () => {
     try {
+      setMostrarLoader(true);
       const respuesta = await obtenerProfesionalAPI(usuarioId);
       if (respuesta.status === 200) {
         const dato = await respuesta.json();
         setProfesional(dato);
+        setMostrarLoader(false);
       } else {
         throw new Error("Ocurrió un error al obtener al profesional.");
       }
@@ -246,7 +252,11 @@ const ProfessionalProfile = ({usuarioId}) => {
     setCv(file);
   };
 
-  return (
+  const mostrarComponente = mostrarLoader ? (
+    <span className="loader d-flex justify-content-center">
+      <p className="text-dark fs-2">Cargando...</p>
+    </span>
+  ) : (
     <Container>
       <section className="m-4 p-2 fondoFotos contenedorPadre">
         <img
@@ -280,7 +290,12 @@ const ProfessionalProfile = ({usuarioId}) => {
             <h1>{profesional.nombreCompleto}</h1>
           )}
           <span className="categoria px-1 text-light">
-            {profesional.categoria}
+            <Link
+              className="text-decoration-none text-light"
+              to={`/categorias/${profesional.categoria}`}
+            >
+              {profesional.categoria}
+            </Link>
           </span>
           <div className="mt-2 text-warning h4">{renderEstrellas()}</div>
           {modoEdicion ? (
@@ -506,7 +521,11 @@ const ProfessionalProfile = ({usuarioId}) => {
             </Button>
             {photoLoading ? (
               <>
-                <Button className="btn-prof btn-change-photo" type="submit" disabled>
+                <Button
+                  className="btn-prof btn-change-photo"
+                  type="submit"
+                  disabled
+                >
                   Guardando... <i className="bi bi-floppy2"></i>
                 </Button>
               </>
@@ -522,6 +541,8 @@ const ProfessionalProfile = ({usuarioId}) => {
       </Modal>
     </Container>
   );
+
+  return mostrarComponente;
 };
 
 export default ProfessionalProfile;
